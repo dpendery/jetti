@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Starting NPM install
+      - cd hello-world 
+      - npm install
+      - cd ..
+      - echo Starting SAM build
+      - sam build
+      - echo Packaging the function.
+      - sam package --template-file template.yaml --output-template-file package.yml --s3-bucket $TARGET_S3_BUCKET
+  post_build:
+    commands:
+      - echo Deploying the function.
+      - sam deploy --template-file package.yml --stack-name $TARGET_STACK_NAME --capabilities CAPABILITY_IAM
+artifacts:
+  files:
+    - package.yml

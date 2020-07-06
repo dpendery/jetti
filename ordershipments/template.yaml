@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  order-shipments
+
+  Order Shipments API
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  OrderShipmentsBackend:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: order-shipments/
+      Handler: serverlessapp.lambdaHandler
+      Runtime: nodejs12.x
+      Events:
+        OrderShipmentsGet:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: get
+        OrderShipmentsPost:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: post
+
+Outputs:
+  OrderShipmentsApi:
+    Description: "API Gateway endpoint URL for Prod stage for Order Shipments function"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  OrderShipmentsBackendFunction:
+    Description: Order Shipments Backend Lambda Function ARN
+    Value: !Sub OrderShipmentsBackend.Arn
+  OrderShipmentsBackendIamRole:
+    Description: Implicit IAM Role created for Order Shipments function
+    Value: !Sub OrderShipmentsBackendFunctionRole.Arn

@@ -1,42 +1,71 @@
-/*
-	Provides method to request EP CC client_credentials tokens.  Keeps the last token around until it expires.
-	Uses a buffer of 1 second.
-
-	Also verifies the secret key HTTP header to sure only appropriate clients may access the services.
-
-	Retrieves the secret key, EP CC client ID and client secret from environment variables.  For a production
-	service these should be retrieved from secure parameters only.
-*/
+/**
+ * Provides method to request EP CC client_credentials tokens.  Keeps the last token around until it expires.
+ * Uses a buffer of 1 second.
+ *
+ * Also verifies the secret key HTTP header to sure only appropriate clients may access the services.
+ */
 
 const fetch = require('node-fetch');
 const { Headers } = require('node-fetch');
 
+const parameters = require('./parameters');
+
 const clientCredentialsGrantType = "client_credentials";
 const epccAuthenticationUrl = "https://api.moltin.com/oauth/access_token";
+
 const SECRET_KEY_HEADER = "x-ep-jetti-secret-key";
 
 var clientCredentialsTokenData = null;
 var tokenLastRequestTime = null;
 
+/**
+ * Requests a client_credentials token from EP CC.
+ * @param {any} req the request
+ */
 var requestClientCredentialsToken = async function (req) {
 
+	// Verify the secret key HTTP header before continuing.
 	var requestSecretKey = req.get(SECRET_KEY_HEADER);
+	var secretKey;
 
-	if (!requestSecretKey || requestSecretKey != getEPJettiSecretKey()) {
-		var err = new Error("Invalid Secret Key");
-		err.code = 403;
-		throw err;
+	try {
+		secretKey = await parameters.getParameter('EpJettiSecretKey', 'EP_JETTI_SECRET_KEY');
+	} catch (err) {
+		console.error("Can't get EP Jetti Secret Key parameter: " + JSON.stringify(err));
+		var newErr = new Error("Invalid EP Jetti Secret Key");
+		newErr.code = 403;
+		throw newErr;
+    }
+
+	if (!requestSecretKey || requestSecretKey != secretKey) {
+		console.error("EP Jetti Secret Key doesn't match.");
+		var newErr = new Error("Invalid EP Jetti Secret Key");
+		newErr.code = 403;
+		throw newErr;
     }
 
 	if (isLastTokenValid()) {
 		return clientCredentialsTokenData.access_token;
 	}
 
-	console.log('Requesting new client_credentials token');
-	
+	console.debug('Requesting new client_credentials token');
+
+	var clientId;
+	var clientSecret;
+
+	try {
+		clientId = await parameters.getParameter('EpccClientId', 'EPCC_CLIENT_ID');
+		clientSecret = await parameters.getParameter('EpccClientSecret', 'EPCC_CLIENT_SECRET');
+	} catch (err) {
+		console.error("Can't get EpccClientId or EpccClientSecret parameter: " + JSON.stringify(err));
+		var newErr = new Error("Invalid EP CC Client ID or Secret");
+		newErr.code = 503;
+		throw newErr;
+    }
+
 	var params = new URLSearchParams();
-	params.append("client_id", getEpCCClientId());
-	params.append("client_secret", getEpCCClientSecret());
+	params.append("client_id", clientId);
+	params.append("client_secret", clientSecret);
 	params.append("grant_type", clientCredentialsGrantType);
 	
 	var headermeta = {
@@ -55,44 +84,6 @@ var requestClientCredentialsToken = async function (req) {
 	
 	return clientCredentialsTokenData.access_token;
 }
-
-getEpCCClientId = function () {
-	const clientId = process.env.EPCC_CLIENT_ID;
-
-	if (!clientId) {
-		var err = new Error("Invalid EP CC Client ID");
-		err.code = 403;
-		throw err;
-    }
-
-	return clientId;
-}
-
-getEpCCClientSecret = function () {
-	const clientSecret = process.env.EPCC_CLIENT_SECRET;
-
-	if (!clientSecret) {
-		var err = new Error("Invalid EP CC Client ID");
-		err.code = 403;
-		throw err;
-	}
-
-	return clientSecret;
-}
-
-getEPJettiSecretKey = function () {
-	const secretKey = process.env.EP_JETTI_SECRET_KEY;
-
-	if (!secretKey) {
-		var err = new Error("Invalid EP CC Client ID");
-		err.code = 403;
-		throw err;
-	}
-
-	return secretKey;
-}
-
-
 
 const isLastTokenValid = function () {
 	if (clientCredentialsTokenData && tokenLastRequestTime && ((Date.now() - 1000) < (tokenLastRequestTime + clientCredentialsTokenData.expires_in * 1000))) {

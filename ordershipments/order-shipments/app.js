@@ -21,7 +21,7 @@ app.post('/order-shipments/:orderId', async (req, res) => {
 			.set('Content-Type','application/json')
 			.send(shipment);
 	} catch (err) {
-		console.log("Error caught creating order shipment:  " + err);
+		console.log("Error caught POSTing order shipment:  " + err);
 		res.status(err.code).send(JSON.stringify(err));
 	}
 });
@@ -45,11 +45,11 @@ app.get('/order-shipments/:orderId', async (req, res) => {
 			.set('Content-Type', 'application/json')
 			.send(data);
 	} catch (err) {
-		console.log("Error caught getting product:  " + err);
+		console.log("Error caught getting order and shipments:  " + err);
 		if (err.message && err.message  == "notfound") {
 			res.status(404).send("Not found:  " + req.params.productCode);
 		} else {
-			res.status(500).send ("Server error" + err);
+			res.status(err.code).send ("Server error" + err);
 		}
 	}
 });

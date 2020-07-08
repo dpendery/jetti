@@ -14,7 +14,7 @@ The Postman script generates the following EP CC flows:
 
 # Service Endpoints
 
-The serverless function exposes endpoints for to POST a new order shipment and to GET an order with its shipments.
+The serverless function exposes endpoints to POST a new order shipment and to GET an order with its shipments.
 
 Add the following HTTP headers to the requests:
 
@@ -60,13 +60,22 @@ This is a convenience resource to GET an order and the shipment detail in a sing
 
 **Commands**
 
-```
+Set the following environment variables in the shell:
+
+|Name|Value|
+|---|---|
+|LOCAL_NODEJS_ENV|true|
+|EP_JETTI_SECRET_KEY|Some Secret Key Value|
+|EPCC_CLIENT_ID|Your EP CC client ID|
+|EPCC_CLIENT_SECRET|Your EP CC client secret|
+
+*Note:  Setting LOCAL_NODEJS_ENV to true allows the application to avoid making requests to the AWS parameter store and use the environment variables instead for the secret key, EP CC client secret and EP CC client ID.*
+
+Run the following command:
+
+``` 
 cd $SOURCE_PATH/ordershipments/order-shipments
 
-set EP_JETTI_SECRET_KEY=Some Secret Key Value
-set EPCC_CLIENT_ID=Your EP CC client ID
-set EPCC_CLIENT_SECRET=Your EP CC client secret
- 
 npm start
 ```
 
@@ -82,7 +91,7 @@ npm start
 * S3 bucket for uploading SAM application packages
 * Define a secret key value to be used by Jetti client in x-ep-jetti-secret-key HTTP header
 
-Define the following non-secure, text parameters in the AWS account:
+Define the following secure string parameters in the AWS account and region in which the application will be deployed:
 
 |Name|Value|
 |---|---|
@@ -90,7 +99,7 @@ Define the following non-secure, text parameters in the AWS account:
 |EpccClientId|EP CC Account Client ID|
 |EpJettiSecretKey|Value of the secret key to be sent by Jetti client in x-ep-jetti-secret-key HTTP header|
 
-*Warning:  these parameters are non-secure and are used to generate environment variables for the function.  For a production service they should be secure and accessed directly by the function.*
+*Warning:  these parameters should be made secure as free text will allow them to be visible.*
 
 **Commands**
 
@@ -106,15 +115,4 @@ sam package --template-file template.yaml --output-template-file package.yml --s
 sam deploy --template-file package.yml --stack-name order-shipments-dev --capabilities CAPABILITY_IAM
 ```
 
-*Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.*
-
-
-**Deploying with Parameter Overrides**
-
-The pre-configured AWS parameters may be overridden during deployment using the **--parameter-overrides** argument:
-
-```
-sam deploy --template-file package.yml --stack-name order-shipments-dev --capabilities CAPABILITY_IAM --parameter-overrides "EpJettiSecretKey=my_secret_key" "EpccClientSecret=EPCC Account Client Secret" "EpccClientId=EPCC Account Client ID"
-```
-
-
+*Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.  For now "order-shipments-dev" should be sufficient.*

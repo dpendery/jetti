@@ -5,22 +5,6 @@ Description: >
 
   Order Shipments API
 
-Parameters:
-  EpccClientSecret:
-    Description: 'Required. The EP CC client secret'
-    Type: 'String'
-    Default: '{{resolve:ssm:EpccClientSecret:1}}'
-
-  EpccClientId:
-    Description: 'Required. The EP CC client ID'
-    Type: 'String'
-    Default: '{{resolve:ssm:EpccClientId:1}}'
-
-  EpJettiSecretKey:
-    Description: 'Required. The EP Jetti secret key'
-    Type: 'String'
-    Default: '{{resolve:ssm:EpJettiSecretKey:1}}'
-
 Globals:
   Function:
     Timeout: 3
@@ -32,11 +16,6 @@ Resources:
       CodeUri: order-shipments/
       Handler: serverlessapp.lambdaHandler
       Runtime: nodejs12.x
-      Environment:
-        Variables:
-          EPCC_CLIENT_SECRET: !Ref EpccClientSecret
-          EPCC_CLIENT_ID: !Ref EpccClientId
-          EP_JETTI_SECRET_KEY: !Ref EpJettiSecretKey
       Events:
         OrderShipmentsGet:
           Type: HttpApi
@@ -48,6 +27,13 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: post
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: EpJettiSecretKey
+        - SSMParameterReadPolicy:
+            ParameterName: EpccClientId
+        - SSMParameterReadPolicy:
+            ParameterName: EpccClientSecret
 
 Outputs:
   OrderShipmentsApi:

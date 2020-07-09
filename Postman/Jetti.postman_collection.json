@@ -933,7 +933,7 @@
 					"name": "Data Model Reset",
 					"item": [
 						{
-							"name": "[INIT]",
+							"name": "[INIT] Flows",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1130,6 +1130,141 @@
 										"v2",
 										"flows",
 										"{{flowId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[INIT] Flow Fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "63e8db2b-dc35-4f4f-9474-63978f665d9a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "969c4dca-d26f-4c4f-85f8-61c3828bbe1c",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"",
+											"var resp = pm.response.json();",
+											"var fieldIds = [];",
+											"resp.data.forEach(field => {",
+											"    fieldIds.push(field.id);",
+											"});",
+											"ep.setValue(\"reset/datamodel\", \"flowFieldIds\", JSON.stringify(fieldIds));",
+											"",
+											"pm.environment.set(\"flowFieldIdsIdx\", 0);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/fields",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"fields"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete all fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b17ca341-0b50-404b-b8d9-b174513f9762",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"var idx = pm.environment.get(\"flowFieldIdsIdx\");",
+											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"flowFieldIds\"));",
+											"pm.variables.set(\"flowFieldId\", ids[idx]);",
+											"pm.environment.set(\"flowFieldIdsIdx\", Number(idx) + 1);",
+											"",
+											"if ((idx + 1) < ids.length) {",
+											"    postman.setNextRequest(pm.info.requestName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ccc50e12-af79-4dd3-b019-c4243923a923",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/fields/{{flowFieldId}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"fields",
+										"{{flowFieldId}}"
 									]
 								}
 							},
@@ -3553,6 +3688,11 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "x-ep-jetti-secret-key",
+								"value": "my_secret_key",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -3566,6 +3706,52 @@
 								"localhost"
 							],
 							"port": "3000",
+							"path": [
+								"order-shipments",
+								"f39f1994-a585-4e9f-82a4-4fa09a823551"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Shipments AWS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-ep-jetti-secret-key",
+								"value": "my_secret_key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://fx8htpo6x0.execute-api.eu-west-2.amazonaws.com/order-shipments/f39f1994-a585-4e9f-82a4-4fa09a823551",
+							"protocol": "https",
+							"host": [
+								"fx8htpo6x0",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
 							"path": [
 								"order-shipments",
 								"f39f1994-a585-4e9f-82a4-4fa09a823551"
@@ -3612,7 +3798,7 @@
 	],
 	"variable": [
 		{
-			"id": "97ae2642-b8f8-4f15-afad-844d1dcf560d",
+			"id": "7b6021bf-9fc9-413e-a86e-c76cb1932a99",
 			"key": "ep",
 			"value": "\nvar ep = { \n    setValue: function (namespace, key, value) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        if(epData[namespace] === null || epData[namespace] === undefined) {\n            //console.log(\"init\");\n            epData[namespace] = {};\n        }\n        epData[namespace][key] = value;\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        //console.log(\"epData[\" + namespace + \"][\" + key + \"]: \" + epData[namespace][key]);\n        pm.environment.set(\"epData\", JSON.stringify(epData));\n    },\n    getValue: function (namespace, key) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        if(epData[namespace] === undefined || epData[namespace] === null) {\n            return null;\n        } else if(epData[namespace][key] === undefined) {\n            return null;\n        }\n        return epData[namespace][key];\n    },\n    usingDataFile: function() {\n        return (Object.keys(pm.iterationData.toObject()).length != 0);\n    },\n    setSkipping: function (skip) {\n        if(skip === true) {\n            pm.variables.set(\"skipFlag\", \"SKIPPING\");\n            console.log(\"Skipping: TRUE\");\n        } else {\n            pm.variables.set(\"skipFlag\", \"\");\n            console.log(\"Skipping: false\");\n        }\n    },\n    skipping: function () {\n        if(pm.variables.get(\"skipFlag\") === \"SKIPPING\") {\n            return true;\n        } else {\n            return false;\n        }\n    }\n};\n"
 		}

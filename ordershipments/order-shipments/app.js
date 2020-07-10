@@ -9,7 +9,24 @@ const app = new express();
 
 app.use(bodyParser.json());
 
-app.post('/order-shipments/:orderId', async (req, res) => {	
+app.post('/order-shipments', async (req, res) => {	
+	try {
+		var token = await epccTokens.requestClientCredentialsToken(req);
+
+		var shipment = await shipments.postOrderShipment(token, req.body.externalId, req.body);
+
+		console.log('Created order shipment' + JSON.stringify(shipment));
+
+		res
+			.set('Content-Type','application/json')
+			.send(shipment);
+	} catch (err) {
+		console.log("Error caught POSTing order shipment:  " + err);
+		res.status(err.code).send(JSON.stringify(err));
+	}
+});
+
+app.post('/order-shipments/:orderId', async (req, res) => {
 	try {
 		var token = await epccTokens.requestClientCredentialsToken(req);
 
@@ -18,7 +35,7 @@ app.post('/order-shipments/:orderId', async (req, res) => {
 		console.log('Created order shipment' + JSON.stringify(shipment));
 
 		res
-			.set('Content-Type','application/json')
+			.set('Content-Type', 'application/json')
 			.send(shipment);
 	} catch (err) {
 		console.log("Error caught POSTing order shipment:  " + err);

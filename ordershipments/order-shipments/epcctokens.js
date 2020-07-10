@@ -29,7 +29,7 @@ var requestClientCredentialsToken = async function (req) {
 	var secretKey;
 
 	try {
-		secretKey = await parameters.getParameter('EpJettiSecretKey', 'EP_JETTI_SECRET_KEY');
+		secretKey = await parameters.getParameter('/jetti/EpJettiSecretKey', 'EP_JETTI_SECRET_KEY');
 	} catch (err) {
 		console.error("Can't get EP Jetti Secret Key parameter: " + JSON.stringify(err));
 		var newErr = new Error("Invalid EP Jetti Secret Key");
@@ -54,8 +54,8 @@ var requestClientCredentialsToken = async function (req) {
 	var clientSecret;
 
 	try {
-		clientId = await parameters.getParameter('EpccClientId', 'EPCC_CLIENT_ID');
-		clientSecret = await parameters.getParameter('EpccClientSecret', 'EPCC_CLIENT_SECRET');
+		clientId = await parameters.getParameter('/jetti/EpccClientId', 'EPCC_CLIENT_ID');
+		clientSecret = await parameters.getParameter('/jetti/EpccClientSecret', 'EPCC_CLIENT_SECRET');
 	} catch (err) {
 		console.error("Can't get EpccClientId or EpccClientSecret parameter: " + JSON.stringify(err));
 		var newErr = new Error("Invalid EP CC Client ID or Secret");

@@ -2,7 +2,7 @@
 
 Postman script and NodeJS serverless function for the EP CC POC for Jetti.
 
-# EP CC Flows
+# Postman Script
 
 The Postman script generates the following EP CC flows:
 
@@ -11,6 +11,70 @@ The Postman script generates the following EP CC flows:
 * orders
 * one-to-many relationship field on shipmentcontainers to shipments
 * one-to-many relationship field on orders to shipmentcontainers
+
+## Configuring Postman
+
+Launch Postman and import the Jetti collection.
+
+Create an environment for Jetti.
+
+Create **client_id** and **client_secret** variables and set them to the EP CC client ID and client secret values.
+
+Create a variable **epData** with the value set to empty curly brackets, i.e. {}:
+
+
+## Creating Flows
+
+Launch the Runner.
+
+Select the Jetti environment.
+
+Select the Jetti collection.
+
+De-select all requests in the Run Order panel.
+
+Select the "Retrieve client token" request.
+
+Click "Run Jetti".
+
+Click "Collection Runner" in the upper left to return to the main runner panel.
+
+*Note:  You may need to click a Reload button in the Run Order panel.*
+
+Click "Data Model" in the collection folder on the left, then "Data Model Configuration".
+
+Ensure all requests are selected in the Run Order panel.
+
+Click "Run Jetti".
+
+
+## Resetting the Flows
+
+Use these steps to delete all flow data.
+
+Launch the Runner.
+
+Select the Jetti environment.
+
+Select the Jetti collection.
+
+De-select all requests in the Run Order panel.
+
+Select the "Retrieve client token" request.
+
+Click "Run Jetti".
+
+Click "Collection Runner" in the upper left to return to the main runner panel.
+
+*Note:  You may need to click a Reload button in the Run Order panel.*
+
+Click "Data Model" in the collection folder on the left, then "Data Model Reset".
+
+Ensure all requests are selected in the Run Order panel.
+
+Click "Run Jetti".
+
+
 
 # Service Endpoints
 
@@ -23,7 +87,28 @@ Add the following HTTP headers to the requests:
 |x-ep-jetti-secret-key|Your Jetti API secret key|
 |Content-Type|application/json|
 
-## POST Shipment Request
+## POST Shipment Request to generic URI
+
+POST http://host:port/context/order-shipments/
+
+Specify the following JSON body:
+
+```
+{
+	"externalId": "EP CC Order ID",
+	"shipment_id": "xxxxx",
+	"tracking_id": "xxxxx",
+	"carrier": "xxxxx"
+}
+```
+
+This creates a new entry in the shipments flow, a relationship from the shipment to an entry in the shipmentcontainers flow, and a relationship from the orders flow to the shipmentcontainers entry.
+
+*Note:  the final structure is TBD.*
+
+## POST Shipment Request with order ID in URI
+
+This is an alternative to the generic URI.
 
 POST http://host:port/context/order-shipments/:epCCOrderId
 
@@ -95,9 +180,9 @@ Define the following secure string parameters in the AWS account and region in w
 
 |Name|Value|
 |---|---|
-|EpccClientSecret|EP CC Account Client Secret|
-|EpccClientId|EP CC Account Client ID|
-|EpJettiSecretKey|Value of the secret key to be sent by Jetti client in x-ep-jetti-secret-key HTTP header|
+|/jetti/EpccClientSecret|EP CC Account Client Secret|
+|/jetti/EpccClientId|EP CC Account Client ID|
+|/jetti/EpJettiSecretKey|Value of the secret key to be sent by Jetti client in x-ep-jetti-secret-key HTTP header|
 
 *Warning:  these parameters should be made secure as free text will allow them to be visible.*
 
@@ -112,7 +197,9 @@ cd .aws-sam/build
 
 sam package --template-file template.yaml --output-template-file package.yml --s3-bucket YOUR_S3_BUCKET_NAME
 
-sam deploy --template-file package.yml --stack-name order-shipments-dev --capabilities CAPABILITY_IAM
+sam deploy --template-file package.yml --stack-name jetti-poc --capabilities CAPABILITY_IAM
 ```
 
-*Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.  For now "order-shipments-dev" should be sufficient.*
+*Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.  For now "jetti-poc" should be sufficient.*
+
+*Note:  Be sure to specify an appropriate AWS profile when there are multiple profiles.*

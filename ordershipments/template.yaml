@@ -29,11 +29,11 @@ Resources:
             Method: post
       Policies:
         - SSMParameterReadPolicy:
-            ParameterName: EpJettiSecretKey
+            ParameterName: jetti/EpJettiSecretKey
         - SSMParameterReadPolicy:
-            ParameterName: EpccClientId
+            ParameterName: jetti/EpccClientId
         - SSMParameterReadPolicy:
-            ParameterName: EpccClientSecret
+            ParameterName: jetti/EpccClientSecret
 
 Outputs:
   OrderShipmentsApi:

@@ -195,7 +195,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT",
+							"name": "FULFILLMENT",
 							"event": [
 								{
 									"listen": "test",
@@ -243,7 +243,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"data\": {\n    \"type\": \"flow\",\n    \"name\": \"Shipment\",\n    \"slug\": \"shipments\",\n    \"description\": \"Contains the order shipment data.\",\n    \"enabled\": true\n  }\n}"
+									"raw": "{\n  \"data\": {\n    \"type\": \"flow\",\n    \"name\": \"Fulfillment\",\n    \"slug\": \"fulfillments\",\n    \"description\": \"Contains fullment data.\",\n    \"enabled\": true\n  }\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/flows",
@@ -262,7 +262,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT.shipment_id",
+							"name": "FULFILLMENT.shipment_id",
 							"event": [
 								{
 									"listen": "test",
@@ -280,7 +280,7 @@
 										"id": "f9dc907a-ab69-41ad-817e-9657f3badd1b",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipments'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
 										],
 										"type": "text/javascript"
 									}
@@ -337,7 +337,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT.tracking_id",
+							"name": "FULFILLMENT.tracking_id",
 							"event": [
 								{
 									"listen": "test",
@@ -355,7 +355,7 @@
 										"id": "6d0f3c0a-f594-4bf3-8806-2a0223e7a916",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipments'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
 										],
 										"type": "text/javascript"
 									}
@@ -412,7 +412,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT.carrier",
+							"name": "FULFILLMENT.carrier",
 							"event": [
 								{
 									"listen": "test",
@@ -430,7 +430,7 @@
 										"id": "a52c9f7d-b6d1-4f01-ae40-c00f9de065db",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipments'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
 										],
 										"type": "text/javascript"
 									}
@@ -487,7 +487,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT_CONTAINER",
+							"name": "FULFILLMENT_CONTAINER",
 							"event": [
 								{
 									"listen": "test",
@@ -536,7 +536,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"data\": {\n    \"type\": \"flow\",\n    \"name\": \"ShipmentContainer\",\n    \"slug\": \"shipmentcontainers\",\n    \"description\": \"Container for order shipments.  Each entry to be associated with an order.\",\n    \"enabled\": true\n  }\n}"
+									"raw": "{\n  \"data\": {\n    \"type\": \"flow\",\n    \"name\": \"Fulfillment Container\",\n    \"slug\": \"fulfillmentcontainers\",\n    \"description\": \"Container for order fulfillments.  Each entry to be associated with a single order.\",\n    \"enabled\": true\n  }\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/flows",
@@ -555,7 +555,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT_CONTAINER.slug",
+							"name": "FULFILLMENT_CONTAINER.slug",
 							"event": [
 								{
 									"listen": "test",
@@ -573,7 +573,7 @@
 										"id": "80ae5c0b-acac-4be2-973c-68e036bd599d",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipmentcontainers'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentcontainers'));"
 										],
 										"type": "text/javascript"
 									}
@@ -630,7 +630,7 @@
 							"response": []
 						},
 						{
-							"name": "SHIPMENT_CONTAINER => SHIPMENT",
+							"name": "FULFILLMENT_CONTAINER => SHIPMENT",
 							"event": [
 								{
 									"listen": "test",
@@ -648,7 +648,7 @@
 										"id": "c79ebb3d-d8d3-49a3-9d60-a35d77b165ed",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipmentcontainers'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentcontainers'));"
 										],
 										"type": "text/javascript"
 									}
@@ -686,7 +686,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shipments\",\r\n\t\"slug\": \"shipments\",  \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"shipments\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Shipments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillments\",\r\n\t\"slug\": \"fulfillments\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"fulfillments\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -723,7 +723,7 @@
 										"id": "b770d60c-656c-4cbc-a916-dfc6038b946d",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'shipmentcontainers'));"
+											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentcontainers'));"
 										],
 										"type": "text/javascript"
 									}
@@ -761,7 +761,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Order\",\r\n\t\"slug\": \"order\",  \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"orders\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Shipments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Order\",\r\n\t\"slug\": \"order\",  \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"orders\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Order\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -851,7 +851,7 @@
 							"response": []
 						},
 						{
-							"name": "ORDERS => SHIPMENT_CONTAINER",
+							"name": "ORDERS => FULFILLMENT_CONTAINER",
 							"event": [
 								{
 									"listen": "test",
@@ -907,7 +907,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shipments\",\r\n\t\"slug\": \"shipments\",\r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"shipmentcontainers\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Shipments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment Container\",\r\n\t\"slug\": \"fulfillmentContainer\",\r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"fulfillmentContainer\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillment Container\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -2882,7 +2882,7 @@
 			"name": "tmp",
 			"item": [
 				{
-					"name": "Create Shipment",
+					"name": "Create Fulfillment",
 					"event": [
 						{
 							"listen": "test",
@@ -2973,7 +2973,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Shipments",
+					"name": "Get Fulfillments",
 					"event": [
 						{
 							"listen": "test",
@@ -3067,7 +3067,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Shipment Container",
+					"name": "Create Fulfillment Container",
 					"event": [
 						{
 							"listen": "test",
@@ -3158,7 +3158,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Containers",
+					"name": "Get Fulfillment Containers",
 					"event": [
 						{
 							"listen": "test",
@@ -3234,7 +3234,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries",
+							"raw": "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -3244,7 +3244,7 @@
 							"path": [
 								"v2",
 								"flows",
-								"shipmentcontainers",
+								"fulfillmentcontainers",
 								"entries"
 							]
 						}
@@ -3252,7 +3252,7 @@
 					"response": []
 				},
 				{
-					"name": "Get single Container",
+					"name": "Get single Fulfillment Container",
 					"event": [
 						{
 							"listen": "test",
@@ -3328,7 +3328,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries/04a8b9a6-3086-4121-8729-f523787a3667?include=shipments",
+							"raw": "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries/863552d0-3904-4fb0-825a-bc0d5dda1db9?include=fulfillments",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -3338,14 +3338,14 @@
 							"path": [
 								"v2",
 								"flows",
-								"shipmentcontainers",
+								"fulfillmentcontainers",
 								"entries",
-								"04a8b9a6-3086-4121-8729-f523787a3667"
+								"863552d0-3904-4fb0-825a-bc0d5dda1db9"
 							],
 							"query": [
 								{
 									"key": "include",
-									"value": "shipments"
+									"value": "fulfillments"
 								}
 							]
 						}
@@ -3353,7 +3353,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Shipment to Container",
+					"name": "Add Fulfillment to Fulfillment Container",
 					"event": [
 						{
 							"listen": "test",
@@ -3447,7 +3447,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Container to Order",
+					"name": "Add Fulfillment Container to Order",
 					"event": [
 						{
 							"listen": "test",
@@ -3541,7 +3541,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Container Shipments",
+					"name": "Delete Fulfillment Container Fulfillments",
 					"event": [
 						{
 							"listen": "test",
@@ -3635,7 +3635,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Order Shipment Containers",
+					"name": "Delete Order Fulfillment Containers",
 					"event": [
 						{
 							"listen": "test",
@@ -3920,7 +3920,7 @@
 			"name": "Function Requests",
 			"item": [
 				{
-					"name": "Add Shipment with order ID",
+					"name": "Add Fulfillment with order ID",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3945,14 +3945,14 @@
 							"raw": "{\r\n\t\"order-id\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"shipment_id\": \"test-2\",\r\n\t\"tracking_id\": \"9876543212\",\r\n\t\"carrier\": \"USPS\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/order-shipments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
+							"raw": "http://localhost:3000/order-fulfillments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"order-shipments",
+								"order-fulfillments",
 								"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
 							]
 						}
@@ -3960,7 +3960,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Shipment generic",
+					"name": "Add Fulfillment generic",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3985,14 +3985,14 @@
 							"raw": "{\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"shipment_id\": \"test-22\",\r\n\t\"tracking_id\": \"98765432101\",\r\n\t\"carrier\": \"USPS\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/order-shipments/",
+							"raw": "http://localhost:3000/order-fulfillments/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"order-shipments",
+								"order-fulfillments",
 								""
 							]
 						}
@@ -4000,7 +4000,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Order Shipments",
+					"name": "Get Order Fulfillments",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4028,14 +4028,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/order-shipments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
+							"raw": "http://localhost:3000/order-fulfillments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"order-shipments",
+								"order-fulfillments",
 								"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
 							]
 						}
@@ -4043,7 +4043,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Shipment AWS",
+					"name": "Add Fulfillment AWS",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -4086,7 +4086,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Order Shipments AWS",
+					"name": "Get Order Fulfillments AWS",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4105,8 +4105,8 @@
 							},
 							{
 								"key": "x-ep-jetti-secret-key",
-								"value": "my_secret_key",
-								"type": "text"
+								"type": "text",
+								"value": "my_secret_key"
 							}
 						],
 						"body": {
@@ -4169,7 +4169,7 @@
 	],
 	"variable": [
 		{
-			"id": "5f43b62d-9dc4-4bdd-9898-38cdb0cdbdc0",
+			"id": "cc727cfd-ef4b-4497-b8c4-56e910493f21",
 			"key": "ep",
 			"value": "\nvar ep = { \n    setValue: function (namespace, key, value) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        if(epData[namespace] === null || epData[namespace] === undefined) {\n            //console.log(\"init\");\n            epData[namespace] = {};\n        }\n        epData[namespace][key] = value;\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        //console.log(\"epData[\" + namespace + \"][\" + key + \"]: \" + epData[namespace][key]);\n        pm.environment.set(\"epData\", JSON.stringify(epData));\n    },\n    getValue: function (namespace, key) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        if(epData[namespace] === undefined || epData[namespace] === null) {\n            return null;\n        } else if(epData[namespace][key] === undefined) {\n            return null;\n        }\n        return epData[namespace][key];\n    },\n    usingDataFile: function() {\n        return (Object.keys(pm.iterationData.toObject()).length != 0);\n    },\n    setSkipping: function (skip) {\n        if(skip === true) {\n            pm.variables.set(\"skipFlag\", \"SKIPPING\");\n            console.log(\"Skipping: TRUE\");\n        } else {\n            pm.variables.set(\"skipFlag\", \"\");\n            console.log(\"Skipping: false\");\n        }\n    },\n    skipping: function () {\n        if(pm.variables.get(\"skipFlag\") === \"SKIPPING\") {\n            return true;\n        } else {\n            return false;\n        }\n    }\n};\n"
 		}

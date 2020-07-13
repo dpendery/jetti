@@ -1,32 +1,32 @@
 /*
- * Methods for working with order shipment containers.
+ * Methods for working with order fulfillment containers.
  */
 
 const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
 
 const epCCOrdersUrl = "https://api.moltin.com/v2/orders";
-const epCCShipmentContainers = "https://api.moltin.com/v2/flows/shipmentcontainers/entries";
+const epCCFulfillmentContainers = "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries";
 
 /*
- * Gets the collection of shipments for an order from its container.
+ * Gets the collection of fulfillments for an order from its container.
  */
-const getShipmentsForOrder = async function (token, order) {
+const getFulfillmentsForOrder = async function (token, order) {
 
-    var shipments = order.relationships.shipments;
+    var fulfillments = order.relationships.fulfillmentContainer;
 
-    if (!shipments || !shipments.data) {
+    if (!fulfillments || !fulfillments.data) {
         return  [];
     }
 
-    var shipmentContainerUri = epCCShipmentContainers + '/' + shipments.data.id + '?include=shipments';
+    var fulfillmentContainerUri = epCCFulfillmentContainers + '/' + fulfillments.data.id + '?include=fulfillments';
 
     var headers = epccHeaders.getHeaders('Bearer ' + token);
 
     try {
-        response = await fetch(shipmentContainerUri, { method: 'GET', headers: headers });
+        response = await fetch(fulfillmentContainerUri, { method: 'GET', headers: headers });
     } catch (err) {
-        console.log("Unknown error getting the order's shipments:  " + JSON.stringify(err));
+        console.log("Unknown error getting the order's fulfillments:  " + JSON.stringify(err));
         const newErr = new Error(JSON.stringify(err));
         newErr.code = 503;
         throw newErr;
@@ -35,7 +35,7 @@ const getShipmentsForOrder = async function (token, order) {
     if (response.status != 200) {
         var result = await response.json();
 
-        console.log("Error getting Order shipments:  " + JSON.stringify(result));
+        console.log("Error getting Order fulfillments:  " + JSON.stringify(result));
         const err = new Error(JSON.stringify(result));
         err.code = response.status;
         throw err;
@@ -43,28 +43,28 @@ const getShipmentsForOrder = async function (token, order) {
 
     var container = await response.json();
 
-    if (container.included && container.included.shipments) {
-        return container.included.shipments;
+    if (container.included && container.included.fulfillments) {
+        return container.included.fulfillments;
     }
 
     return [];
 }
 
-const getOrCreateShipmentContainer = async function (token, order) {
+const getOrCreateFulfillmentContainer = async function (token, order) {
 
-    var shipments = order.relationships.shipments;
+    var fulfillments = order.relationships.fulfillmentContainer;
     var container;
 
-    if (shipments && shipments.data) {
-        container = shipments.data;
+    if (fulfillments && fulfillments.data) {
+        container = fulfillments.data;
     } else {
-        container = await createShipmentContainer(token, order);
+        container = await createFulfillmentContainer(token, order);
     }
 
     return container;
 }
 
-const createShipmentContainer = async function (token, order) {
+const createFulfillmentContainer = async function (token, order) {
 
     // Create new container.
     var container = {
@@ -76,7 +76,7 @@ const createShipmentContainer = async function (token, order) {
 
     var headers = epccHeaders.getHeaders('Bearer ' + token);
 
-    var response = await fetch(epCCShipmentContainers, { method: 'POST', headers: headers, body: JSON.stringify(container) });
+    var response = await fetch(epCCFulfillmentContainers, { method: 'POST', headers: headers, body: JSON.stringify(container) });
 
     if (response.status != 201) {
         var result = await response.json();
@@ -91,12 +91,12 @@ const createShipmentContainer = async function (token, order) {
     var relationship = {
         "data": 
             {
-                "type": "shipments",
+                "type": "fulfillmentContainer",
                 "id": newContainer.data.id
             }
     };
 
-    var orderUri = epCCOrdersUrl + '/' + order.id + '/relationships/shipments';
+    var orderUri = epCCOrdersUrl + '/' + order.id + '/relationships/fulfillmentContainer';
 
     response = await fetch(orderUri, { method: 'POST', headers: headers, body: JSON.stringify(relationship) });
 
@@ -106,7 +106,7 @@ const createShipmentContainer = async function (token, order) {
         console.error('Error creating container/order relationship:  ' + JSON.stringify(result));
 
         //  Delete the container since it would be orphaned without the relationship.
-        await deleteShipmentContainer(token, newContainer.data);
+        await deleteFulfillmentContainer(token, newContainer.data);
 
         const err = new Error(JSON.stringify(result));
         err.code = response.status;
@@ -116,20 +116,20 @@ const createShipmentContainer = async function (token, order) {
     return newContainer.data;
 }
 
-const deleteShipmentContainer = async function (token, container) {
+const deleteFulfillmentContainer = async function (token, container) {
     console.log('Deleting container:  ' + container.slug);
 
     var headers = epccHeaders.getHeaders('Bearer ' + token);
 
-    var containerUri = epCCShipmentContainers + '/' + container.id;
+    var containerUri = epCCFulfillmentContainers + '/' + container.id;
 
     response = await fetch(containerUri, { method: 'DELETE', headers: headers});
 
     if (response.status != 204) {
         const err = new Error(JSON.stringify(result));
-        console.log('Error deleting shipment container: ' + err);
+        console.log('Error deleting fulfillment container: ' + err);
     }
  }
 
-module.exports.getOrCreateShipmentContainer = getOrCreateShipmentContainer;
-module.exports.getShipmentsForOrder = getShipmentsForOrder;
+module.exports.getOrCreateFulfillmentContainer = getOrCreateFulfillmentContainer;
+module.exports.getFulfillmentsForOrder = getFulfillmentsForOrder;

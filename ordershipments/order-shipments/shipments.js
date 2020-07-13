@@ -1,16 +1,16 @@
 /*
-	Methods for working with order shipments.
+	Methods for working with order fulfillments, aka shipments.
 */
 
 const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
 const orders = require('./orders');
-const shipmentContainers = require('./shipmentcontainers');
+const fulfillmentContainers = require('./shipmentcontainers');
 
-const epCCShipmentssUrl = "https://api.moltin.com/v2/flows/shipments/entries";
-const epCCShipmentContainers = "https://api.moltin.com/v2/flows/shipmentcontainers/entries";
+const epCCFulfillmentssUrl = "https://api.moltin.com/v2/flows/fulfillments/entries";
+const epCCFulFillmentContainers = "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries";
 
-const postOrderShipment = async function (token, orderId, shipment) {
+const postOrderFulfillment = async function (token, orderId, fulfillment) {
 
 	// GET order.
 	var order
@@ -21,82 +21,82 @@ const postOrderShipment = async function (token, orderId, shipment) {
 		throw err;
     }
 
-	// GET order shipment container.
-	var shipmentContainer;
+	// GET order fulfillment container.
+	var fulfillmentContainer;
 	try {
-		shipmentContainer = await shipmentContainers.getOrCreateShipmentContainer(token, order);
+		fulfillmentContainer = await fulfillmentContainers.getOrCreateFulfillmentContainer(token, order);
 	} catch (err) {
 		throw err;
     }
 
-	// POST shipment.
-	var newShipment; 
+	// POST fulfillment.
+	var newFulfillment; 
 	try {
-		newShipment = await postShipment(token, shipment);
+		newFulfillment = await postFulfillment(token, fulfillment);
 	} catch (err) {
 		throw err;
     }
 
-	// POST shipment container relationship.
+	// POST fulfillment container relationship.
 	try {
-		await postShipmentContainerRelationship(token, newShipment, shipmentContainer);
+		await postFulfillmentContainerRelationship(token, newFulfillment, fulfillmentContainer);
 	} catch (err) {
 		throw err;
 	}
 
-	return newShipment;
+	return newFulfillment;
 }
 
-const postShipment = async function (token, shipment) {
+const postFulfillment = async function (token, fulfillment) {
 	var headers = epccHeaders.getHeaders('Bearer ' + token);
 
-	var newShipmentData = {
+	var newFulfillmentData = {
 		"data": {
 			"type": "entry",
-			"shipment_id": shipment.shipment_id,
-			"tracking_id": shipment.tracking_id,
-			"carrier": shipment.carrier
+			"shipment_id": fulfillment.shipment_id,
+			"tracking_id": fulfillment.tracking_id,
+			"carrier": fulfillment.carrier
         }
 	};
 
-	var response = await fetch(epCCShipmentssUrl, { method: 'POST', headers: headers, body: JSON.stringify(newShipmentData) });
+	var response = await fetch(epCCFulfillmentssUrl, { method: 'POST', headers: headers, body: JSON.stringify(newFulfillmentData) });
 
 	if (response.status != 201) {
 		var result = await response.json();
 
-		console.error('Error creating shipment:  ' + JSON.stringify(result));
+		console.error('Error creating fulfillment:  ' + JSON.stringify(result));
 
 		const err = new Error(JSON.stringify(result));
 		err.code = response.status;
 		throw err;
 	}
 
-	var newShipment = await response.json();
+	var newFulfillment = await response.json();
 
-	return newShipment.data;
+	return newFulfillment.data;
 }
 
-// Create shipment/container relationship.
-const postShipmentContainerRelationship = async function (token, shipment, container) {
+// Create fulfillment/container relationship.
+const postFulfillmentContainerRelationship = async function (token, fulfillment, container) {
 	var headers = epccHeaders.getHeaders('Bearer ' + token);
 
 	var relationship = {
 		"data": [
 			{
-				"type": "shipments",
-				"id": shipment.id
+				"type": "fulfillments",
+				"id": fulfillment.id
 			}
 		]
 	};
 
-	var containerUri = epCCShipmentContainers + '/' + container.id + '/relationships/shipments';
+	var containerUri = epCCFulFillmentContainers + '/' + container.id + '/relationships/fulfillments';
 
 	response = await fetch(containerUri, { method: 'POST', headers: headers, body: JSON.stringify(relationship) });
 
 	if (response.status != 201) {
 		var result = await response.json();
 
-		console.error('Error creating shipment/container relationship:  ' + JSON.stringify(result));
+		console.error('Error creating fulfillment/container relationship:  ' + JSON.stringify(result));
 
 		const err = new Error(JSON.stringify(result));
 		err.code = response.status;
@@ -104,4 +104,4 @@ const postShipmentContainerRelationship = async function (token, shipment, conta
 	}
 }
 
-module.exports.postOrderShipment = postOrderShipment;
+module.exports.postOrderFulfillment = postOrderFulfillment;

@@ -5,7 +5,7 @@
 const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
 const orders = require('./orders');
-const fulfillmentContainers = require('./shipmentcontainers');
+const fulfillmentContainers = require('./fulfillmentcontainers');
 
 const epCCFulfillmentssUrl = "https://api.moltin.com/v2/flows/fulfillments/entries";
 const epCCFulFillmentContainers = "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries";

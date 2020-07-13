@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const epccTokens = require('./epcctokens');
 const orders = require('./orders');
-const fulfillments = require('./shipments');
-const fulfillmentcontainers = require('./shipmentcontainers');
+const fulfillments = require('./fulfillments');
+const fulfillmentcontainers = require('./fulfillmentcontainers');
 
 const app = new express();
 

@@ -933,12 +933,12 @@
 					"name": "Data Model Reset",
 					"item": [
 						{
-							"name": "[INIT] Flows",
+							"name": "[INIT] Orders",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "81e8ee81-82c0-4378-8f41-853bcdc70c75",
+										"id": "5f078759-67c8-4918-b314-ca061ea0837b",
 										"exec": [
 											""
 										],
@@ -948,18 +948,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "93bd2ac6-265d-4d0a-9154-51d2bbb23759",
+										"id": "61199fce-d378-4ad2-840e-dfbbe5e8ea4b",
 										"exec": [
 											"eval(pm.collectionVariables.get(\"ep\"));",
 											"",
 											"var resp = pm.response.json();",
-											"var flowIds = [];",
-											"resp.data.forEach(flow => {",
-											"    flowIds.push(flow.id);",
+											"var fieldIds = [];",
+											"resp.data.forEach(field => {",
+											"    fieldIds.push(field.id);",
 											"});",
-											"ep.setValue(\"reset/datamodel\", \"flowIds\", JSON.stringify(flowIds));",
+											"ep.setValue(\"reset/datamodel\", \"orderIds\", JSON.stringify(fieldIds));",
 											"",
-											"pm.environment.set(\"flowIdsIdx\", 0);"
+											"pm.environment.set(\"ordersIdx\", 0);",
+											"",
+											"//TODO:  deal with pagination in case there are > 100 orders."
 										],
 										"type": "text/javascript"
 									}
@@ -986,7 +988,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://api.moltin.com/v2/flows",
+									"raw": "https://api.moltin.com/v2/orders",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -995,93 +997,25 @@
 									],
 									"path": [
 										"v2",
-										"flows"
+										"orders"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Rename all flows",
+							"name": "Delete order/shipmentcontainer relationships",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "919ae4be-6c3e-4d51-9d8a-03e7bf344201",
+										"id": "865f772c-6f96-4973-add1-aeac7a0f59d3",
 										"exec": [
 											"eval(pm.collectionVariables.get(\"ep\"));",
-											"var idx = pm.environment.get(\"flowIdsIdx\");",
-											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"flowIds\"));",
-											"pm.variables.set(\"flowId\", ids[idx]);",
-											"pm.environment.set(\"flowIdsIdx\", Number(idx) + 1);",
-											"",
-											"if ((idx + 1) < ids.length) {",
-											"    postman.setNextRequest(pm.info.requestName);",
-											"} else {",
-											"    pm.environment.set(\"flowIdsIdx\", 0);",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "8e7958d2-2e7f-4fdb-ac60-c4890844dafd",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"data\": {\n\t\t\"type\": \"flow\",\n\t\t\"slug\": \"{{$randomUUID}}\"\n\t}\n}",
-									"options": {
-										"raw": {}
-									}
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/flows/{{flowId}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"flows",
-										"{{flowId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete all flows",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "428495ec-f20d-4fcf-bcd9-8602a37238e8",
-										"exec": [
-											"eval(pm.collectionVariables.get(\"ep\"));",
-											"var idx = pm.environment.get(\"flowIdsIdx\");",
-											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"flowIds\"));",
-											"pm.variables.set(\"flowId\", ids[idx]);",
-											"pm.environment.set(\"flowIdsIdx\", Number(idx) + 1);",
+											"var idx = pm.environment.get(\"ordersIdx\");",
+											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"orderIds\"));",
+											"pm.variables.set(\"orderId\", ids[idx]);",
+											"pm.environment.set(\"ordersIdx\", Number(idx) + 1);",
 											"",
 											"if ((idx + 1) < ids.length) {",
 											"    postman.setNextRequest(pm.info.requestName);",
@@ -1093,7 +1027,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8e08d13f-40c8-43aa-9429-f0e3e2ccdbb7",
+										"id": "ad78e0d3-0e47-4f9a-ad9a-8c284ed49c42",
 										"exec": [
 											""
 										],
@@ -1119,7 +1053,81 @@
 									}
 								},
 								"url": {
-									"raw": "https://api.moltin.com/v2/flows/{{flowId}}",
+									"raw": "https://api.moltin.com/v2/orders/{{orderId}}/relationships/shipments",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"{{orderId}}",
+										"relationships",
+										"shipments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[INIT] Shipment Containers",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f3020bb2-2e19-4dc4-b9c4-3806178d46c5",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ac0ab448-1161-4bff-8aae-f2859ddbc476",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"",
+											"var resp = pm.response.json();",
+											"var fieldIds = [];",
+											"resp.data.forEach(field => {",
+											"    fieldIds.push(field.id);",
+											"});",
+											"ep.setValue(\"reset/datamodel\", \"shipmentContainerIds\", JSON.stringify(fieldIds));",
+											"",
+											"pm.environment.set(\"shipmentContainerIdx\", 0);",
+											"",
+											"//TODO:  deal with pagination in case there are > 100 shipment containers."
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -1129,7 +1137,78 @@
 									"path": [
 										"v2",
 										"flows",
-										"{{flowId}}"
+										"shipmentcontainers",
+										"entries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete shipmentcontainer/shipment relationships",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a4be2986-9957-405d-b7e1-099e952a2b78",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"var idx = pm.environment.get(\"shipmentContainerIdx\");",
+											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"shipmentContainerIds\"));",
+											"pm.variables.set(\"shipmentContainer\", ids[idx]);",
+											"pm.environment.set(\"shipmentContainerIdx\", Number(idx) + 1);",
+											"",
+											"if ((idx + 1) < ids.length) {",
+											"    postman.setNextRequest(pm.info.requestName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6db392b8-7973-4535-b4f9-ccfd808da4a1",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries/{{shipmentContainer}}/relationships/shipments",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"flows",
+										"shipmentcontainers",
+										"entries",
+										"{{shipmentContainer}}",
+										"relationships",
+										"shipments"
 									]
 								}
 							},
@@ -1265,6 +1344,210 @@
 										"v2",
 										"fields",
 										"{{flowFieldId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[INIT] Flows",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "81e8ee81-82c0-4378-8f41-853bcdc70c75",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "93bd2ac6-265d-4d0a-9154-51d2bbb23759",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"",
+											"var resp = pm.response.json();",
+											"var flowIds = [];",
+											"resp.data.forEach(flow => {",
+											"    flowIds.push(flow.id);",
+											"});",
+											"ep.setValue(\"reset/datamodel\", \"flowIds\", JSON.stringify(flowIds));",
+											"",
+											"pm.environment.set(\"flowIdsIdx\", 0);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/flows",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"flows"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rename all flows",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "919ae4be-6c3e-4d51-9d8a-03e7bf344201",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"var idx = pm.environment.get(\"flowIdsIdx\");",
+											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"flowIds\"));",
+											"pm.variables.set(\"flowId\", ids[idx]);",
+											"pm.environment.set(\"flowIdsIdx\", Number(idx) + 1);",
+											"",
+											"if ((idx + 1) < ids.length) {",
+											"    postman.setNextRequest(pm.info.requestName);",
+											"} else {",
+											"    // Resetting for the next set of requests.",
+											"    pm.environment.set(\"flowIdsIdx\", 0);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8e7958d2-2e7f-4fdb-ac60-c4890844dafd",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"data\": {\n\t\t\"type\": \"flow\",\n\t\t\"slug\": \"{{$randomUUID}}\"\n\t}\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/flows/{{flowId}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"flows",
+										"{{flowId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete all flows",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "428495ec-f20d-4fcf-bcd9-8602a37238e8",
+										"exec": [
+											"eval(pm.collectionVariables.get(\"ep\"));",
+											"var idx = pm.environment.get(\"flowIdsIdx\");",
+											"var ids = JSON.parse(ep.getValue(\"reset/datamodel\", \"flowIds\"));",
+											"pm.variables.set(\"flowId\", ids[idx]);",
+											"pm.environment.set(\"flowIdsIdx\", Number(idx) + 1);",
+											"",
+											"if ((idx + 1) < ids.length) {",
+											"    postman.setNextRequest(pm.info.requestName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8e08d13f-40c8-43aa-9429-f0e3e2ccdbb7",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.moltin.com/v2/flows/{{flowId}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"moltin",
+										"com"
+									],
+									"path": [
+										"v2",
+										"flows",
+										"{{flowId}}"
 									]
 								}
 							},
@@ -3045,7 +3328,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries/6c47bed9-29a0-4f62-9b82-890028d1c70c?include=shipments",
+							"raw": "https://api.moltin.com/v2/flows/shipmentcontainers/entries/04a8b9a6-3086-4121-8729-f523787a3667?include=shipments",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -3057,7 +3340,7 @@
 								"flows",
 								"shipmentcontainers",
 								"entries",
-								"6c47bed9-29a0-4f62-9b82-890028d1c70c"
+								"04a8b9a6-3086-4121-8729-f523787a3667"
 							],
 							"query": [
 								{
@@ -3637,7 +3920,7 @@
 			"name": "Function Requests",
 			"item": [
 				{
-					"name": "Add Shipment",
+					"name": "Add Shipment with order ID",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3650,14 +3933,19 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "x-ep-jetti-secret-key",
+								"value": "my_secret_key",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"order-id\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"shipment_id\": \"test-11\",\r\n\t\"tracking_id\": \"9876543210\",\r\n\t\"carrier\": \"USPS\"\r\n}"
+							"raw": "{\r\n\t\"order-id\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"shipment_id\": \"test-2\",\r\n\t\"tracking_id\": \"9876543212\",\r\n\t\"carrier\": \"USPS\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/order-shipments/f39f1994-a585-4e9f-82a4-4fa09a823551",
+							"raw": "http://localhost:3000/order-shipments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3665,7 +3953,47 @@
 							"port": "3000",
 							"path": [
 								"order-shipments",
-								"f39f1994-a585-4e9f-82a4-4fa09a823551"
+								"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Shipment generic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-ep-jetti-secret-key",
+								"value": "my_secret_key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"shipment_id\": \"test-22\",\r\n\t\"tracking_id\": \"98765432101\",\r\n\t\"carrier\": \"USPS\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/order-shipments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order-shipments",
+								""
 							]
 						}
 					},
@@ -3700,7 +4028,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/order-shipments/f39f1994-a585-4e9f-82a4-4fa09a823551",
+							"raw": "http://localhost:3000/order-shipments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3708,7 +4036,50 @@
 							"port": "3000",
 							"path": [
 								"order-shipments",
-								"f39f1994-a585-4e9f-82a4-4fa09a823551"
+								"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Shipment AWS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-ep-jetti-secret-key",
+								"value": "my_secret_key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"order-id\": \"e65a399e-8c30-4022-9e6c-13c1f21d684c\",\r\n\t\"shipment_id\": \"test-2\",\r\n\t\"tracking_id\": \"1234567890\",\r\n\t\"carrier\": \"USPS\"\r\n}"
+						},
+						"url": {
+							"raw": "https://8f9uo1yanh.execute-api.eu-west-2.amazonaws.com/order-shipments/e65a399e-8c30-4022-9e6c-13c1f21d684c",
+							"protocol": "https",
+							"host": [
+								"8f9uo1yanh",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"order-shipments",
+								"e65a399e-8c30-4022-9e6c-13c1f21d684c"
 							]
 						}
 					},
@@ -3743,10 +4114,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://fx8htpo6x0.execute-api.eu-west-2.amazonaws.com/order-shipments/f39f1994-a585-4e9f-82a4-4fa09a823551",
+							"raw": "https://8f9uo1yanh.execute-api.eu-west-2.amazonaws.com/order-shipments/e65a399e-8c30-4022-9e6c-13c1f21d684c",
 							"protocol": "https",
 							"host": [
-								"fx8htpo6x0",
+								"8f9uo1yanh",
 								"execute-api",
 								"eu-west-2",
 								"amazonaws",
@@ -3754,7 +4125,7 @@
 							],
 							"path": [
 								"order-shipments",
-								"f39f1994-a585-4e9f-82a4-4fa09a823551"
+								"e65a399e-8c30-4022-9e6c-13c1f21d684c"
 							]
 						}
 					},
@@ -3798,7 +4169,7 @@
 	],
 	"variable": [
 		{
-			"id": "7b6021bf-9fc9-413e-a86e-c76cb1932a99",
+			"id": "5f43b62d-9dc4-4bdd-9898-38cdb0cdbdc0",
 			"key": "ep",
 			"value": "\nvar ep = { \n    setValue: function (namespace, key, value) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        if(epData[namespace] === null || epData[namespace] === undefined) {\n            //console.log(\"init\");\n            epData[namespace] = {};\n        }\n        epData[namespace][key] = value;\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        //console.log(\"epData[\" + namespace + \"][\" + key + \"]: \" + epData[namespace][key]);\n        pm.environment.set(\"epData\", JSON.stringify(epData));\n    },\n    getValue: function (namespace, key) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        if(epData[namespace] === undefined || epData[namespace] === null) {\n            return null;\n        } else if(epData[namespace][key] === undefined) {\n            return null;\n        }\n        return epData[namespace][key];\n    },\n    usingDataFile: function() {\n        return (Object.keys(pm.iterationData.toObject()).length != 0);\n    },\n    setSkipping: function (skip) {\n        if(skip === true) {\n            pm.variables.set(\"skipFlag\", \"SKIPPING\");\n            console.log(\"Skipping: TRUE\");\n        } else {\n            pm.variables.set(\"skipFlag\", \"\");\n            console.log(\"Skipping: false\");\n        }\n    },\n    skipping: function () {\n        if(pm.variables.get(\"skipFlag\") === \"SKIPPING\") {\n            return true;\n        } else {\n            return false;\n        }\n    }\n};\n"
 		}

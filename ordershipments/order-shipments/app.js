@@ -15,14 +15,11 @@ app.post('/order-fulfillments', async (req, res) => {
 
 		var fulfillment = await fulfillments.postOrderFulfillment(token, req.body.externalId, req.body);
 
-		console.log('Created order fulfillment' + JSON.stringify(fulfillment));
-
 		res
 			.set('Content-Type','application/json')
 			.send(fulfillment);
 	} catch (err) {
-		console.log("Error caught POSTing order fulfillment:  " + err);
-		res.status(err.code).send(JSON.stringify(err));
+		res.status(err.code).send(err.message);
 	}
 });
 
@@ -32,14 +29,11 @@ app.post('/order-fulfillments/:orderId', async (req, res) => {
 
 		var fulfillment = await fulfillments.postOrderFulfillment(token, req.params.orderId, req.body);
 
-		console.log('Created order fulfillment' + JSON.stringify(fulfillment));
-
 		res
 			.set('Content-Type', 'application/json')
 			.send(fulfillment);
 	} catch (err) {
-		console.log("Error caught POSTing order fulfillment:  " + err);
-		res.status(err.code).send(JSON.stringify(err));
+		res.status(err.code).send(err.message);
 	}
 });
 
@@ -62,11 +56,10 @@ app.get('/order-fulfillments/:orderId', async (req, res) => {
 			.set('Content-Type', 'application/json')
 			.send(data);
 	} catch (err) {
-		console.log("Error caught getting order and fulfillments:  " + err);
-		if (err.message && err.message  == "notfound") {
+		if (err.code && err.code == 404) {
 			res.status(404).send("Not found:  " + req.params.productCode);
 		} else {
-			res.status(err.code).send ("Server error" + err);
+			res.status(err.code).send(err.message);
 		}
 	}
 });

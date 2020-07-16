@@ -80,7 +80,7 @@ const createFulfillmentContainer = async function (token, order) {
 
     if (response.status != 201) {
         var result = await response.json();
-		const err = new Error(JSON.stringify(result));
+        const err = new Error('Error creating container:  ' + JSON.stringify(result));
 		err.code = response.status;
 		throw err;
 	}
@@ -103,12 +103,10 @@ const createFulfillmentContainer = async function (token, order) {
     if (response.status != 201) {
         var result = await response.json();
 
-        console.error('Error creating container/order relationship:  ' + JSON.stringify(result));
-
         //  Delete the container since it would be orphaned without the relationship.
         await deleteFulfillmentContainer(token, newContainer.data);
 
-        const err = new Error(JSON.stringify(result));
+        const err = new Error('Error creating container/order relationship:  '+ JSON.stringify(result));
         err.code = response.status;
         throw err;
     }

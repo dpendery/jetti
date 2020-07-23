@@ -1067,12 +1067,12 @@
 							"response": []
 						},
 						{
-							"name": "FULFILLMENT_ITEM.createdAt",
+							"name": "FULFILLMENT_ITEM.itemId",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
-										"id": "eed0dbc1-4374-4bcd-9f3f-6c9c8ac4ddae",
+										"id": "4b38b931-f564-4644-8f16-251b92fbe5ff",
 										"exec": [
 											""
 										],
@@ -1082,7 +1082,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "075c7a16-68e7-432c-bbd7-0b642aaf78e6",
+										"id": "61272694-537b-4eec-97b8-1941a3abf709",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
 											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
@@ -1123,457 +1123,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Created at\",\r\n\t\"slug\": \"createdAt\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Created at\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.externalId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c318a142-76e3-4f13-aede-5e5878fffd51",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "1e5d0d39-ca09-414e-842b-2c3325529c45",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"External ID\",\r\n\t\"slug\": \"externalId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"External ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.fulfillmentId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "9ced16ee-0bbf-4afc-87f7-4d31577ff51a",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "0d9940ed-8290-4e4e-9eca-232796d7620e",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment ID\",\r\n\t\"slug\": \"fulfillmentId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Fulfillment ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.fulfillmentItemId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bf8f6b6f-8997-421b-84b2-bd29ce994a2c",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "255a5106-9b36-4f43-b4c3-597b60e7c0ab",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment Item ID\",\r\n\t\"slug\": \"fulfillmentItemId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Fulfillment Item ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.packed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2a4beb34-a597-401d-bbce-2695811b74a3",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "20e2053a-a4b0-4fcf-a624-c945895453ed",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Packed\",\r\n\t\"slug\": \"packed\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Packed\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.picked",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2d41c708-8e45-4bfa-b4bb-50aacfee047d",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "7c9e7542-f767-48f9-aa13-884457bc3e48",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Picked\",\r\n\t\"slug\": \"picked\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Picked\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.purchaseItemId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "ad4757d0-55e4-42d1-a9bb-89ed8c6c6f1c",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "e41bf8f5-2e50-4e04-897a-5a7d81f7b09d",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Purchase item\",\r\n\t\"slug\": \"purchaseItemId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Purchase item\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Item ID\",\r\n\t\"slug\": \"itemId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Item ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -1648,7 +1198,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Quantity\",\r\n\t\"slug\": \"quantity\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Quantity\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Quantity\",\r\n\t\"slug\": \"quantity\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Quantity\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -1667,12 +1217,12 @@
 							"response": []
 						},
 						{
-							"name": "FULFILLMENT_ITEM.saleItemId",
+							"name": "FULFILLMENT_ITEM => ORDER_ITEM Relationship",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
-										"id": "947396a1-8c3f-47f9-a3c5-e117f2d070a5",
+										"id": "5471e015-7987-4528-84b5-5c07ee68b6b0",
 										"exec": [
 											""
 										],
@@ -1682,9 +1232,9 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f3f17dff-ec0c-48ad-a6c9-2abd0eb4b1c0",
+										"id": "9ef692df-f893-4c37-b21a-76a54b6c4ff7",
 										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
+											"eval(pm.collectionVariables.get('ep'));",
 											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
 										],
 										"type": "text/javascript"
@@ -1723,382 +1273,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Sale item ID\",\r\n\t\"slug\": \"saleItemId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Sale item ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.shipstationId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "749e95b4-129f-4801-a811-924103c9b88d",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "5a999170-c735-4645-91a5-b29d2222cd91",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shipstation ID\",\r\n\t\"slug\": \"shipstationId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Shipstation ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.skipInventoryChange",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3cc30eea-69ae-411a-9bb5-a78333a01536",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "31ddb9d0-328b-48cd-a825-02b95d2e3939",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Skip inventory change\",\r\n\t\"slug\": \"skipInventoryChange\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Skip inventory change\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.updatedAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3e1b0cdd-2a3e-4361-9824-b3c198f5d3fe",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "a46991da-4f4a-4ece-a03b-9a53827fd955",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Updated at\",\r\n\t\"slug\": \"updatedAt\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Updated at\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.warehouseId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "440c6d31-45db-4a0f-8586-e0508c71c559",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "274f6476-de9e-45e1-8618-8825d12a7890",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Warehouse ID\",\r\n\t\"slug\": \"warehouseId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Warehouse ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT_ITEM.xeroId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "5a776064-304d-4467-8420-d2b765bab585",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "b5e30339-7ccb-4060-998c-1df5a0c75ff1",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillmentItems'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Xero ID\",\r\n\t\"slug\": \"xeroId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Xero ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Order Item\",\r\n\t\"slug\": \"orderItem\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"order_items\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Order Item\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -2184,12 +1359,12 @@
 							"response": []
 						},
 						{
-							"name": "FULFILLMENT.adminNotes",
+							"name": "FULFILLMENT.fulfillmentId",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
-										"id": "d0f7ddfe-684c-4e92-8cbb-3472ad53c888",
+										"id": "e76198e6-5f79-446d-83c2-e31b2f8571e1",
 										"exec": [
 											""
 										],
@@ -2199,7 +1374,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f9dc907a-ab69-41ad-817e-9657f3badd1b",
+										"id": "da6fab22-7601-4b45-8f4b-ef8111620bf5",
 										"exec": [
 											"eval(pm.collectionVariables.get('ep'));\r",
 											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
@@ -2240,382 +1415,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Admin notes\",\r\n\t\"slug\": \"adminNotes\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Admin notes\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.aftershipId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e0b33405-e89f-4184-908a-355cdb89b1af",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "6d0f3c0a-f594-4bf3-8806-2a0223e7a916",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"After ship ID\",\r\n\t\"slug\": \"aftershipId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"After ship ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.channelAttempts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "5795c337-7cb4-44d0-a7d2-ecb971420cfa",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "a52c9f7d-b6d1-4f01-ae40-c00f9de065db",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Channel attempts\",\r\n\t\"slug\": \"channelAttempts\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Channel attempts\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.channelError",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d4bbfdd5-025c-4e55-885b-9edf2639cf0d",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "3ed8df3a-e75e-4e12-9518-ef0d84ed48e8",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Channel error\",\r\n\t\"slug\": \"channelError\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Channel error\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.commercialInvoiceUrl",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "693c74fc-e8f8-4c2f-bf7d-9d581c2bc55e",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "781ebe09-7b95-47e9-9dbc-b0c91d52bfac",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Commercial invoice url\",\r\n\t\"slug\": \"commercialInvoiceUrl\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Commercial invoice url\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.createdAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2116b888-9e18-46b6-97fa-6d05db9c0089",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "1589be9e-c023-4d02-ac6d-8228a2836cff",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Created at\",\r\n\t\"slug\": \"createdAt\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Created at\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Fulfillment Id\",\r\n\t\"slug\": \"fulfillmentId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Fulfillment Id\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -2690,307 +1490,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Days\",\r\n\t\"slug\": \"days\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Days\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.durationTerms",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "9f5693cb-f201-459c-84c7-c39fdbfb6c6f",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "5df99b3d-70d5-414f-bdd7-6bcb9e37da20",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Duration terms\",\r\n\t\"slug\": \"durationTerms\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Duration terms\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.externalId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "92b730ad-c472-49da-90a3-74e338f5c47b",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "94b26e9f-f36c-4699-84ff-160f96fad72a",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"External ID\",\r\n\t\"slug\": \"externalId\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"External ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.files",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "382e8026-7904-487e-b86a-c46b8fc5e202",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "329ae9c1-72e5-4437-a7a5-2c2bbc4330ab",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Files\",\r\n\t\"slug\": \"files\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Files\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.fulfillmentType",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "219da521-2a66-48b9-b463-0214c6039ec3",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "810aee25-98f3-483d-b550-fd22989f1d8a",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment Type\",\r\n\t\"slug\": \"fulfillmentType\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Fulfillment Type\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Days\",\r\n\t\"slug\": \"days\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Days\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -3065,157 +1565,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Grams\",\r\n\t\"slug\": \"grams\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Grams\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.fulfillmentId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "81f8f79a-47ef-470f-b7a3-279d352622ed",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "96642f30-9885-4459-8fe6-cea4acd2dbfe",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment ID\",\r\n\t\"slug\": \"fulfillmentId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Fulfillment ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.intercomMessageId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fa7a1266-5b72-4c5b-8280-cb7f4d7d76da",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "6713e0f6-9441-4d9c-9abc-3ed8bdac163c",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Intercom message\",\r\n\t\"slug\": \"intercomMessageId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Intercom message\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Grams\",\r\n\t\"slug\": \"grams\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Grams\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -3290,832 +1640,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Inventory Status\",\r\n\t\"slug\": \"inventoryStatus\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Inventory Status\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.labelError",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "b7c31d16-f5f1-499e-a4a5-944d82a8640d",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "97fc26b1-46a0-44af-b684-e6cefb295221",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Label error\",\r\n\t\"slug\": \"labelError\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Label error\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.labelFileFormat",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "05d339fb-02ce-4d57-a488-fd12389bcadf",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "581b506c-7bfa-4e77-950a-7f09b564a2c8",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Label File Format\",\r\n\t\"slug\": \"labelFileFormat\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Label File Format\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.labelFiles",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "b631f8a2-575e-4181-9dc5-72ec31c2d365",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "2fd93657-756f-442f-8e14-7d46120b09de",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Label files\",\r\n\t\"slug\": \"labelFiles\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Label files\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.labelRefund",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "a9c0c41b-fc8a-42ed-ba2e-d1a228e4e8de",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "55915e30-734a-49f5-9b69-0e5c718d6d46",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Label refund\",\r\n\t\"slug\": \"labelRefund\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Label refund\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.labelUrl",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e7cff375-3aa7-465e-9402-2253cd837a27",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "cd85b8ca-1f62-4b63-a729-d6491c086bd7",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Label url\",\r\n\t\"slug\": \"labelUrl\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Label url\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.manifestId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "0f8aa86d-8b28-4526-904a-cb6d3b512c70",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "f383f759-0db0-40c3-8d23-644c31ff5f62",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Manifest ID\",\r\n\t\"slug\": \"manifestId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Manifest ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.muteError",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "00c060b8-46fc-4204-8760-481fe145705d",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "556c733e-73a3-4402-a5ff-00ddc9c442e6",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Mute error\",\r\n\t\"slug\": \"muteError\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Mute error\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.packed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "9a0eec9e-d77d-44e1-bff0-62d18f0fe9f7",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "997bfdd6-85a9-46ab-bfb2-fca84775e0f4",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Packed\",\r\n\t\"slug\": \"packed\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Packed\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.packedAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "7fbf5fd1-4ed6-42d4-9ed7-bb877ede83c1",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "53b41864-3c97-48cc-8a99-beb40dad5194",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Packed at\",\r\n\t\"slug\": \"packedAt\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Packed At\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.picked",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "db906141-4309-427e-8005-aa40bf9cae4e",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "5f9b0e15-4333-4371-a6ab-5738dcf31193",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Picked\",\r\n\t\"slug\": \"picked\",\r\n\t\"field_type\": \"boolean\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Picked\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.pickedAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d7ea3fa7-e8ec-4657-a109-923aa22d0dd2",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "3cb4426d-88a9-4b34-89ec-0cbcaa36ab51",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Picked At\",\r\n\t\"slug\": \"pickedAt\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Picked At\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Inventory Status\",\r\n\t\"slug\": \"inventoryStatus\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Inventory Status\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4190,7 +1715,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Price\",\r\n\t\"slug\": \"price\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Price\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Price\",\r\n\t\"slug\": \"price\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Price\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4265,7 +1790,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Provider\",\r\n\t\"slug\": \"provider\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Provider\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Provider\",\r\n\t\"slug\": \"provider\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Provider\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4340,7 +1865,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Quote ID\",\r\n\t\"slug\": \"quoteId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Quote ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Quote ID\",\r\n\t\"slug\": \"quoteId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Quote ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4415,7 +1940,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Reference\",\r\n\t\"slug\": \"reference\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Reference\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Reference\",\r\n\t\"slug\": \"reference\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Reference\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4490,82 +2015,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Requires Shipping Approval\",\r\n\t\"slug\": \"requiresShippingApproval\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Requires Shipping Approval\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.saleId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "82b7ad26-e3ff-4f9c-a1a1-37540cb6115a",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "c07279dd-8331-467c-a0d0-31eb76f4ecd6",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Sale ID\",\r\n\t\"slug\": \"saleId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Sale ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Requires Shipping Approval\",\r\n\t\"slug\": \"requiresShippingApproval\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Requires Shipping Approval\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4640,7 +2090,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Service level\",\r\n\t\"slug\": \"serviceLevel\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Service level\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Service level\",\r\n\t\"slug\": \"serviceLevel\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Service level\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -4715,382 +2165,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Service level terms\",\r\n\t\"slug\": \"serviceLevelTerms\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Service level terms\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.shippedAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3e735969-d91c-482b-84a6-706c41685ea8",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "6de64732-a3d1-4467-82a7-62992408276d",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shipped at\",\r\n\t\"slug\": \"shippedAt\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Shipped at\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.shippoLabelIds",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "9ca35c5f-c2b6-4242-b28a-1478ab3b5b33",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "db1352cf-5b3f-474d-9a80-1bd566c6c38b",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shippo label ids\",\r\n\t\"slug\": \"shippoLabelIds\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Shippo label ids\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.shipstationId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bccac09f-01e6-4419-8f0b-080a78ece4f2",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "b9df1c5d-3299-45b4-b8d4-a7f51b34b7fc",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Shipstation\",\r\n\t\"slug\": \"shipstationId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Shipstation\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.status",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3d746405-cc7c-488d-827e-ff4693db687e",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "1e3bbfcd-b978-4144-859d-f21ef166d16a",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Status\",\r\n\t\"slug\": \"status\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Status\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.tags",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e3736f88-1b8d-443a-b09d-c82c49197ba3",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "557db73d-4960-490e-be8b-75ae71201a6d",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tags\",\r\n\t\"slug\": \"Tags\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tags\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Service level terms\",\r\n\t\"slug\": \"serviceLevelTerms\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Service level terms\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5165,7 +2240,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking company\",\r\n\t\"slug\": \"trackingCompany\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking company\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking company\",\r\n\t\"slug\": \"trackingCompany\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking company\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5240,7 +2315,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking number\",\r\n\t\"slug\": \"trackingNumber\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking number\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking number\",\r\n\t\"slug\": \"trackingNumber\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking number\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5315,7 +2390,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking Status\",\r\n\t\"slug\": \"trackingStatus\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking Status\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking Status\",\r\n\t\"slug\": \"trackingStatus\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking Status\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5390,7 +2465,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking status date\",\r\n\t\"slug\": \"trackingStatusDate\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking status date\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking status date\",\r\n\t\"slug\": \"trackingStatusDate\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking status date\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5465,7 +2540,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking status details\",\r\n\t\"slug\": \"trackingStatusDetails\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking status details\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking status details\",\r\n\t\"slug\": \"trackingStatusDetails\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking status details\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5540,232 +2615,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Tracking url\",\r\n\t\"slug\": \"trackingUrl\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking url\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.updatedAt",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "b83df513-2bb6-4f7c-89d5-61e937e301da",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "56abe83f-c2df-4f5d-bcf4-3d4dd60dbd8e",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Updated at\",\r\n\t\"slug\": \"updatedAt\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Updated at\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.userId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "b8d44a08-3361-46df-8536-cdd7b6891587",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "b469aacf-161e-4bc5-b7bc-89367eac9175",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"User ID\",\r\n\t\"slug\": \"userId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"User ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
-								},
-								"url": {
-									"raw": "https://api.moltin.com/v2/fields",
-									"protocol": "https",
-									"host": [
-										"api",
-										"moltin",
-										"com"
-									],
-									"path": [
-										"v2",
-										"fields"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FULFILLMENT.xeroId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "0167e9ef-611c-45f4-ba52-8ed85f48b4a0",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "a7933d3c-0418-4d8b-aa31-47702554c7ad",
-										"exec": [
-											"eval(pm.collectionVariables.get('ep'));\r",
-											"pm.variables.set('flowId', ep.getValue('flows/slugToIdMapping', 'fulfillments'));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"description": "Divert from default language",
-										"key": "X-MOLTIN-LANGUAGE",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change from default currency",
-										"key": "X-MOLTIN-CURRENCY",
-										"value": "",
-										"disabled": true
-									},
-									{
-										"description": "Change default locale",
-										"key": "X-MOLTIN_LOCALE",
-										"value": "",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Xero ID\",\r\n\t\"slug\": \"xeroId\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Xero ID\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Tracking url\",\r\n\t\"slug\": \"trackingUrl\",\r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n    ],\r\n\t\"description\": \"Tracking url\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5840,7 +2690,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment Items\",\r\n\t\"slug\": \"fulfillmentItems\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"fulfillmentItems\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillment Items\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Fulfillment Items\",\r\n\t\"slug\": \"fulfillmentItems\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"fulfillmentItems\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillment Items\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -5983,7 +2833,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Slug\",\r\n\t\"slug\": \"slug\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n            {\r\n                \"type\": \"slug\"\r\n            }\r\n    ],\r\n\t\"description\": \"Slug\",\r\n\t\"required\": true,\r\n\t\"unique\": true, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Slug\",\r\n\t\"slug\": \"slug\",  \r\n\t\"field_type\": \"string\",\r\n\t\"validation_rules\": [\r\n            {\r\n                \"type\": \"slug\"\r\n            }\r\n    ],\r\n\t\"description\": \"Slug\",\r\n\t\"required\": true,\r\n\t\"unique\": true, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -6058,7 +2908,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillments\",\r\n\t\"slug\": \"fulfillments\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"fulfillments\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Fulfillments\",\r\n\t\"slug\": \"fulfillments\", \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-many\",\r\n          \"to\": \"fulfillments\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillments\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -6133,7 +2983,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Order\",\r\n\t\"slug\": \"order\",  \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"orders\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Order\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Order\",\r\n\t\"slug\": \"order\",  \r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"orders\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Order\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -6279,7 +3129,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"field\",  \r\n\t\"name\": \"Fulfillment Container\",\r\n\t\"slug\": \"fulfillmentContainer\",\r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"fulfillmentContainer\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillment Container\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
+									"raw": "{\r\n\t\"data\": {  \r\n\t\"type\": \"fields\",  \r\n\t\"name\": \"Fulfillment Container\",\r\n\t\"slug\": \"fulfillmentContainer\",\r\n\t\"field_type\": \"relationship\",\r\n\t\"validation_rules\": [\r\n\t\t{\r\n          \"type\": \"one-to-one\",\r\n          \"to\": \"fulfillmentContainer\"\r\n    \t}\r\n    ],\r\n\t\"description\": \"Fulfillment Container\",\r\n\t\"required\": false,\r\n\t\"unique\": false, \r\n\t\"enabled\": true,  \r\n\t\"omit_null\": true,\r\n\t\"relationships\": {      \r\n\t\t\"flow\": {   \r\n\t\t\t\"data\": {              \r\n\t\t\t\t\"type\": \"flow\",              \r\n\t\t\t\t\"id\": \"{{flowId}}\"\r\n\t\t\t}\r\n\t\t}  \r\n\t}\r\n}    \r\n}"
 								},
 								"url": {
 									"raw": "https://api.moltin.com/v2/fields",
@@ -7957,7 +4807,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.moltin.com/v2/flows/fulfillments/entries/c8332091-c8eb-4362-bb42-8ab7e0f5a0c1?include=fulfillmentItems",
+							"raw": "https://api.moltin.com/v2/flows/fulfillments/entries/d80ef620-1b93-4f6f-b2dc-4692b303bcab?include=fulfillmentItems",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -7969,7 +4819,7 @@
 								"flows",
 								"fulfillments",
 								"entries",
-								"c8332091-c8eb-4362-bb42-8ab7e0f5a0c1"
+								"d80ef620-1b93-4f6f-b2dc-4692b303bcab"
 							],
 							"query": [
 								{
@@ -8070,6 +4920,107 @@
 								"flows",
 								"fulfillmentItems",
 								"entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Fulfillment Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b473472-db77-414f-83cc-651482d3c2b6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2ff4d38e-acbc-4f4a-bad3-dc735c65f62e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{client_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}",
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+							},
+							{
+								"description": "Divert from default language",
+								"key": "X-MOLTIN-LANGUAGE",
+								"value": "",
+								"disabled": true
+							},
+							{
+								"description": "Change from default currency",
+								"key": "X-MOLTIN-CURRENCY",
+								"value": "",
+								"disabled": true
+							},
+							{
+								"description": "Change default locale",
+								"key": "X-MOLTIN_LOCALE",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.moltin.com/v2/flows/fulfillmentItems/entries/41d08bdd-78cc-4d09-aebf-7f6eed2cb2b6?include=orderItem",
+							"protocol": "https",
+							"host": [
+								"api",
+								"moltin",
+								"com"
+							],
+							"path": [
+								"v2",
+								"flows",
+								"fulfillmentItems",
+								"entries",
+								"41d08bdd-78cc-4d09-aebf-7f6eed2cb2b6"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "orderItem"
+								}
 							]
 						}
 					},
@@ -8831,47 +5782,7 @@
 			"name": "Function Requests",
 			"item": [
 				{
-					"name": "Add Fulfillment with order ID",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "x-ep-jetti-secret-key",
-								"value": "my_secret_key",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"10\",\r\n\t\"adminNotes\": \"Admin notes\",\r\n\t\"aftershipId\": \"Aftership ID\",\r\n\t\"channelAttempts\": \"Channel attempts\",\r\n\t\"channelError\": \"Channel error\",\r\n\t\"commercialInvoiceUrl\": \"Commercial invoice url\",\r\n\t\"createdAt\": \"Created at\",\r\n\t\"days\": \"Days\",\r\n\t\"durationTerms\": \"Duration terms\",\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"files\": \"Files\",\r\n\t\"fulfillmentType\": \"Fulfillment Type\",\r\n\t\"grams\": \"Grams\",\r\n\t\"intercomMessageId\": \"Intercom message\",\r\n\t\"inventoryStatus\": \"Inventory Status\",\r\n\t\"labelError\": \"Label error\",\r\n\t\"labelFileFormat\": \"Label File Format\",\r\n\t\"labelFiles\": \"Label files\",\r\n\t\"labelRefund\": false,\r\n\t\"labelUrl\": \"Label url\",\r\n\t\"manifestId\": \"Manifest\",\r\n\t\"muteError\": false,\r\n\t\"packed\": false,\r\n\t\"packedAt\": \"Packed at\",\r\n\t\"picked\": false,\r\n\t\"pickedAt\": \"Picked at\",\r\n\t\"price\": \"Price\",\r\n\t\"provider\": \"Provider\",\r\n\t\"quoteId\": \"Quote\",\r\n\t\"reference\": \"Reference\",\r\n\t\"requiresShippingApproval\": \"Requires Shipping Approval\",\r\n\t\"saleId\": \"Sale ID\",\r\n\t\"serviceLevel\": \"Service level\",\r\n\t\"serviceLevelTerms\": \"Service level terms\",\r\n\t\"shippedAt\": \"Shipped at\",\r\n\t\"shippoLabelIds\": \"Shippo label ids\",\r\n\t\"shipstationId\": \"Shipstation\",\r\n\t\"status\": \"Status\",\r\n\t\"tags\": \"Tags\",\r\n\t\"trackingCompany\": \"Tracking company\",\r\n\t\"trackingNumber\": \"Tracking number\",\r\n\t\"trackingStatus\": \"Tracking Status\",\r\n\t\"trackingStatusDate\": \"Tracking status date\",\r\n\t\"trackingStatusDetails\": \"Tracking status details\",\r\n\t\"trackingUrl\": \"Tracking url\",\r\n\t\"updatedAt\": \"Updated at\",\r\n\t\"userId\": \"User\",\r\n\t\"xeroId\": \"Xero\",\r\n\t\"fulfillmentItems\": [\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"10\",\r\n\t\t\t\"id\": \"10-1\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"10\",\r\n\t\t\t\"id\": \"10-2\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t}\r\n\t]\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/order-fulfillments/92cf4c1f-4e46-4229-acec-3021e0d8b36d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"order-fulfillments",
-								"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add Fulfillment generic",
+					"name": "Add Fulfillment",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -8889,11 +5800,21 @@
 								"key": "x-ep-jetti-secret-key",
 								"type": "text",
 								"value": "my_secret_key"
+							},
+							{
+								"key": "jetti-order-hash",
+								"value": "c119eca5a16c3787af74e480c573d132cb5ad5e415c2d2701338b049f1f876e5",
+								"type": "text"
+							},
+							{
+								"key": "jetti-store-id",
+								"value": "2226154063169323989",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"1\",\r\n\t\"adminNotes\": \"Admin notes\",\r\n\t\"aftershipId\": \"Aftership ID\",\r\n\t\"channelAttempts\": \"Channel attempts\",\r\n\t\"channelError\": \"Channel error\",\r\n\t\"commercialInvoiceUrl\": \"Commercial invoice url\",\r\n\t\"createdAt\": \"Created at\",\r\n\t\"days\": \"Days\",\r\n\t\"durationTerms\": \"Duration terms\",\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"files\": \"Files\",\r\n\t\"fulfillmentType\": \"Fulfillment Type\",\r\n\t\"grams\": \"Grams\",\r\n\t\"intercomMessageId\": \"Intercom message\",\r\n\t\"inventoryStatus\": \"Inventory Status\",\r\n\t\"labelError\": \"Label error\",\r\n\t\"labelFileFormat\": \"Label File Format\",\r\n\t\"labelFiles\": \"Label files\",\r\n\t\"labelRefund\": false,\r\n\t\"labelUrl\": \"Label url\",\r\n\t\"manifestId\": \"Manifest\",\r\n\t\"muteError\": false,\r\n\t\"packed\": false,\r\n\t\"packedAt\": \"Packed at\",\r\n\t\"picked\": false,\r\n\t\"pickedAt\": \"Picked at\",\r\n\t\"price\": \"Price\",\r\n\t\"provider\": \"Provider\",\r\n\t\"quoteId\": \"Quote\",\r\n\t\"reference\": \"Reference\",\r\n\t\"requiresShippingApproval\": \"Requires Shipping Approval\",\r\n\t\"saleId\": \"Sale ID\",\r\n\t\"serviceLevel\": \"Service level\",\r\n\t\"serviceLevelTerms\": \"Service level terms\",\r\n\t\"shippedAt\": \"Shipped at\",\r\n\t\"shippoLabelIds\": \"Shippo label ids\",\r\n\t\"shipstationId\": \"Shipstation\",\r\n\t\"status\": \"Status\",\r\n\t\"tags\": \"Tags\",\r\n\t\"trackingCompany\": \"Tracking company\",\r\n\t\"trackingNumber\": \"Tracking number\",\r\n\t\"trackingStatus\": \"Tracking Status\",\r\n\t\"trackingStatusDate\": \"Tracking status date\",\r\n\t\"trackingStatusDetails\": \"Tracking status details\",\r\n\t\"trackingUrl\": \"Tracking url\",\r\n\t\"updatedAt\": \"Updated at\",\r\n\t\"userId\": \"User\",\r\n\t\"xeroId\": \"Xero\",\r\n\t\"fulfillmentItems\": [\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"1\",\r\n\t\t\t\"id\": \"1-1\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"1\",\r\n\t\t\t\"id\": \"1-2\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t}\r\n\t]\r\n}"
+							"raw": "{\r\n\t\"instance\": {\r\n\t\t\"id\": \"6\",\r\n\t\t\"days\": \"Days\",\r\n\t\t\"grams\": \"Grams\",\r\n\t\t\"inventoryStatus\": \"Inventory Status\",\r\n\t\t\"price\": \"Price\",\r\n\t\t\"provider\": \"Provider\",\r\n\t\t\"quoteId\": \"Quote\",\r\n\t\t\"reference\": \"Reference\",\r\n\t\t\"requiresShippingApproval\": \"Requires Shipping Approval\",\r\n\t\t\"serviceLevel\": \"Service level\",\r\n\t\t\"serviceLevelTerms\": \"Service level terms\",\r\n\t\t\"trackingCompany\": \"Tracking company\",\r\n\t\t\"trackingNumber\": \"Tracking number\",\r\n\t\t\"trackingStatus\": \"Tracking Status\",\r\n\t\t\"trackingStatusDate\": \"Tracking status date\",\r\n\t\t\"trackingStatusDetails\": \"Tracking status details\",\r\n\t\t\"trackingUrl\": \"Tracking url\"\r\n\t},\r\n\t\"fulfillmentItems\": [\r\n\t\t{\r\n\t\t\t\"id\": \"6-1\",\r\n\t\t\t\"quantity\": \"1\",\r\n\t\t\t\"sale_item\": {\r\n\t\t\t\t\"externalId\": \"24eab761-748a-46c1-9b9f-ac3ec2f569d6\"\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t\"sale\": {\r\n\t\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\"\t\t\r\n\t}\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/order-fulfillments/",
@@ -8931,6 +5852,17 @@
 							{
 								"key": "x-ep-jetti-secret-key",
 								"value": "my_secret_key",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "jetti-order-hash",
+								"value": "c119eca5a16c3787af74e480c573d132cb5ad5e415c2d2701338b049f1f876e5",
+								"type": "text"
+							},
+							{
+								"key": "jetti-store-id",
+								"value": "2226154063169323989",
 								"type": "text"
 							}
 						],
@@ -8976,7 +5908,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"10\",\r\n\t\"adminNotes\": \"Admin notes\",\r\n\t\"aftershipId\": \"Aftership ID\",\r\n\t\"channelAttempts\": \"Channel attempts\",\r\n\t\"channelError\": \"Channel error\",\r\n\t\"commercialInvoiceUrl\": \"Commercial invoice url\",\r\n\t\"createdAt\": \"Created at\",\r\n\t\"days\": \"Days\",\r\n\t\"durationTerms\": \"Duration terms\",\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"files\": \"Files\",\r\n\t\"fulfillmentType\": \"Fulfillment Type\",\r\n\t\"grams\": \"Grams\",\r\n\t\"intercomMessageId\": \"Intercom message\",\r\n\t\"inventoryStatus\": \"Inventory Status\",\r\n\t\"labelError\": \"Label error\",\r\n\t\"labelFileFormat\": \"Label File Format\",\r\n\t\"labelFiles\": \"Label files\",\r\n\t\"labelRefund\": false,\r\n\t\"labelUrl\": \"Label url\",\r\n\t\"manifestId\": \"Manifest\",\r\n\t\"muteError\": false,\r\n\t\"packed\": false,\r\n\t\"packedAt\": \"Packed at\",\r\n\t\"picked\": false,\r\n\t\"pickedAt\": \"Picked at\",\r\n\t\"price\": \"Price\",\r\n\t\"provider\": \"Provider\",\r\n\t\"quoteId\": \"Quote\",\r\n\t\"reference\": \"Reference\",\r\n\t\"requiresShippingApproval\": \"Requires Shipping Approval\",\r\n\t\"saleId\": \"Sale ID\",\r\n\t\"serviceLevel\": \"Service level\",\r\n\t\"serviceLevelTerms\": \"Service level terms\",\r\n\t\"shippedAt\": \"Shipped at\",\r\n\t\"shippoLabelIds\": \"Shippo label ids\",\r\n\t\"shipstationId\": \"Shipstation\",\r\n\t\"status\": \"Status\",\r\n\t\"tags\": \"Tags\",\r\n\t\"trackingCompany\": \"Tracking company\",\r\n\t\"trackingNumber\": \"Tracking number\",\r\n\t\"trackingStatus\": \"Tracking Status\",\r\n\t\"trackingStatusDate\": \"Tracking status date\",\r\n\t\"trackingStatusDetails\": \"Tracking status details\",\r\n\t\"trackingUrl\": \"Tracking url\",\r\n\t\"updatedAt\": \"Updated at\",\r\n\t\"userId\": \"User\",\r\n\t\"xeroId\": \"Xero\",\r\n\t\"fulfillmentItems\": [\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"10\",\r\n\t\t\t\"id\": \"10-1\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"10\",\r\n\t\t\t\"id\": \"10-2\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t}\r\n\t]\r\n}"
+							"raw": "{\r\n\t\"id\": \"5\",\r\n\t\"adminNotes\": \"Admin notes\",\r\n\t\"aftershipId\": \"Aftership ID\",\r\n\t\"channelAttempts\": \"Channel attempts\",\r\n\t\"channelError\": \"Channel error\",\r\n\t\"commercialInvoiceUrl\": \"Commercial invoice url\",\r\n\t\"createdAt\": \"Created at\",\r\n\t\"days\": \"Days\",\r\n\t\"durationTerms\": \"Duration terms\",\r\n\t\"externalId\": \"92cf4c1f-4e46-4229-acec-3021e0d8b36d\",\r\n\t\"files\": \"Files\",\r\n\t\"fulfillmentType\": \"Fulfillment Type\",\r\n\t\"grams\": \"Grams\",\r\n\t\"intercomMessageId\": \"Intercom message\",\r\n\t\"inventoryStatus\": \"Inventory Status\",\r\n\t\"labelError\": \"Label error\",\r\n\t\"labelFileFormat\": \"Label File Format\",\r\n\t\"labelFiles\": \"Label files\",\r\n\t\"labelRefund\": false,\r\n\t\"labelUrl\": \"Label url\",\r\n\t\"manifestId\": \"Manifest\",\r\n\t\"muteError\": false,\r\n\t\"packed\": false,\r\n\t\"packedAt\": \"Packed at\",\r\n\t\"picked\": false,\r\n\t\"pickedAt\": \"Picked at\",\r\n\t\"price\": \"Price\",\r\n\t\"provider\": \"Provider\",\r\n\t\"quoteId\": \"Quote\",\r\n\t\"reference\": \"Reference\",\r\n\t\"requiresShippingApproval\": \"Requires Shipping Approval\",\r\n\t\"saleId\": \"Sale ID\",\r\n\t\"serviceLevel\": \"Service level\",\r\n\t\"serviceLevelTerms\": \"Service level terms\",\r\n\t\"shippedAt\": \"Shipped at\",\r\n\t\"shippoLabelIds\": \"Shippo label ids\",\r\n\t\"shipstationId\": \"Shipstation\",\r\n\t\"status\": \"Status\",\r\n\t\"tags\": \"Tags\",\r\n\t\"trackingCompany\": \"Tracking company\",\r\n\t\"trackingNumber\": \"Tracking number\",\r\n\t\"trackingStatus\": \"Tracking Status\",\r\n\t\"trackingStatusDate\": \"Tracking status date\",\r\n\t\"trackingStatusDetails\": \"Tracking status details\",\r\n\t\"trackingUrl\": \"Tracking url\",\r\n\t\"updatedAt\": \"Updated at\",\r\n\t\"userId\": \"User\",\r\n\t\"xeroId\": \"Xero\",\r\n\t\"fulfillmentItems\": [\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"5\",\r\n\t\t\t\"id\": \"5-1\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"createdAt\": \"Created at\",\r\n\t\t\t\"externalId\": \"External ID\",\r\n\t\t\t\"fulfillmentId\": \"5\",\r\n\t\t\t\"id\": \"5-2\",\r\n\t\t\t\"packed\": true,\r\n\t\t\t\"picked\": true,\r\n\t\t\t\"purchaseItemId\": \"Purchase item\",\r\n\t\t\t\"quantity\": \"Quantity\",\r\n\t\t\t\"saleItemId\": \"Sale item\",\r\n\t\t\t\"shipstationId\": \"Shipstation ID\",\r\n\t\t\t\"skipInventoryChange\": false,\r\n\t\t\t\"updatedAt\": \"Updated at\",\r\n\t\t\t\"warehouseId\": \"Warehouse ID\",\r\n\t\t\t\"xeroId\": \"Xero\"\t\t\t\r\n\t\t}\r\n\t]\r\n}"
 						},
 						"url": {
 							"raw": "https://49r0gdsmq5.execute-api.eu-west-2.amazonaws.com/order-fulfillments/",
@@ -9169,7 +6101,7 @@
 	],
 	"variable": [
 		{
-			"id": "126088cd-bb3c-4e26-951a-65d8922f6190",
+			"id": "c169111d-570a-4ef8-8d4e-48c638e7cefd",
 			"key": "ep",
 			"value": "\nvar ep = { \n    setValue: function (namespace, key, value) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        if(epData[namespace] === null || epData[namespace] === undefined) {\n            //console.log(\"init\");\n            epData[namespace] = {};\n        }\n        epData[namespace][key] = value;\n        //console.log(\"epData[\" + namespace + \"]: \" + epData[namespace]);\n        //console.log(\"epData[\" + namespace + \"][\" + key + \"]: \" + epData[namespace][key]);\n        pm.environment.set(\"epData\", JSON.stringify(epData));\n    },\n    getValue: function (namespace, key) {\n        var epData = JSON.parse(pm.environment.get(\"epData\"));\n        if(epData[namespace] === undefined || epData[namespace] === null) {\n            return null;\n        } else if(epData[namespace][key] === undefined) {\n            return null;\n        }\n        return epData[namespace][key];\n    },\n    usingDataFile: function() {\n        return (Object.keys(pm.iterationData.toObject()).length != 0);\n    },\n    setSkipping: function (skip) {\n        if(skip === true) {\n            pm.variables.set(\"skipFlag\", \"SKIPPING\");\n            console.log(\"Skipping: TRUE\");\n        } else {\n            pm.variables.set(\"skipFlag\", \"\");\n            console.log(\"Skipping: false\");\n        }\n    },\n    skipping: function () {\n        if(pm.variables.get(\"skipFlag\") === \"SKIPPING\") {\n            return true;\n        } else {\n            return false;\n        }\n    }\n};\n"
 		}

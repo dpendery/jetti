@@ -84,43 +84,41 @@ Add the following HTTP headers to the requests:
 
 |Header|Value|
 |---|---|
-|x-ep-jetti-secret-key|Your Jetti API secret key|
+|jetti-store-id|EP CC Store ID|
+|jetti-order-hash|Encrypted Hash of the EP CC Store ID combined with the secret key|
 |Content-Type|application/json|
+
+The jetti-order-hash must be the value from the following logic:
+
+```
+crypto.createHmac('sha256', 'SECRET_KEY').update('EP CC Order Id').digest('hex')
+```
 
 ## POST Shipment Request to generic URI
 
 POST http://host:port/context/order-shipments/
 
-Specify the following JSON body:
+Specify the JSON body using the Jetti format, e.g:
 
 ```
 {
-	"externalId": "EP CC Order ID",
-	"shipment_id": "xxxxx",
-	"tracking_id": "xxxxx",
-	"carrier": "xxxxx"
-}
-```
-
-This creates a new entry in the shipments flow, a relationship from the shipment to an entry in the shipmentcontainers flow, and a relationship from the orders flow to the shipmentcontainers entry.
-
-*Note:  the final structure is TBD.*
-
-## POST Shipment Request with order ID in URI
-
-This is an alternative to the generic URI.
-
-POST http://host:port/context/order-shipments/:epCCOrderId
-
-epCCOrderId must be the EP CC order ID.
-
-Specify the following JSON body:
-
-```
-{
-	"shipment_id": "xxxxx",
-	"tracking_id": "xxxxx",
-	"carrier": "xxxxx"
+  "instance": {
+    "id": 32,
+	...
+  },
+  "fulfillmentItems": [
+    {
+      "id": 32,
+      "sale_item": {
+        "externalId": null,
+		...
+      }
+    }
+  ],
+  "sale": {
+    "externalId": "sale-external-id",
+	...
+  }
 }
 ```
 
@@ -164,6 +162,7 @@ cd $SOURCE_PATH/ordershipments/order-shipments
 npm start
 ```
 
+
 # Deploying to AWS
 
 **Prerequisites**
@@ -181,8 +180,12 @@ Define the following secure string parameters in the AWS account and region in w
 |Name|Value|
 |---|---|
 |/jetti/EpccClientSecret|EP CC Account Client Secret|
-|/jetti/EpccClientId|EP CC Account Client ID|
-|/jetti/EpJettiSecretKey|Value of the secret key to be sent by Jetti client in x-ep-jetti-secret-key HTTP header|
+|/jetti/:storeId/EpccClientId|EP CC Account Client ID|
+|/jetti/:storeId/EpJettiSecretKey|Value of the secret key to be sent by Jetti client in x-ep-jetti-secret-key HTTP header|
+
+where the :storeId specifies the EP CC store ID.
+
+Configure a EpccClientId and EpJettiSecretKey parameter for each EP CC store to be supported.
 
 *Warning:  these parameters should be made secure as free text will allow them to be visible.*
 
@@ -203,3 +206,22 @@ sam deploy --template-file package.yml --stack-name jetti-poc --capabilities CAP
 *Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.  For now "jetti-poc" should be sufficient.*
 
 *Note:  Be sure to specify an appropriate AWS profile when there are multiple profiles.*
+
+
+# Running Locally but Using AWS Parameters
+
+*Note:  the AWS client must be installed and configured to connect to an account.*
+
+Configure the parameters in the AWS account and region as described above.
+
+Set the environment variable LOCAL_NODEJS_ENV to false or clear it completely in the shell.
+
+Set the AWS_REGION environment variable to the appropriate region.
+
+Run the following command:
+
+``` 
+cd $SOURCE_PATH/ordershipments/order-shipments
+
+npm start
+```

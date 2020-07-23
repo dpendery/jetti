@@ -5,6 +5,7 @@
  * Also verifies the secret key HTTP header to sure only appropriate clients may access the services.
  */
 
+const crypto = require('crypto');
 const fetch = require('node-fetch');
 const { Headers } = require('node-fetch');
 
@@ -13,7 +14,8 @@ const parameters = require('./parameters');
 const clientCredentialsGrantType = "client_credentials";
 const epccAuthenticationUrl = "https://api.moltin.com/oauth/access_token";
 
-const SECRET_KEY_HEADER = "x-ep-jetti-secret-key";
+const SECRET_KEY_HEADER = "jetti-order-hash";
+const JETTI_STORE_ID_HEADER = "jetti-store-id";
 
 var clientCredentialsTokenData = null;
 var tokenLastRequestTime = null;
@@ -25,7 +27,16 @@ var tokenLastRequestTime = null;
 var requestClientCredentialsToken = async function (req) {
 
 	// Verify the secret key HTTP header before continuing.
-	var requestSecretKey = req.get(SECRET_KEY_HEADER);
+	var requestOrderHash = req.get(SECRET_KEY_HEADER);
+
+	if (!requestOrderHash) {
+		console.error("Invalid Jetti Secret Key.");
+		var newErr = new Error("Invalid Jetti Secret Key");
+		newErr.code = 403;
+		throw newErr;
+	}
+
+	var requestStoreId = req.get(JETTI_STORE_ID_HEADER);
 	var secretKey;
 
 	try {
@@ -35,9 +46,11 @@ var requestClientCredentialsToken = async function (req) {
 		var newErr = new Error("Invalid EP Jetti Secret Key");
 		newErr.code = 403;
 		throw newErr;
-    }
+	}
+	
+	var secretKeyHash = crypto.createHmac('sha256', secretKey).update(requestStoreId).digest('hex');
 
-	if (!requestSecretKey || requestSecretKey != secretKey) {
+	if (requestOrderHash != secretKeyHash) {
 		console.error("EP Jetti Secret Key doesn't match.");
 		var newErr = new Error("Invalid EP Jetti Secret Key");
 		newErr.code = 403;

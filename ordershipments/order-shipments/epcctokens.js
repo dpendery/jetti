@@ -30,20 +30,28 @@ var requestClientCredentialsToken = async function (req) {
 	var requestOrderHash = req.get(SECRET_KEY_HEADER);
 
 	if (!requestOrderHash) {
-		console.error("Invalid Jetti Secret Key.");
-		var newErr = new Error("Invalid Jetti Secret Key");
+		console.error("Invalid Secret Key.");
+		var newErr = new Error("Invalid Secret Key");
 		newErr.code = 403;
 		throw newErr;
 	}
 
 	var requestStoreId = req.get(JETTI_STORE_ID_HEADER);
+
+	if (!requestStoreId) {
+		console.error("Invalid Store ID.");
+		var newErr = new Error("Invalid Store ID");
+		newErr.code = 403;
+		throw newErr;
+	}
+
 	var secretKey;
 
 	try {
 		secretKey = await parameters.getParameter('/jetti/EpJettiSecretKey', 'EP_JETTI_SECRET_KEY');
 	} catch (err) {
-		console.error("Can't get EP Jetti Secret Key parameter: " + JSON.stringify(err));
-		var newErr = new Error("Invalid EP Jetti Secret Key");
+		console.error("Can't get Secret Key parameter: " + JSON.stringify(err));
+		var newErr = new Error("Invalid Secret Key");
 		newErr.code = 403;
 		throw newErr;
 	}
@@ -51,8 +59,8 @@ var requestClientCredentialsToken = async function (req) {
 	var secretKeyHash = crypto.createHmac('sha256', secretKey).update(requestStoreId).digest('hex');
 
 	if (requestOrderHash != secretKeyHash) {
-		console.error("EP Jetti Secret Key doesn't match.");
-		var newErr = new Error("Invalid EP Jetti Secret Key");
+		console.error("Secret Key doesn't match.");
+		var newErr = new Error("Invalid Secret Key");
 		newErr.code = 403;
 		throw newErr;
     }
@@ -67,8 +75,11 @@ var requestClientCredentialsToken = async function (req) {
 	var clientSecret;
 
 	try {
-		clientId = await parameters.getParameter('/jetti/EpccClientId', 'EPCC_CLIENT_ID');
-		clientSecret = await parameters.getParameter('/jetti/EpccClientSecret', 'EPCC_CLIENT_SECRET');
+		var parameterPath = '/jetti' + requestStoreId + '/EpccClientId';
+		clientId = await parameters.getParameter(parameterPath, 'EPCC_CLIENT_ID');
+
+		parameterPath = '/jetti' + requestStoreId + '/EpccClientSecret';
+		clientSecret = await parameters.getParameter(parameterPath, 'EPCC_CLIENT_SECRET');
 	} catch (err) {
 		console.error("Can't get EpccClientId or EpccClientSecret parameter: " + JSON.stringify(err));
 		var newErr = new Error("Invalid EP CC Client ID or Secret");

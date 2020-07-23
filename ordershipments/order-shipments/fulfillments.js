@@ -147,7 +147,6 @@ const transformFulfillmentToRequest = function (fulfillment) {
 			"quoteId": fulfillment.quoteId,
 			"reference": fulfillment.reference,
 			"requiresShippingApproval": fulfillment.requiresShippingApproval,
-			"saleId": fulfillment.saleId,
 			"serviceLevel": fulfillment.serviceLevel,
 			"serviceLevelTerms": fulfillment.serviceLevelTerms,
 			"trackingCompany": fulfillment.trackingCompany,
@@ -203,8 +202,44 @@ const postFulfillmentItem = async function (token, fulfillmentItem) {
 	console.debug('Created fulfillment item [' + newFulfillmentItem.data.id + '].');
 	
 	// TODO:  Determine corresponding EP CC order items and generate relationships.
+	postItemOrderItemRelationship (token, fulfillmentItem, newFulfillmentItem.data);
 
 	return newFulfillmentItem.data;
+}
+
+const postItemOrderItemRelationship = async function(token, fulfillmentItem, epccFulfillmentItem) {
+	var headers = epccHeaders.getHeaders('Bearer ' + token);
+
+	var relationship = { 
+		"data": {
+			"type": "orderItem",
+			"id": fulfillmentItem.sale_item.externalId
+		}
+	};
+
+	var containerUri = epCCFulfillmentItemsUrl + '/' + epccFulfillmentItem.id + '/relationships/orderItem';
+
+	var response;
+
+	try {
+		response = await fetch(containerUri, { method: 'POST', headers: headers, body: JSON.stringify(relationship) });
+	} catch (err) {
+		console.error('Error creating fulfillment item / order item relationship:  ' + err);
+		throw err;
+    }
+
+	if (response.status != 200 && response.status != 201) {
+		var result = await response.json();
+
+		console.error('Error creating fulfillment item / order item relationship:  ' + JSON.stringify(result));
+
+		const err = new Error(JSON.stringify(result));
+		err.code = response.status;
+		throw err;
+	}
+
+	console.debug('Created relationship from fulfillment item [' + epccFulfillmentItem.id + '] to order item [' + fulfillmentItem.sale_item.externalId + '].');
+
 }
 
 /**

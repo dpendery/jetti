@@ -6,11 +6,14 @@ Postman script and NodeJS serverless function for the EP CC POC for Jetti.
 
 The Postman script generates the following EP CC flows:
 
-* shipments
-* shipmentcontainers
+* fulfillments
+* fulfillmentItems
+* fulfillmentcontainers
 * orders
-* one-to-many relationship field on shipmentcontainers to shipments
-* one-to-many relationship field on orders to shipmentcontainers
+* one-to-one relationship field on orders to fulfillmentcontainers
+* one-to-many relationship field on fulfillmentcontainers to fulfillments
+* one-to-many relationship field on fulfillments to fulfillmentItems
+* one-to-one relationship field fulfillmentItems order-items
 
 ## Configuring Postman
 
@@ -68,11 +71,13 @@ Click "Collection Runner" in the upper left to return to the main runner panel.
 
 *Note:  You may need to click a Reload button in the Run Order panel.*
 
-Click "Data Model" in the collection folder on the left, then "Data Model Reset".
+Click "Data Model" in the collection folder on the left.
 
 Ensure all requests are selected in the Run Order panel.
 
 Click "Run Jetti".
+
+This will delete all fulfillment data and flows the recreate the flows in the account.
 
 
 
@@ -102,29 +107,43 @@ Specify the JSON body using the Jetti format, e.g:
 
 ```
 {
-  "instance": {
-    "id": 32,
-	...
-  },
-  "fulfillmentItems": [
-    {
-      "id": 32,
-      "sale_item": {
-        "externalId": null,
-		...
-      }
-    }
-  ],
-  "sale": {
-    "externalId": "sale-external-id",
-	...
-  }
+	"instance": {
+		"id": "fulfillment ID",
+		"days": "",
+		"grams": "",
+		"inventoryStatus": "",
+		"price": "",
+		"provider": "",
+		"quoteId": "",
+		"reference": "",
+		"requiresShippingApproval": "",
+		"serviceLevel": "",
+		"serviceLevelTerms": "",
+		"trackingCompany": "",
+		"trackingNumber": "",
+		"trackingStatus": "",
+		"trackingStatusDate": "",
+		"trackingStatusDetails": "",
+		"trackingUrl": "",
+		... all other fields are ignored.
+	},
+	"fulfillmentItems": [
+		{
+			"id": "fulfillment item ID",
+			"quantity": "",
+			"sale_item": {
+				"externalId": "EP CC Order Item ID",
+				... all other fields are ignored.
+			},
+			... all other fields are ignored.
+		}
+	],
+	"sale": {
+		"externalId": "EP CC Order ID",
+		... all other fields are ignored.
+	}
 }
 ```
-
-This creates a new entry in the shipments flow, a relationship from the shipment to an entry in the shipmentcontainers flow, and a relationship from the orders flow to the shipmentcontainers entry.
-
-*Note:  the final structure is TBD.*
 
 ## GET Order Request
 
@@ -133,6 +152,8 @@ GET http://host:port/context/order-shipments/:epCCOrderId
 epCCOrderId must be the EP CC order ID.
 
 This is a convenience resource to GET an order and the shipment detail in a single request.
+
+Use the EP CC URLs to retrieve the fulfillment and item details.
 
 # Running Locally
 

@@ -62,7 +62,7 @@ const postFulfillment = async function (token, fulfillment) {
 	var response;
 	var result;
 	var headers = epccHeaders.getHeaders('Bearer ' + token);
-	var newFulfillmentData = transformFulfillmentToRequest(fulfillment);
+	var newFulfillmentData = transformFulfillmentToRequest(fulfillment.instance);
 
 	try {
 		response = await fetch(epCCFulfillmentsUrl, { method: 'POST', headers: headers, body: JSON.stringify(newFulfillmentData) });
@@ -139,31 +139,9 @@ const transformFulfillmentToRequest = function (fulfillment) {
 		"data": {
 			"type": "entry",
 			"fulfillmentId": fulfillment.id,
-			"adminNotes": fulfillment.adminNotes,
-			"aftershipId": fulfillment.aftershipId,
-			"channelAttempts": fulfillment.channelAttempts,
-			"channelError": fulfillment.channelError,
-			"commercialInvoiceUrl": fulfillment.commercialInvoiceUrl,
-			"createdAt": fulfillment.createdAt,
 			"days": fulfillment.days,
-			"durationTerms": fulfillment.durationTerms,
-			"externalId": fulfillment.externalId,
-			"files": fulfillment.files,
-			"fulfillmentType": fulfillment.fulfillmentType,
 			"grams": fulfillment.grams,
-			"intercomMessageId": fulfillment.intercomMessageId,
 			"inventoryStatus": fulfillment.inventoryStatus,
-			"labelError": fulfillment.labelError,
-			"labelFileFormat": fulfillment.labelFileFormat,
-			"labelFiles": fulfillment.labelFiles,
-			"labelRefund": fulfillment.labelRefund,
-			"labelUrl": fulfillment.labelUrl,
-			"manifestId": fulfillment.manifestId,
-			"muteError": fulfillment.muteError,
-			"packed": fulfillment.packed,
-			"packedAt": fulfillment.packedAt,
-			"picked": fulfillment.picked,
-			"pickedAt": fulfillment.pickedAt,
 			"price": fulfillment.price,
 			"provider": fulfillment.provider,
 			"quoteId": fulfillment.quoteId,
@@ -172,20 +150,12 @@ const transformFulfillmentToRequest = function (fulfillment) {
 			"saleId": fulfillment.saleId,
 			"serviceLevel": fulfillment.serviceLevel,
 			"serviceLevelTerms": fulfillment.serviceLevelTerms,
-			"shippedAt": fulfillment.shippedAt,
-			"shippoLabelIds": fulfillment.shippoLabelIds,
-			"shipstationId": fulfillment.shipstationId,
-			"status": fulfillment.status,
-			"tags": fulfillment.tags,
 			"trackingCompany": fulfillment.trackingCompany,
 			"trackingNumber": fulfillment.trackingNumber,
 			"trackingStatus": fulfillment.trackingStatus,
 			"trackingStatusDate": fulfillment.trackingStatusDate,
 			"trackingStatusDetails": fulfillment.trackingStatusDetails,
-			"trackingUrl": fulfillment.trackingUrl,
-			"updatedAt": fulfillment.updatedAt,
-			"userId": fulfillment.userId,
-			"xeroId": fulfillment.xeroId
+			"trackingUrl": fulfillment.trackingUrl
 		}
 	};
 
@@ -201,20 +171,8 @@ const postFulfillmentItem = async function (token, fulfillmentItem) {
 	var newFulfillmentItemData = {
 		"data": {
 			"type": "entry",
-			"fulfillmentItemId": fulfillmentItem.id,
-			"createdAt": fulfillmentItem.createdAt,
-			"externalId": fulfillmentItem.externalId,
-			"fulfillmentId": fulfillmentItem.fulfillmentId,
-			"packed": fulfillmentItem.packed,
-			"picked": fulfillmentItem.picked,
-			"purchaseItemId": fulfillmentItem.purchaseItemId,
-			"quantity": fulfillmentItem.quantity,
-			"saleItemId": fulfillmentItem.saleItemId,
-			"shipstationId": fulfillmentItem.shipstationId,
-			"skipInventoryChange": fulfillmentItem.skipInventoryChange,
-			"updatedAt": fulfillmentItem.updatedAt,
-			"warehouseId": fulfillmentItem.warehouseId,
-			"xeroId": fulfillmentItem.xeroId
+			"itemId": fulfillmentItem.id,
+			"quantity": fulfillmentItem.quantity
         }
 	};
 

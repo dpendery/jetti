@@ -13,7 +13,7 @@ app.post('/order-fulfillments', async (req, res) => {
 	try {
 		var token = await epccTokens.requestClientCredentialsToken(req);
 
-		var fulfillment = await fulfillments.postOrderFulfillment(token, req.body.externalId, req.body);
+		var fulfillment = await fulfillments.postOrderFulfillment(token, req.body.sale.externalId, req.body);
 
 		res
 			.set('Content-Type','application/json')
@@ -22,21 +22,6 @@ app.post('/order-fulfillments', async (req, res) => {
 		res.status(err.code).send(err.message);
 	}
 });
-
-app.post('/order-fulfillments/:orderId', async (req, res) => {
-	try {
-		var token = await epccTokens.requestClientCredentialsToken(req);
-
-		var fulfillment = await fulfillments.postOrderFulfillment(token, req.params.orderId, req.body);
-
-		res
-			.set('Content-Type', 'application/json')
-			.send(fulfillment);
-	} catch (err) {
-		res.status(err.code).send(err.message);
-	}
-});
-
 
 app.get('/order-fulfillments/:orderId', async (req, res) => {	
 

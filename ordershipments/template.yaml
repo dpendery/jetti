@@ -31,9 +31,9 @@ Resources:
         - SSMParameterReadPolicy:
             ParameterName: jetti/EpJettiSecretKey
         - SSMParameterReadPolicy:
-            ParameterName: jetti/EpccClientId
+            ParameterName: jetti/*/EpccClientId
         - SSMParameterReadPolicy:
-            ParameterName: jetti/EpccClientSecret
+            ParameterName: jetti/*/EpccClientSecret
 
 Outputs:
   OrderShipmentsApi:

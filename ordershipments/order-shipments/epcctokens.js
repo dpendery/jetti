@@ -75,10 +75,10 @@ var requestClientCredentialsToken = async function (req) {
 	var clientSecret;
 
 	try {
-		var parameterPath = '/jetti' + requestStoreId + '/EpccClientId';
+		var parameterPath = '/jetti/' + requestStoreId + '/EpccClientId';
 		clientId = await parameters.getParameter(parameterPath, 'EPCC_CLIENT_ID');
 
-		parameterPath = '/jetti' + requestStoreId + '/EpccClientSecret';
+		parameterPath = '/jetti/' + requestStoreId + '/EpccClientSecret';
 		clientSecret = await parameters.getParameter(parameterPath, 'EPCC_CLIENT_SECRET');
 	} catch (err) {
 		console.error("Can't get EpccClientId or EpccClientSecret parameter: " + JSON.stringify(err));

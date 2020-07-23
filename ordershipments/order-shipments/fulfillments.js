@@ -224,18 +224,24 @@ const postItemOrderItemRelationship = async function(token, fulfillmentItem, epc
 	try {
 		response = await fetch(containerUri, { method: 'POST', headers: headers, body: JSON.stringify(relationship) });
 	} catch (err) {
-		console.error('Error creating fulfillment item / order item relationship:  ' + err);
-		throw err;
+		console.error('Error creating relationship from fulfillment item [' + 
+			epccFulfillmentItem.id + 
+			'] to order item [' + 
+			fulfillmentItem.sale_item.externalId + ']' + err);
+		// throw err;
     }
 
 	if (response.status != 200 && response.status != 201) {
 		var result = await response.json();
 
-		console.error('Error creating fulfillment item / order item relationship:  ' + JSON.stringify(result));
+		console.error('Error creating relationship from fulfillment item [' + 
+			epccFulfillmentItem.id + 
+			'] to order item [' + 
+			fulfillmentItem.sale_item.externalId + ']' + JSON.stringify(result));
 
-		const err = new Error(JSON.stringify(result));
-		err.code = response.status;
-		throw err;
+		// const err = new Error(JSON.stringify(result));
+		// err.code = response.status;
+		// throw err;
 	}
 
 	console.debug('Created relationship from fulfillment item [' + epccFulfillmentItem.id + '] to order item [' + fulfillmentItem.sale_item.externalId + '].');

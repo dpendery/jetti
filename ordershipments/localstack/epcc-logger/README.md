@@ -1,9 +1,14 @@
-#SNS-logger
-SNS-logger is simple a nodejs express web application. It logs POST requests that are coming from SNS topic. It is used in integration tests as HTTP subscriber for SNS topic (see [scripts/integration-test.sh](../../scripts/integration-test.sh)).
-SNS-logger service docker container is defined within docker compose script (See localstack/docker-compose-localstack.yaml) and can be launched with Localstack.
+#EPCC-logger
+EPCC-logger is simple a nodejs express web application intended to provide mock EPCC endpoints.  It records the requests, their
+headers and bodies in a log file.  For POST operations it simply returns the body data, augmented with an id field in the data.
+If the request is for a relationship POST then the request body is returned as-is.
+
+This can be used in conjunction with integration tests of the Jetti Lambdas to verify the appropriate EPCC calls have been made.
 
 #Endpoints
-URI: /
-Method: POST  
-Headers: x-amz-sns-message-type:Notification 
-Action: Logs request body into a file
+localhost:8282 (when accessing from outside Docker, 8080 from inside Docker)
+URI: /*
+Method: POST or GET
+Headers: Authorization, Content-Type, Accepts
+Action: Logs request body into a file and return body, augmented if a simple POST.
+

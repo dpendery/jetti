@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+  localstack:
+    image: localstack/localstack:0.11.3
+    container_name: jetti-localstack
+    ports:
+    - '4563-4599:4563-4599'
+    - '8055:8080'
+    networks:
+    - jetti-network
+    environment:
+    - SERVICES=ssm
+    - DEBUG=1
+    - DATA_DIR=/tmp/localstack/data
+    - DEFAULT_REGION=us-west-2
+    - LAMBDA_DOCKER_NETWORK=localstack_jetti-network
+    - HOSTNAME_EXTERNAL=localstack
+    - LAMBDA_EXECUTOR=docker-reuse
+    - START_WEB=1
+    - AWS_LAMBDA_FUNCTION_TIMEOUT=300
+    volumes:
+    - './.localstack:/tmp/localstack'
+    - '/var/run/docker.sock:/var/run/docker.sock'
+  epcc-logger:
+      build:
+        context: epcc-logger
+        dockerfile:
+          Dockerfile
+      networks:
+      - jetti-network
+      ports:
+      - '8282:8080'
+      volumes:
+        - './epcc-logger/logs:/tmp/logs'
+        - './epcc-logger/epccdata:/tmp/epccdata'
+networks:
+  jetti-network:
+    driver: 'bridge'

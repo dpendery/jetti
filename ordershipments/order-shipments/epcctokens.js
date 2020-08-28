@@ -24,10 +24,10 @@ var tokenLastRequestTime = null;
  * Requests a client_credentials token from EP CC.
  * @param {any} req the request
  */
-var requestClientCredentialsToken = async function (req) {
+var requestClientCredentialsToken = async function (/*req, */secretKey, storeId) {
 
 	// Verify the secret key HTTP header before continuing.
-	var requestOrderHash = req.get(SECRET_KEY_HEADER);
+	var requestOrderHash = secretKey; //req.get(SECRET_KEY_HEADER);
 
 	if (!requestOrderHash) {
 		console.error("Invalid Secret Key.");
@@ -36,7 +36,7 @@ var requestClientCredentialsToken = async function (req) {
 		throw newErr;
 	}
 
-	var requestStoreId = req.get(JETTI_STORE_ID_HEADER);
+	var requestStoreId = storeId; //req.get(JETTI_STORE_ID_HEADER);
 
 	if (!requestStoreId) {
 		console.error("Invalid Store ID.");

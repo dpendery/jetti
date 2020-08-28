@@ -1,0 +1,355 @@
+Process to GET order and fulfillments
+====================================================
+Request client_credentials token
+Get Order
+Get order fulfillment container
+
+
+Process to create new fulfillments
+====================================================
+Request client_credentials token
+Get Order
+Create fulfillment container
+Create relationship from order to fulfillment container
+Create Fulfillment
+Create Fulfillment Item (for n items)
+Create relationship from fulfillment item to order item (for n items)
+Create relationships from fulfillment(s) to fulfillment item(s) (for n items)
+Create relationship from fulfillment container to fulfillment
+
+
+General Comments
+====================================================
+POSTs respond with 201 Created
+Most relationships have array of entities.
+Relationship from order to fulfillment container is a single entity.
+For GET order need to return test data.
+
+
+Issue
+====================================================
+Need to refactor all packages to switch between EPCC URLs.
+
+Use env variable to specify base URL.  Default would be https://api.moltin.com/v2.
+
+
+
+Ideas
+====================================================
+Just add an id field to any POSTed entity for the response.
+Keep map of entity type to ids and bump up id for entity type after each POST.
+
+Create JSON files for test data for order and fulfillments.
+Start docker for the tests.
+Copy test data JSON files to ./epcc-logger/epccdata
+File names can be full path with '/' replaced iwth '.'.  For example:
+"orders/92cf4c1f-4e46-4229-acec-3021e0d8b36d" maps to "orders.92cf4c1f-4e46-4229-acec-3021e0d8b36d.json".
+Remove the leading '/' from the req.path first.
+
+
+Request client_credentials token
+====================================================
+POST https://api.moltin.com/oauth/access_token
+
+Request:
+headers : {
+	'Content-Type':'application/x-www-form-urlencoded',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: 
+{
+	client_id=clientId&
+	client_secret = clientSecret&
+	grant_type = clientCredentialsGrantType
+}
+
+Response:
+200 OK
+headers : {
+	'Content-Type':'application/json'
+}
+body: 
+{
+    "expires": 1524486008,
+    "identifier": "client_credentials",
+    "expires_in": 3600,
+    "access_token": "xa3521ca621113e44eeed9232fa3e54571cb08bc",
+    "token_type": "Bearer"
+}
+
+
+Get Order
+====================================================
+GET https://api.moltin.com/v2/orders/:orderId (orderId = 92cf4c1f-4e46-4229-acec-3021e0d8b36d)
+
+Request:
+headers : {
+	'Content-Type':'application/json',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: null
+
+Response:
+200 OK
+headers : {
+	'Content-Type':'application/json'
+}
+body: 
+{
+  "data": {
+    "type": "order",
+    "id": "92cf4c1f-4e46-4229-acec-3021e0d8b36d",
+    "status": "incomplete",
+    "payment": "unpaid",
+    "shipping": "unfulfilled",
+    "customer": {
+      "name": "Mr John Doe",
+      "email": "johndoe@example.com"
+    },
+    "shipping_address": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone_number": "",
+      "company_name": "",
+      "line_1": "2nd Floor British India House",
+      "line_2": "15 Carliol Square",
+      "city": "Newcastle Upon Tyne",
+      "postcode": "NE1 6UF",
+      "county": "Tyne & Wear",
+      "country": "United Kingdom",
+      "instructions": ""
+    },
+    "billing_address": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "company_name": "",
+      "line_1": "2nd Floor British India House",
+      "line_2": "15 Carliol Square",
+      "city": "Newcastle Upon Tyne",
+      "postcode": "NE1 6UF",
+      "county": "Tyne & Wear",
+      "country": "United Kingdom"
+    },
+    "links": {},
+    "meta": {
+      "display_price": {
+        "with_tax": {
+          "amount": 237500,
+          "currency": "USD",
+          "formatted": "$2175.00"
+        },
+        "without_tax": {
+          "amount": 237500,
+          "currency": "USD",
+          "formatted": "$2175.00"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "",
+          "formatted": ""
+        }
+      },
+      "timestamps": {
+        "created_at": "2018-04-16T10:11:59.715Z",
+        "updated_at": "2018-04-16T10:11:59.715Z"
+      }
+    },
+    "relationships": {
+      "items": {
+        "data": [
+          {
+            "type": "item",
+            "id": "de9fddf5-011b-4485-abf8-ebb8f53c39ff"
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+Create fulfillment container.
+===================================================================
+POST https://api.moltin.com/v2/flows/fulfillmentcontainers/entries
+
+Request:
+headers : {
+	'Content-Type':'application/json',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: 
+{
+	"data": {
+		"type": "entry",
+		"slug": order.id
+	}
+}
+
+Response:
+201 Created
+headers : {
+	'Content-Type':'application/json'
+}
+body: 
+{
+	"data": {
+		"id": "id",
+		"type": "entry",
+		"slug": order.id
+	}
+}
+
+
+Create relationship from order to fulfillment container.
+===================================================================
+POST https://api.moltin.com/v2/orders/:orderId/relationships/fulfillmentContainer
+
+
+Create Fulfillment
+====================
+Request:
+headers : {
+	'Content-Type':'application/json',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: 
+{
+	"data": {
+		"type": "fulfillmentContainer",
+		"id": newContainer.data.id
+	}
+}
+
+Response:
+201 Created
+headers : {
+	'Content-Type':'application/json'
+}
+body:
+{
+    "data": [
+        {
+            "type": "fulfillmentContainer",
+            "id": "0d28e5b6-f615-4e1c-b038-275cfde97927"
+        }
+    ]
+}
+===============================================
+POST https://api.moltin.com/v2/flows/fulfillments/entries
+
+Request:
+headers : {
+	'Content-Type':'application/json',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: 
+{
+	"data": {
+		"type": "entry",
+		"fulfillmentId": fulfillment.id,
+		"days": fulfillment.days,
+		"grams": fulfillment.grams,
+		"inventoryStatus": fulfillment.inventoryStatus,
+		"price": fulfillment.price,
+		"provider": fulfillment.provider,
+		"quoteId": fulfillment.quoteId,
+		"reference": fulfillment.reference,
+		"requiresShippingApproval": fulfillment.requiresShippingApproval,
+		"serviceLevel": fulfillment.serviceLevel,
+		"serviceLevelTerms": fulfillment.serviceLevelTerms,
+		"trackingCompany": fulfillment.trackingCompany,
+		"trackingNumber": fulfillment.trackingNumber,
+		"trackingStatus": fulfillment.trackingStatus,
+		"trackingStatusDate": fulfillment.trackingStatusDate,
+		"trackingStatusDetails": fulfillment.trackingStatusDetails,
+		"trackingUrl": fulfillment.trackingUrl
+	}
+}
+
+Response:
+201 Created
+headers : {
+	'Content-Type':'application/json'
+}
+body:
+{
+	"data": {
+		"id": "id",
+		"type": "entry",
+		"fulfillmentId": fulfillment.id,
+		"days": fulfillment.days,
+		"grams": fulfillment.grams,
+		"inventoryStatus": fulfillment.inventoryStatus,
+		"price": fulfillment.price,
+		"provider": fulfillment.provider,
+		"quoteId": fulfillment.quoteId,
+		"reference": fulfillment.reference,
+		"requiresShippingApproval": fulfillment.requiresShippingApproval,
+		"serviceLevel": fulfillment.serviceLevel,
+		"serviceLevelTerms": fulfillment.serviceLevelTerms,
+		"trackingCompany": fulfillment.trackingCompany,
+		"trackingNumber": fulfillment.trackingNumber,
+		"trackingStatus": fulfillment.trackingStatus,
+		"trackingStatusDate": fulfillment.trackingStatusDate,
+		"trackingStatusDetails": fulfillment.trackingStatusDetails,
+		"trackingUrl": fulfillment.trackingUrl
+	}
+}
+
+
+
+
+Create Fulfillment Item (for n items)
+===================================================================
+POST https://api.moltin.com/v2/flows/fulfillmentItems/entries
+
+Request:
+headers : {
+	'Content-Type':'application/json',
+	'Accept':'application/json',
+	'Cache-Control':'no-cache'
+}
+body: 
+{
+	"data": {
+		"type": "entry",
+		"itemId": fulfillmentItem.id,
+		"quantity": fulfillmentItem.quantity
+	}
+}
+
+Response:
+201 Created
+headers : {
+	'Content-Type':'application/json'
+}
+body:
+{
+	"data": {
+		"id": "id",
+		"type": "entry",
+		"itemId": fulfillmentItem.id,
+		"quantity": fulfillmentItem.quantity
+	}
+}
+
+
+
+Create relationships from fulfillment item to order item
+===================================================================
+POST https://api.moltin.com/v2/flows/fulfillmentItems/entries/:fulfillmentItemId/relationships/orderItem
+
+
+
+Create relationships from fulfillment to fulfillment items.
+===================================================================
+
+
+
+Create relationship from fulfillment container to fulfillment.
+===================================================================

@@ -14,16 +14,19 @@ Resources:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: order-shipments/
-      Handler: serverlessapp.lambdaHandler
+      Handler: index.lambdaHandler
       Runtime: nodejs12.x
+      Environment:
+        Variables:
+          ENVIRONMENT: production
       Events:
         OrderShipmentsGet:
-          Type: HttpApi
+          Type: Api
           Properties:
             Path: /{proxy+}
             Method: get
         OrderShipmentsPost:
-          Type: HttpApi
+          Type: Api
           Properties:
             Path: /{proxy+}
             Method: post

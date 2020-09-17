@@ -5,6 +5,23 @@ sudo service docker start
 
 cd to order-shipments/localstack.
 
+Set EPCC_TEST_FOLDER env variable for test case:
+export EPCC_TEST_FOLDER=postfulfillmentordernotfound
+
+Test scenarios include:
+* getordernotauthorized
+* getordernotfound
+* getordersuccess
+* postfulfillmentordernotfound
+* postfulfillmentsuccess
+
+Copy order-shipments/test/resources/test-data/* to epcc-logger/epccdata.
+
+Delete files in epcc-logger/logs.
+
+Build EPCC Logger code (need to do when make any changes to epcc-logger):
+docker-compose -f docker-compose-localstack.yaml build
+
 Start with:
 docker-compose -f docker-compose-localstack.yaml up -d
 
@@ -14,19 +31,14 @@ docker-compose -f docker-compose-localstack.yaml stop
 Get Docker logs with:
 docker-compose -f docker-compose-localstack.yaml logs
 
-When change EPCC Logger:
-docker-compose -f docker-compose-localstack.yaml build
-
-
-Copy ../test/resources/test-data/* to epcc-logger/epccdata.
-
 View EPCC request log file in epcc-logger/logs.
 
-Set the parameters:
+Set the parameters (if not already done):
 
 awslocal ssm put-parameter --name "/jetti/EpJettiSecretKey" --type "String" --value "my-secret" --overwrite
 awslocal ssm put-parameter --name "/jetti/2226154063169323989/EpccClientSecret" --type "String" --value "7ujEjfuiO04TTy3J9yZpcey5eRL2lGbWK4aRrmwBk5" --overwrite
 awslocal ssm put-parameter --name "/jetti/2226154063169323989/EpccClientId" --type "String" --value "KBJPBWJnHkCQ13ldsL9W1x2xdsBmHUYxLrnpHITARC" --overwrite
+
 
 Use "sam local invoke ..." on the Jetti function to test against the localstack, TBD.
 

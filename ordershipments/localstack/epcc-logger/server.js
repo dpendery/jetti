@@ -24,16 +24,22 @@ app.get('/\*', async (req, res) => {
     if (!data) {
         data = {
             "status": 404,
-            "errorResponse": "Not found"
+            "errors": [
+                {
+                  "status": 404,
+                  "detail": req.path + " could not be found",
+                  "title": req.path + " could not be found"
+                }
+            ]
         };
     }
 
     var body = data.body;
-    if (!body && data.errorResponse) {
-        body = data.errorResponse;
+    if (!body && data.errors) {
+        body = data.errors;
     } else if (!body) {
         body = {};
-    }    
+    }
 
     logRequest(req, req.body, body, data.status);
 
@@ -71,12 +77,20 @@ const getGetResponseData = function (req) {
     }
 
     var rawdata;
+    var testFolder = process.env['EPCC_TEST_FOLDER'];
+    var filePath;
+
+    if (testFolder) {
+        filePath = TEST_DATA_FOLDER + testFolder + '/' + filename;
+    } else {
+        filePath = TEST_DATA_FOLDER + filename;
+    }
     
     try {
-        rawdata = fs.readFileSync(TEST_DATA_FOLDER + filename);
-        logInfo('Loaded ' + TEST_DATA_FOLDER + filename);
+        rawdata = fs.readFileSync(filePath);
+        logInfo('Loaded test response file [' + filePath + ']');
     } catch (error) {
-        logError('Error loading response data: ' + error.message);
+        logError('Error loading test response file [' + filePath + ']: ' + error.message);
     }
 
     var data;
@@ -85,7 +99,7 @@ const getGetResponseData = function (req) {
         try {
             data = JSON.parse(rawdata);            
         } catch (error) {
-            logError('Can\'t parse response data: ' + error.message);
+            logError('Error parsing test response file [' + filePath + ']: ' + error.message);
             data = {
                 "status": 503,
                 "errorResponse": "Can't parse response data: " + error.message
@@ -98,10 +112,18 @@ const getGetResponseData = function (req) {
 
 const getClientCredentials = function(req, res) {
     var rawdata;
-    
+    var testFolder = process.env['EPCC_TEST_FOLDER'];
+    var filePath;
+
+    if (testFolder) {
+        filePath = TEST_DATA_FOLDER + testFolder + '/' + 'client_credentials_request.json';
+    } else {
+        filePath = TEST_DATA_FOLDER + 'client_credentials_request.json';
+    }
+
     try {
-        rawdata = fs.readFileSync(TEST_DATA_FOLDER + 'client_credentials_request.json');
-        logInfo("Loaded client_credentials_request.json");
+        rawdata = fs.readFileSync(filePath);
+        logInfo("Loaded [" + filePath + ']');
     } catch (error) {
         logError(error.message);
     }
@@ -162,7 +184,7 @@ const processPostRequest = function(req, res) {
     logRequest(req, req.body, data, status);
 
     res
-        .status(201)
+        .status(status)
         .set('Content-Type', 'application/json')
         .send(data);
 }

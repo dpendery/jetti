@@ -4,8 +4,9 @@
 
 const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
+const epccapilocation = require('./epccapilocation');
 
-const epCCOrdersUrl = "https://api.moltin.com/v2/orders";
+const epCCOrdersUrl = epccapilocation.getEpccApiURL("orders");
 
 // GETs an order give it's ID.
 const getOrder = async function (token, orderId) {

@@ -10,7 +10,9 @@ const orderShipmentsPostLambdaHandler = async function(event) {
     try {
         var token = await epccTokens.requestClientCredentialsToken(event.headers['Jetti-Order-Hash'], event.headers['Jetti-Store-Id']);
 
-        var fulfillment = await fulfillments.postOrderFulfillment(token, event.body.sale.externalId, event.body);
+        var body = JSON.parse(event.body);
+
+        var fulfillment = await fulfillments.postOrderFulfillment(token, body.sale.externalId, body);
         
         res = {
             "statusCode": 201,

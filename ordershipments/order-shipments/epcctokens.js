@@ -10,9 +10,10 @@ const fetch = require('node-fetch');
 const { Headers } = require('node-fetch');
 
 const parameters = require('./parameters');
+const epccapilocation = require('./epccapilocation');
 
 const clientCredentialsGrantType = "client_credentials";
-const epccAuthenticationUrl = "https://api.moltin.com/oauth/access_token";
+const epccAuthenticationUrl = epccapilocation.getEpccOauthUrl();
 
 const SECRET_KEY_HEADER = "jetti-order-hash";
 const JETTI_STORE_ID_HEADER = "jetti-store-id";

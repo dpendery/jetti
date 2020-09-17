@@ -19,6 +19,7 @@ Resources:
       Environment:
         Variables:
           ENVIRONMENT: production
+          EPCCURL: https://api.moltin.com
       Events:
         OrderShipmentsGet:
           Type: Api

@@ -11,8 +11,8 @@ const getParameter = async function (path, override) {
 
     try {
         if (process.env.ENVIRONMENT == "local") {
-            var par    // Check to see if we're running on a local environment and not in AWS.
-            ameter = await awsParamStore.getParameter(path, 
+            // Check to see if we're running on a local environment and not in AWS.
+            var parameter = await awsParamStore.getParameter(path, 
                 { 
                     endpoint: 'http://localhost:4566', 
                     region: 'us-east-1',

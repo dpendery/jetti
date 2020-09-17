@@ -1,5 +1,6 @@
 {
-    "ProductPusherFunction" : {
-        "ENVIRONMENT": "local"
+    "OrderShipmentsBackend" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
     }
 }

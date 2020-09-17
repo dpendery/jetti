@@ -4,9 +4,10 @@
 
 const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
+const epccapilocation = require('./epccapilocation');
 
-const epCCOrdersUrl = "https://api.moltin.com/v2/orders";
-const epCCFulfillmentContainers = "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries";
+const epCCOrdersUrl = epccapilocation.getEpccApiURL("orders");
+const epCCFulfillmentContainers = epccapilocation.getEpccApiURL("flows/fulfillmentcontainers/entries");
 
 /*
  * Gets the collection of fulfillments for an order from its container.

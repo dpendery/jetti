@@ -6,10 +6,11 @@ const fetch = require('node-fetch');
 const epccHeaders = require('./epccheaders');
 const orders = require('./orders');
 const fulfillmentContainers = require('./fulfillmentcontainers');
+const epccapilocation = require('./epccapilocation');
 
-const epCCFulfillmentsUrl = "https://api.moltin.com/v2/flows/fulfillments/entries";
-const epCCFulfillmentItemsUrl = "https://api.moltin.com/v2/flows/fulfillmentItems/entries";
-const epCCFulFillmentContainers = "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries";
+const epCCFulfillmentsUrl = epccapilocation.getEpccApiURL("flows/fulfillments/entries");
+const epCCFulfillmentItemsUrl = epccapilocation.getEpccApiURL("flows/fulfillmentItems/entries");
+const epCCFulFillmentContainers = epccapilocation.getEpccApiURL("flows/fulfillmentcontainers/entries");
 
 /**
  * Main method for creating a fulfillment in EP CC.

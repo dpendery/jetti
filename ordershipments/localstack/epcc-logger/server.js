@@ -5,8 +5,7 @@ const fs = require('fs');
 const app = express();
 
 app.use(bodyParser.json());
-//app.use(express.urlencoded({ extended: true }));
-// app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -22,11 +21,26 @@ app.get('/\*', async (req, res) => {
 
     var data = getGetResponseData(req);
 
-    logRequest(req, req.body, data);
+    if (!data) {
+        data = {
+            "status": 404,
+            "errorResponse": "Not found"
+        };
+    }
+
+    var body = data.body;
+    if (!body && data.errorResponse) {
+        body = data.errorResponse;
+    } else if (!body) {
+        body = {};
+    }    
+
+    logRequest(req, req.body, body, data.status);
 
     res
+        .status(data.status)
         .set('Content-Type', 'application/json')
-        .send(data);
+        .send(body);
 });
 
 app.post('/\*', async (req, res) => {
@@ -49,7 +63,7 @@ const getGetResponseData = function (req) {
     } else {
         path = req.path;
     }
-    var filename = path.replace('/', '.');
+    var filename = path.replace(/\//g, '.');
     if (filename.endsWith('.')) {
         filename = filename + 'json';
     } else {
@@ -72,11 +86,12 @@ const getGetResponseData = function (req) {
             data = JSON.parse(rawdata);            
         } catch (error) {
             logError('Can\'t parse response data: ' + error.message);
-            data = {};
+            data = {
+                "status": 503,
+                "errorResponse": "Can't parse response data: " + error.message
+            };
         }
-    } else {
-        data = {};
-    }
+    } // else return a null data object.
 
     return data;
 }
@@ -104,12 +119,6 @@ const getClientCredentials = function(req, res) {
         data = {};
     }
 
-    // var reqBody = {
-    //     "client_id": req.query.client_id,
-    //     "client_secret": req.query.client_secret,
-    //     "grant_type": req.query.grant_type
-    // }
-
     var body = JSON.stringify(req.body);
 
     logRequest(req, body, data);
@@ -122,24 +131,35 @@ const getClientCredentials = function(req, res) {
 const processPostRequest = function(req, res) {
     
     var data = req.body;
+    var status = 201;
+    var testData = getGetResponseData(req);
 
-    // We just regurgitate any relationship POSTs.  Otherwise we need to add an id field.
-    if (req.path.indexOf('relationships') < 0) {
-        try {
-            var rawData = JSON.stringify(req.body);
-            data = JSON.parse(rawData);
-            data.data.id = 1;
-        } catch (error) {
-            logError('Can\'t parse POST body: ' + error.message);            
-            data = {
-                "data": {
-                    "id": 1
-                }
-            };
+    if (testData) {
+        status = testData.status;
+        if (testData.body) {
+            data = testData.body;
+        } else {
+            data = testData.errorResponse;
+        }
+    } else {
+        // We just regurgitate any relationship POSTs.  Otherwise we need to add an id field.
+        if (req.path.indexOf('relationships') < 0) {
+            try {
+                var rawData = JSON.stringify(req.body);
+                data = JSON.parse(rawData);
+                data.data.id = 1;
+            } catch (error) {
+                logError('Can\'t parse POST body: ' + error.message);            
+                data = {
+                    "data": {
+                        "id": 1
+                    }
+                };
+            }
         }
     }
 
-    logRequest(req, req.body, data);
+    logRequest(req, req.body, data, status);
 
     res
         .status(201)
@@ -160,7 +180,7 @@ const log = function(type, entry) {
 }
 
 
-const logRequest = function (req, body, data) {
+const logRequest = function (req, body, data, status) {
     // These are the known headers that should be expected by EPCC.
     var headers = {
         "Authorization": req.get("Authorization"),
@@ -169,6 +189,7 @@ const logRequest = function (req, body, data) {
     };
 
     var eventData = {
+        "status": status,
         "method": req.method,
         "path": req.path,
         "headers": headers,

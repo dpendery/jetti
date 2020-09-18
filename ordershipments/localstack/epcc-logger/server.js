@@ -128,26 +128,33 @@ const getClientCredentials = function(req, res) {
         logError(error.message);
     }
 
-    var data;
+    var data = {
+        "status": 500,
+        "body":[
+            {
+                "status": 500,
+                "title": "Internal Server Error",
+                "title": "There was an internal server error, you can report with your request id.",
+                "request_id": "XXXX"
+            }
+        ]
+    };
 
     if (rawdata) {
         try {
             data = JSON.parse(rawdata);            
         } catch (error) {
             logError('Can\'t parse client credentials data: ' + error.message);
-            data = {};
         }
-    } else {
-        data = {};
     }
 
     var body = JSON.stringify(req.body);
 
-    logRequest(req, body, data);
+    logRequest(req, body, data.body);
     res
-        .status(200)
+        .status(data.status)
         .set('Content-Type', 'application/json')
-        .send(data);
+        .send(data.body);
 }
 
 const processPostRequest = function(req, res) {

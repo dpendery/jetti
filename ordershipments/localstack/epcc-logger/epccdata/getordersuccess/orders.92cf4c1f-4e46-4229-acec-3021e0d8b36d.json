@@ -1,6 +1,5 @@
 {
     "status": 200,
-    "errorResponse": "",
     "body": {
         "data": {
             "type": "order",

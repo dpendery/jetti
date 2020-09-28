@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  order-shipments
+
+  Order Shipments API
+
+Globals:
+  Function:
+    Timeout: 25
+    Environment:
+      Variables:
+        ENVIRONMENT: production
+        EPCCURL: https://api.moltin.com
+
+Resources:
+  TestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/TestFunction.handler
+      Runtime: nodejs12.x
+
+Outputs:
+#  OrderShipmentsApi:
+#    Description: "API Gateway endpoint URL for Prod stage for Order Shipments function"
+#    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+#  OrderShipmentsBackendFunction:
+#    Description: Order Shipments Backend Lambda Function ARN
+#    Value: !Sub OrderShipmentsBackend.Arn
+#  OrderShipmentsBackendIamRole:
+#    Description: Implicit IAM Role created for Order Shipments function
+#    Value: !Sub OrderShipmentsBackendFunctionRole.Arn

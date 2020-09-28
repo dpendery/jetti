@@ -1,0 +1,38 @@
+{
+   "jettiObject":{
+      "instance":{
+         "id":"7",
+         "days":"Days",
+         "grams":"Grams",
+         "inventoryStatus":"Inventory Status",
+         "price":"Price",
+         "provider":"Provider",
+         "quoteId":"Quote",
+         "reference":"Reference",
+         "requiresShippingApproval":"Requires Shipping Approval",
+         "serviceLevel":"Service level",
+         "serviceLevelTerms":"Service level terms",
+         "trackingCompany":"Tracking company",
+         "trackingNumber":"Tracking number",
+         "trackingStatus":"Tracking Status",
+         "trackingStatusDate":"Tracking status date",
+         "trackingStatusDetails":"Tracking status details",
+         "trackingUrl":"Tracking url"
+      },
+      "fulfillmentItems":[
+         {
+            "id":"7-1",
+            "quantity":"1",
+            "sale_item":{
+               "externalId":"24eab761-748a-46c1-9b9f-ac3ec2f569d6"
+            }
+         }
+      ],
+      "sale":{
+         "externalId":"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
+      }
+   },
+   "jettiOrderHash":"c119eca5a16c3787af74e480c573d132cb5ad5e415c2d2701338b049f1f876e5",
+   "jettiStoreId":"2226154063169323989",
+   "epccToken":"abcd1234-abcd1234-abcd1234-abcd1234"
+}

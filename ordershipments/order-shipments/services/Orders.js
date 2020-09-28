@@ -3,8 +3,8 @@
 */
 
 const fetch = require('node-fetch');
-const epccHeaders = require('./epccheaders');
-const epccapilocation = require('./epccapilocation');
+const epccHeaders = require('./EpccHeaders');
+const epccapilocation = require('./EpccAPILocation');
 
 const epCCOrdersUrl = epccapilocation.getEpccApiURL("orders");
 

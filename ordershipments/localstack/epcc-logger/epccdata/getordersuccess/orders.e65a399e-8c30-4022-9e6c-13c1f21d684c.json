@@ -1,0 +1,85 @@
+{
+    "status": 200,
+	"body": {
+		"data": {
+			"id": "e65a399e-8c30-4022-9e6c-13c1f21d684c",
+			"type": "order",
+			"relationships": {
+				"items": {
+					"data": [
+						{
+							"type": "item",
+							"id": "9fd03633-18f2-449e-8fd1-a36383b8daa6"
+						},
+						{
+							"type": "item",
+							"id": "ad47fa0e-6066-468d-8ec3-3e5966446d62"
+						}
+					]
+				},
+				"fulfillmentContainer": {
+					"data": {
+						"type": "fulfillmentContainer",
+						"id": "41d89f60-9e9b-4287-b752-64fe0ac3c161"
+					}
+				}
+			},
+			"status": "complete",
+			"payment": "paid",
+			"shipping": "unfulfilled",
+			"customer": {
+				"name": "Me Mein",
+				"email": "me.mein@elasticpath.com"
+			},
+			"shipping_address": {
+				"first_name": "Me",
+				"last_name": "Mein",
+				"phone_number": "",
+				"company_name": "",
+				"line_1": "9 Tudor Road",
+				"line_2": "",
+				"city": "Reading",
+				"postcode": "RG1 1PR",
+				"county": "Reading",
+				"country": "GB",
+				"instructions": ""
+			},
+			"billing_address": {
+				"first_name": "Me",
+				"last_name": "Mein",
+				"company_name": "",
+				"line_1": "9 Tudor Road",
+				"line_2": "",
+				"city": "Reading",
+				"postcode": "RG1 1PR",
+				"county": "Reading",
+				"country": "GB"
+			},
+			"links": {},
+			"meta": {
+				"display_price": {
+					"with_tax": {
+						"amount": 2900,
+						"currency": "USD",
+						"formatted": "$29.00"
+					},
+					"without_tax": {
+						"amount": 2900,
+						"currency": "USD",
+						"formatted": "$29.00"
+					},
+					"tax": {
+						"amount": 0,
+						"currency": "USD",
+						"formatted": "$0.00"
+					}
+				},
+				"timestamps": {
+					"created_at": "2020-07-07T16:54:41Z",
+					"updated_at": "2020-07-07T16:54:41Z"
+				}
+			}
+		}
+	}
+}
+

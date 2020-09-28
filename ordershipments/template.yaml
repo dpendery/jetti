@@ -8,29 +8,93 @@ Description: >
 Globals:
   Function:
     Timeout: 25
+    Environment:
+      Variables:
+        ENVIRONMENT: production
+        EPCCURL: https://api.moltin.com/
 
 Resources:
-  OrderShipmentsBackend:
+  OrderShipmentsGetBackend:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: order-shipments/
       Handler: index.lambdaHandler
       Runtime: nodejs12.x
-      Environment:
-        Variables:
-          ENVIRONMENT: production
-          EPCCURL: https://api.moltin.com
       Events:
         OrderShipmentsGet:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: get
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: jetti/EpJettiSecretKey
+        - SSMParameterReadPolicy:
+            ParameterName: jetti/*/EpccClientId
+        - SSMParameterReadPolicy:
+            ParameterName: jetti/*/EpccClientSecret
+            
+  PostFulfillmentFunction:
+    Type: AWS::Serverless::StateMachine 
+    Properties:
+      DefinitionUri: statemachine/create-fulfillment.asl.json
+      DefinitionSubstitutions:
+        PrepareRequestParametersFunctionArn:
+          !GetAtt PrepareRequestParametersFunction.Arn
+        GetTokenFunctionArn:
+          !GetAtt GetTokenFunction.Arn
+        GetOrderFunctionArn:
+          !GetAtt GetOrderFunction.Arn
+        GetFulfillmentContainerFunctionArn:
+          !GetAtt GetFulfillmentContainerFunction.Arn
+        CreateFulfillmentFunctionArn:
+          !GetAtt CreateFulfillmentFunction.Arn
+        CreateFulfillmentItemFunctionArn:
+          !GetAtt CreateFulfillmentItemFunction.Arn
+        CreateFulfillmentItemRelationshipsFunctionArn:
+          !GetAtt CreateFulfillmentItemRelationshipsFunction.Arn
+      Events:
         OrderShipmentsPost:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: post
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref PrepareRequestParametersFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref GetTokenFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref GetOrderFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref GetFulfillmentContainerFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref CreateFulfillmentFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref CreateFulfillmentItemFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref CreateFulfillmentItemRelationshipsFunction
+  
+  PrepareRequestParametersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/PrepareRequestParametersFunction.handler
+      Runtime: nodejs12.x
+
+  GetTokenFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/GetToken.handler
+      Runtime: nodejs12.x
       Policies:
         - SSMParameterReadPolicy:
             ParameterName: jetti/EpJettiSecretKey
@@ -39,13 +103,48 @@ Resources:
         - SSMParameterReadPolicy:
             ParameterName: jetti/*/EpccClientSecret
 
-Outputs:
-  OrderShipmentsApi:
-    Description: "API Gateway endpoint URL for Prod stage for Order Shipments function"
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
-  OrderShipmentsBackendFunction:
-    Description: Order Shipments Backend Lambda Function ARN
-    Value: !Sub OrderShipmentsBackend.Arn
-  OrderShipmentsBackendIamRole:
-    Description: Implicit IAM Role created for Order Shipments function
-    Value: !Sub OrderShipmentsBackendFunctionRole.Arn
+  GetOrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/GetOrder.handler
+      Runtime: nodejs12.x
+
+  GetFulfillmentContainerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/GetFulfillmentContainer.handler
+      Runtime: nodejs12.x
+
+  CreateFulfillmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/CreateFulfillment.handler
+      Runtime: nodejs12.x
+
+  CreateFulfillmentItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/CreateFulfillmentItem.handler
+      Runtime: nodejs12.x
+
+  CreateFulfillmentItemRelationshipsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/CreateFulfillmentItemRelationships.handler
+      Runtime: nodejs12.x
+
+#Outputs:
+#  OrderShipmentsApi:
+#    Description: "API Gateway endpoint URL for Prod stage for the fulfillments functions"
+#    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+#  OrderShipmentsBackendFunction:
+#    Description: Order Shipments Backend Lambda Function ARN
+#    Value: !Sub OrderShipmentsBackend.Arn
+#  OrderShipmentsBackendIamRole:
+#    Description: Implicit IAM Role created for Order Shipments function
+#    Value: !Sub OrderShipmentsBackendFunctionRole.Arn

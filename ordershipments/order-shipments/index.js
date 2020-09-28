@@ -1,39 +1,7 @@
-const epccTokens = require('./epcctokens');
-const orders = require('./orders');
-const fulfillments = require('./fulfillments');
-const fulfillmentcontainers = require('./fulfillmentcontainers');
-
-const orderShipmentsPostLambdaHandler = async function(event) {
-    var promise;
-    var res;
-
-    try {
-        var token = await epccTokens.requestClientCredentialsToken(event.headers['Jetti-Order-Hash'], event.headers['Jetti-Store-Id']);
-
-        var body = JSON.parse(event.body);
-
-        var fulfillment = await fulfillments.postOrderFulfillment(token, body.sale.externalId, body);
-        
-        res = {
-            "statusCode": 201,
-            "headers": {
-                'Content-Type':'application/json'
-            },
-            "body": fulfillment
-        };
-    } catch (err) {
-        res = {
-            "statusCode":err.code,
-            "body": err.message
-        };
-    }
-
-    promise = new Promise(function(resolve, reject) {
-        resolve(res);
-    });
-
-    return promise;
-}
+const epccTokens = require('./services/EpccTokens');
+const orders = require('./services/Orders');
+const fulfillments = require('./services/Fulfillments');
+const fulfillmentcontainers = require('./services/FulfillmentContainers');
 
 /**
  * Extracts the order number from '/order-fulfillments/:orderId'.
@@ -93,20 +61,13 @@ const orderShipmentsGetLambdaHandler = async function(event) {
     return promise;
 }
 
-const lambdaHandler = async function(event) {
+exports.lambdaHandler = async (event) => {
     console.log('Processing Event for path [' + event.path + ']');
     console.log('event = ' + JSON.stringify(event));
 
     console.log('event.headers.jetti-order-hash = ' + event.headers['Jetti-Order-Hash']);
     console.log('event.headers.jetti-store-id = ' + event.headers['Jetti-Store-Id']);
 
-    if (event.httpMethod == "GET") {
-        console.log("Processing GET event");
-        return orderShipmentsGetLambdaHandler(event);
-    } else if (event.httpMethod == "POST") {
-        console.log("Processing POST event");
-        return orderShipmentsPostLambdaHandler(event);
-    }
+    console.log("Processing GET event");
+    return orderShipmentsGetLambdaHandler(event);
 }
-
-exports.lambdaHandler = lambdaHandler;

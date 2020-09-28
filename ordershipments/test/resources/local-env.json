@@ -1,5 +1,29 @@
 {
-    "OrderShipmentsBackend" : {
+    "OrderShipmentsGetBackend" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "GetTokenFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "GetOrderFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "GetFulfillmentContainerFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "CreateFulfillmentFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "CreateFulfillmentItemFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282/"
+    },
+    "CreateFulfillmentItemRelationshipsFunction" : {
         "ENVIRONMENT": "local",
         "EPCCURL": "http://localhost:8282/"
     }

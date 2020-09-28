@@ -1,0 +1,80 @@
+{
+    "Comment": "Processes a Jetti add-fulfillment POST request.",
+    "StartAt": "Prepare Request Parameters",
+    "States": {
+        "Prepare Request Parameters": {
+            "Type": "Task",
+            "Resource": "${PrepareRequestParametersFunctionArn}",
+            "Next": "Get EPCC Token"
+        },
+        "Get EPCC Token": {
+            "Type": "Task",
+            "Resource": "${GetTokenFunctionArn}",
+			"ResultSelector": {
+				"epccToken.$": "$.output.token"
+			},
+			"ResultPath": "$.epccToken",
+            "Next": "Get Order"
+        },
+        "Get Order": {
+            "Type": "Task",
+            "Resource": "${GetOrderFunctionArn}",
+			"ResultSelector": {
+				"order.$": "$.output.order"
+			},
+			"ResultPath": "$.order",
+            "Next": "Get Fulfillment Container"
+        },
+        "Get Fulfillment Container": {
+            "Type": "Task",
+            "Resource": "${GetFulfillmentContainerFunctionArn}",
+			"ResultSelector": {
+				"fulfillmentContainerId.$": "$.output.fulfillmentContainerId"
+			},
+			"ResultPath": "$.fulfillmentContainerId",
+            "Next": "Create Fulfillment"
+        },
+        "Create Fulfillment": {
+            "Type": "Task",
+            "Resource": "${CreateFulfillmentFunctionArn}",
+			"ResultSelector": {
+				"fulfillmentId.$": "$.output.fulfillmentId"
+			},
+			"ResultPath": "$.fulfillmentId",
+            "Next": "Create Fulfillment Items"
+        },
+        "Create Fulfillment Items": {
+            "Type": "Map",
+			"ItemsPath": "$.fulfillmentItems",
+			"Parameters": {
+				"epccToken": "$.epccToken",
+				"fulfillmentItem": "$$.Map.Item.Value"
+			},
+			"ResultSelector": {
+				"fulfillmentItemIds.$": "$.output"
+			},
+			"ResultPath": "$.fulfillmentItemIds",
+			"Iterator": {
+				"StartAt": "Create Fulfillment Item",
+				"States": {
+					"Create Fulfillment Item": {
+						"Type": "Task",
+						"Resource": "${CreateFulfillmentItemFunctionArn}",
+						"ResultSelector": {
+							"fulfillmentItemId.$": "$.output.fulfillmentItemId"
+						},
+						"ResultPath": "$.fulfillmentItemId",
+						"End": true
+					}
+				}
+			},
+            "Next": "Create Fulfillment Item Relationships"
+        },
+        "Create Fulfillment Item Relationships": {
+            "Type": "Task",
+            "Resource": "${CreateFulfillmentItemRelationshipsFunctionArn}",
+			"ResultPath": null,
+			"End": true
+        }
+	}
+}

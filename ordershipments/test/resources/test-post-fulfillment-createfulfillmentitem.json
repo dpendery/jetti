@@ -1,0 +1,10 @@
+{
+   "epccToken":"abcd1234-abcd1234-abcd1234-abcd1234",
+   "fulfillmentItem": {
+      "id":"7-1",
+      "quantity":"1",
+      "sale_item":{
+         "externalId":"24eab761-748a-46c1-9b9f-ac3ec2f569d6"
+      }
+   }
+}

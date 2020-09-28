@@ -9,8 +9,8 @@ const crypto = require('crypto');
 const fetch = require('node-fetch');
 const { Headers } = require('node-fetch');
 
-const parameters = require('./parameters');
-const epccapilocation = require('./epccapilocation');
+const parameters = require('./Parameters');
+const epccapilocation = require('./EpccAPILocation');
 
 const clientCredentialsGrantType = "client_credentials";
 const epccAuthenticationUrl = epccapilocation.getEpccOauthUrl();

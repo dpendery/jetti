@@ -1,0 +1,76 @@
+{
+	"status": 200,
+	"body": {
+		"data": {
+			"id": "41d89f60-9e9b-4287-b752-64fe0ac3c161",
+			"type": "entry",
+			"slug": "e65a399e-8c30-4022-9e6c-13c1f21d684c",
+			"meta": {
+				"timestamps": {
+					"created_at": "2020-07-23T13:46:14.595Z",
+					"updated_at": "2020-07-23T13:46:14.595Z"
+				}
+			},
+			"links": {
+				"self": "https://api.moltin.com/v2/flows/fulfillmentcontainers/entries/41d89f60-9e9b-4287-b752-64fe0ac3c161"
+			},
+			"relationships": {
+				"fulfillments": {
+					"data": [
+						{
+							"type": "fulfillments",
+							"id": "6a4087a5-be04-47eb-a23e-7a587cae9c29"
+						}
+					]
+				}
+			}
+		},
+		"included": {
+			"fulfillments": [
+				{
+					"id": "6a4087a5-be04-47eb-a23e-7a587cae9c29",
+					"type": "entry",
+					"fulfillmentId": "1",
+					"days": "5",
+					"grams": "100",
+					"inventoryStatus": "Fulfilled",
+					"price": "1000",
+					"provider": "Royal Mail",
+					"reference": "Reference",
+					"requiresShippingApproval": "Requires Shipping Approval",
+					"serviceLevel": "Standard Mail",
+					"serviceLevelTerms": "Standard Mail",
+					"trackingCompany": "Royal Mail",
+					"trackingNumber": "abcd12345",
+					"trackingStatus": "In transit",
+					"trackingStatusDate": "Today",
+					"trackingStatusDetails": "Tracking status details",
+					"trackingUrl": "Tracking url",
+					"meta": {
+						"timestamps": {
+							"created_at": "2020-07-23T13:46:15.232Z",
+							"updated_at": "2020-07-23T13:46:15.232Z"
+						}
+					},
+					"links": {
+						"self": "https://api.moltin.com/v2/flows/fulfillments/entries/6a4087a5-be04-47eb-a23e-7a587cae9c29"
+					},
+					"relationships": {
+						"fulfillmentItems": {
+							"data": [
+								{
+									"type": "fulfillmentItems",
+									"id": "52e96e6c-5d54-4bef-89d9-e4c1ef79e4cf"
+								},
+								{
+									"type": "fulfillmentItems",
+									"id": "b3fc33ac-7d1a-4512-9efb-751a8a41abdd"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	}
+}

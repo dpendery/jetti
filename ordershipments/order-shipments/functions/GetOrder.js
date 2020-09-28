@@ -18,9 +18,5 @@ exports.handler = async (event) => {
 		throw err;
     }
 
-    var orderData = {
-        "order": order
-    }
-
-    return orderData;
+    return order;
 }

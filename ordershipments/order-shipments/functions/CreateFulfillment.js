@@ -9,7 +9,7 @@ exports.handler = async (event) => {
 
     var token = event.epccToken;
     var jettyFulfillment = event.jettiObject.instance;
-    var fulfillmentContainerId = event.fulfillmentContainerId;
+    var fulfillmentContainerId = event.fulfillmentContainer.id;
 
     var fulfillment;
     try {
@@ -27,7 +27,7 @@ exports.handler = async (event) => {
     }
 
     var fulfillmentData = {
-        "fulfillmentId": fulfillment.id
+        "id": fulfillment.id
     };
 
     return fulfillmentData;

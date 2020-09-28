@@ -24,12 +24,19 @@
             "id":"7-1",
             "quantity":"1",
             "sale_item":{
-               "externalId":"24eab761-748a-46c1-9b9f-ac3ec2f569d6"
+               "externalId":"9fd03633-18f2-449e-8fd1-a36383b8daa6"
+            }
+         },
+         {
+            "id":"7-1",
+            "quantity":"1",
+            "sale_item":{
+               "externalId":"ad47fa0e-6066-468d-8ec3-3e5966446d62"
             }
          }
       ],
       "sale":{
-         "externalId":"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
+         "externalId":"e65a399e-8c30-4022-9e6c-13c1f21d684c"
       }
    },
    "jettiOrderHash":"c119eca5a16c3787af74e480c573d132cb5ad5e415c2d2701338b049f1f876e5",

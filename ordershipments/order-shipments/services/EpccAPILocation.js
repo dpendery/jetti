@@ -1,13 +1,13 @@
 
 const epCCUrl = "https://api.moltin.com";
 const epCCVsn = '/v2/';
-const epccAuthenticationUrl = "oauth/access_token";
+const epccAuthenticationUrl = "/oauth/access_token";
 
 const getEpccApiURL = function (uri) {
     var url = process.env.EPCCURL;
 
     if (url) {
-        return url + uri;
+        return url + epCCVsn + uri;
     }
 
     return epCCUrl + epCCVsn + uri;
@@ -20,7 +20,7 @@ const getEpccOauthUrl = function() {
         return url + epccAuthenticationUrl;
     }
 
-    return epCCUrl + '/' + epccAuthenticationUrl;
+    return epCCUrl + epccAuthenticationUrl;
 }
 
 module.exports.getEpccApiURL = getEpccApiURL;

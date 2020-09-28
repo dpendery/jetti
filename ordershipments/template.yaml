@@ -11,10 +11,10 @@ Globals:
     Environment:
       Variables:
         ENVIRONMENT: production
-        EPCCURL: https://api.moltin.com/
+        EPCCURL: https://api.moltin.com
 
 Resources:
-  OrderShipmentsGetBackend:
+  GetOrderFulfillmentsFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: order-shipments/
@@ -33,14 +33,33 @@ Resources:
             ParameterName: jetti/*/EpccClientId
         - SSMParameterReadPolicy:
             ParameterName: jetti/*/EpccClientSecret
-            
+
   PostFulfillmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/FulfillmentPostRequestProcessor.handler
+      Runtime: nodejs12.x
+      Environment:
+        Variables:
+          STATE_MACHINE_ARN:
+            !Ref FulfillmentProcessorStepFunction
+      Events:
+        OrderShipmentsPost:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: post
+      Policies:
+        - StepFunctionsExecutionPolicy:
+            StateMachineName:
+              !Ref FulfillmentProcessorStepFunction
+
+  FulfillmentProcessorStepFunction:
     Type: AWS::Serverless::StateMachine 
     Properties:
       DefinitionUri: statemachine/create-fulfillment.asl.json
       DefinitionSubstitutions:
-        PrepareRequestParametersFunctionArn:
-          !GetAtt PrepareRequestParametersFunction.Arn
         GetTokenFunctionArn:
           !GetAtt GetTokenFunction.Arn
         GetOrderFunctionArn:
@@ -53,16 +72,7 @@ Resources:
           !GetAtt CreateFulfillmentItemFunction.Arn
         CreateFulfillmentItemRelationshipsFunctionArn:
           !GetAtt CreateFulfillmentItemRelationshipsFunction.Arn
-      Events:
-        OrderShipmentsPost:
-          Type: Api
-          Properties:
-            Path: /{proxy+}
-            Method: post
       Policies:
-        - LambdaInvokePolicy:
-            FunctionName:
-              !Ref PrepareRequestParametersFunction
         - LambdaInvokePolicy:
             FunctionName:
               !Ref GetTokenFunction
@@ -82,13 +92,6 @@ Resources:
             FunctionName:
               !Ref CreateFulfillmentItemRelationshipsFunction
   
-  PrepareRequestParametersFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: order-shipments
-      Handler: ./functions/PrepareRequestParametersFunction.handler
-      Runtime: nodejs12.x
-
   GetTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -138,13 +141,10 @@ Resources:
       Handler: ./functions/CreateFulfillmentItemRelationships.handler
       Runtime: nodejs12.x
 
-#Outputs:
-#  OrderShipmentsApi:
-#    Description: "API Gateway endpoint URL for Prod stage for the fulfillments functions"
-#    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
-#  OrderShipmentsBackendFunction:
-#    Description: Order Shipments Backend Lambda Function ARN
-#    Value: !Sub OrderShipmentsBackend.Arn
-#  OrderShipmentsBackendIamRole:
-#    Description: Implicit IAM Role created for Order Shipments function
-#    Value: !Sub OrderShipmentsBackendFunctionRole.Arn
+Outputs:
+  FulfillmentProcessorStepFunctionArn:
+    Description: "Step function to process a POST request of a Jetti fulfillment"
+    Value: !Sub FulfillmentProcessorStepFunction.Arn
+  FulfillmentsApi:
+    Description: "Fulfillments Lambda Function API URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/order-fulfillments/"

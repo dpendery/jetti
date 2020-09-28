@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     }
     
     var containerData = {
-        "fulfillmentContainerId": container.id
+        "id": container.id
     };
 
     return containerData;

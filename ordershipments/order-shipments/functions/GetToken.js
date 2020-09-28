@@ -1,4 +1,4 @@
-const epccTokens = require('../services/Epcctokens');
+const epccTokens = require('../services/EpccTokens');
 
 /**
  * Gets the token for the rest of the process.
@@ -14,9 +14,5 @@ exports.handler = async (event) => {
         throw error;
     }
 
-    var tokenData = {
-        "token": token
-    };
-
-    return (tokenData);
+    return (token);
 }

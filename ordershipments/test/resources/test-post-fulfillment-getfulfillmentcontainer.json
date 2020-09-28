@@ -32,8 +32,6 @@
          "externalId":"92cf4c1f-4e46-4229-acec-3021e0d8b36d"
       }
    },
-   "jettiOrderHash":"c119eca5a16c3787af74e480c573d132cb5ad5e415c2d2701338b049f1f876e5",
-   "jettiStoreId":"2226154063169323989",
    "epccToken":"abcd1234-abcd1234-abcd1234-abcd1234",
    "order":{
       "type":"order",

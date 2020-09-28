@@ -7,8 +7,8 @@ fulfillments = require('../services/Fulfillments');
 exports.handler = async (event) => {
     console.count(JSON.stringify(event));
 
-    var fulfillmentId = event.fulfillmentId;
     var token = event.epccToken;
+    var fulfillmentId = event.fulfillment.id;
     var fulfillmentItemIds = event.fulfillmentItemIds;
 
     try {

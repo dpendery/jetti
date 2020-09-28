@@ -50,7 +50,6 @@ app.get('/\*', async (req, res) => {
 });
 
 app.post('/\*', async (req, res) => {
-
     logInfo('POST ' + req.path);
 
     if (req.path == '/oauth/access_token') {
@@ -64,11 +63,17 @@ app.post('/\*', async (req, res) => {
 
 const getGetResponseData = function (req) {
     var path = req.path;
-    if (req.path.startsWith('/')) {
-        path = req.path.substring(1,req.path.length);
+
+    if (req.path.startsWith('/v2/')) {
+        path = req.path.substring(4);
     } else {
-        path = req.path;
+        if (req.path.startsWith('/')) {
+            path = req.path.substring(1);
+        } else {
+            path = req.path;
+        }
     }
+
     var filename = path.replace(/\//g, '.');
     if (filename.endsWith('.')) {
         filename = filename + 'json';

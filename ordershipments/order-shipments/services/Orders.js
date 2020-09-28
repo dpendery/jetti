@@ -14,13 +14,17 @@ const getOrder = async function (token, orderId) {
 
 	var orderUri = epCCOrdersUrl + '/' + orderId;
 
+	console.log("Getting order [" + orderUri + "]");
+
 	var response;
 	var result;
 
 	try {
 		response = await fetch(orderUri, { method: 'GET', headers: headers });
 
-		result = await response.json()
+		result = await response.json();
+
+		console.log("GET order response status = " + response.status);
 	} catch (err) {
 		console.error("Unknown error getting the order Order:  " + err);
 		const newErr = new Error(JSON.stringify(err));
@@ -43,6 +47,8 @@ const getOrder = async function (token, orderId) {
 		err.code = response.status;
 		throw err;
 	}
+
+	console.log("GET order result = " + JSON.stringify(result));
 
 	var order = result;
 

@@ -106,5 +106,7 @@
          }
       }
    },
-   "fulfillmentContainerId":1
+   "fulfillmentContainer":{
+      "id":1
+   }
 }

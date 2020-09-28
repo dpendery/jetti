@@ -106,8 +106,12 @@
          }
       }
    },
-   "fulfillmentContainerId":1,
-   "fulfillmentId":1,
+   "fulfillmentContainer":{
+      "id":1
+   },
+   "fulfillment":{
+      "id":1
+   },
    "fulfillmentItemIds": [
 		{
 			"id":1

@@ -13,35 +13,52 @@ exports.handler = async (event) => {
     const now = Date.now();
     const executionName = 'Jetti-Fulfillment-' + fulfillmentId + '-' + now + '';
 
-    const executionInput = {
-        "jettiObject": jettiObject,
-        "jettiOrderHash": event.headers['Jetti-Order-Hash'], 
-        "jettiStoreId": event.headers['Jetti-Store-Id']
-    };
+    var res;
 
-    var stateMachineArn = STATE_MACHINE_ARN;
+    try {
+        const executionInput = {
+            "jettiObject": jettiObject,
+            "jettiOrderHash": event.headers['Jetti-Order-Hash'], 
+            "jettiStoreId": event.headers['Jetti-Store-Id']
+        };
+    
+        var stateMachineArn = STATE_MACHINE_ARN;
+    
+        const { executionArn } = await stepfunctions.startExecution({
+            stateMachineArn,
+            input: JSON.stringify(executionInput),
+            ...executionName && { name: executionName },
+        }).promise();
+    
+        console.log('Created step function execution [' + executionArn + ']');
 
-    const { executionArn } = await stepfunctions.startExecution({
-        stateMachineArn,
-        input: JSON.stringify(executionInput),
-        ...executionName && { name: executionName },
-    }).promise();
-
-    console.log('Created step function execution [' + executionArn + ']');
-
-    var res = {
-        "statusCode": 200,
-        "headers": {
-            'Content-Type':'application/json'
-        },
-        "body": {
+        var responseBody = {
             "execution": executionArn
-        }
-    };
+        };
+    
+        res = {
+            "statusCode": 200,
+            "headers": {
+                'Content-Type':'application/json'
+            },
+            "body": JSON.stringify(responseBody)
+        };
+            
+    } catch (error) {
+        var responseBody = {
+            "error-code": error.code,
+            "error-message": error.message
+        };
+        res = {
+            "statusCode": 503,
+            "headers": {
+                'Content-Type':'application/json'
+            },
+            "body": JSON.stringify(responseBody)
+        };
+    }
 
-    var promise = new Promise(function(resolve, reject) {
-        resolve(res);
-    });
+    console.log(JSON.stringify(res));
 
-    return promise;
+    return res;
 };

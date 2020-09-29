@@ -213,14 +213,14 @@ The epcc-logger log files can be found in *order-shipments/localstack/epcc-logge
 
 ```
 cd order-shipments
-sam local invoke --docker-network host -e test/resources/http-get-order-shipments.json -n test/resources/local-env.json
+sam local invoke --docker-network host -e test/resources/http-get-order-shipments.json -n test/resources/local-env.json functionnamehere
 ```
 
 ## Testing the POST:
 
 ```
 cd order-shipments
-sam local invoke --docker-network host -e test/resources/http-post-order-shipments.json -n test/resources/local-env.json
+sam local invoke --docker-network host -e test/resources/http-post-order-shipments.json -n test/resources/local-env.json functionnamehere
 ```
 
 # TODO

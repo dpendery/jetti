@@ -1,0 +1,7 @@
+{
+	"jettiStoreId": "2226154063169323989",
+	"fulfillmentId": "1",
+	"executionArn": "arn:aws:states:eu-west-2:064581382880:execution:FulfillmentProcessorStepFunction-MkZ6P5lTDxiD:Jetti-Fulfillment-1-1601390246375",
+	"executionTime": "2020-09-29T14:37:26.946Z",
+	"failureCause": "{\"errorType\":\"Error\",\"errorMessage\":\"Order not found:  f39f1994-a585-4e9f-82a4-4fa09a823551-wrong\",\"trace\":[\"Error: Order not found:  f39f1994-a585-4e9f-82a4-4fa09a823551-wrong\",\"    at Object.getOrder (/var/task/services/Orders.js:37:18)\",\"    at processTicksAndRejections (internal/process/task_queues.js:97:5)\",\"    at async Runtime.exports.handler (/var/task/functions/GetOrder.js:16:11)\"]}"
+}

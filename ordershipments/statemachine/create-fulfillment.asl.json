@@ -6,25 +6,45 @@
             "Type": "Task",
             "Resource": "${GetTokenFunctionArn}",
 			"ResultPath": "$.epccToken",
-            "Next": "Get Order"
+            "Next": "Get Order",
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",                
+                "Next": "Handle Submission Error"
+             } ]
         },
         "Get Order": {
             "Type": "Task",
             "Resource": "${GetOrderFunctionArn}",
 			"ResultPath": "$.order",
-            "Next": "Get Fulfillment Container"
+            "Next": "Get Fulfillment Container",
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",                
+                "Next": "Handle Submission Error"
+             } ]
         },
         "Get Fulfillment Container": {
             "Type": "Task",
             "Resource": "${GetFulfillmentContainerFunctionArn}",
 			"ResultPath": "$.fulfillmentContainer",
-            "Next": "Create Fulfillment"
+            "Next": "Create Fulfillment",
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",                
+                "Next": "Handle Submission Error"
+             } ]
         },
         "Create Fulfillment": {
             "Type": "Task",
             "Resource": "${CreateFulfillmentFunctionArn}",
 			"ResultPath": "$.fulfillment",
-            "Next": "Create Fulfillment Items"
+            "Next": "Create Fulfillment Items",
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",                
+                "Next": "Handle Submission Error"
+             } ]
         },
         "Create Fulfillment Items": {
             "Type": "Map",
@@ -44,11 +64,34 @@
 					}
 				}
 			},
-            "Next": "Create Fulfillment Item Relationships"
+            "Next": "Create Fulfillment Item Relationships",
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",
+                "Next": "Handle Submission Error"
+             } ]
         },
         "Create Fulfillment Item Relationships": {
             "Type": "Task",
             "Resource": "${CreateFulfillmentItemRelationshipsFunctionArn}",
+			"ResultPath": null,
+			"End": true,
+            "Catch": [ {
+                "ErrorEquals": [ "States.TaskFailed" ],
+                "ResultPath": "$.errorInfo",                
+                "Next": "Handle Submission Error"
+             } ]
+        },
+        "Handle Submission Error": {
+            "Type": "Task",
+			"Parameters": {
+				"jettiStoreId.$": "$.jettiStoreId",
+                "fulfillmentId.$": "$.jettiObject.instance.id",
+                "executionArn.$": "$$.Execution.Id",
+                "executionTime.$": "$$.Execution.StartTime",
+                "failureCause.$": "$.errorInfo.Cause"
+			},
+            "Resource": "${SendErrorEmailFunctionArn}",
 			"ResultPath": null,
 			"End": true
         }

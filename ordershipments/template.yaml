@@ -13,6 +13,14 @@ Globals:
         ENVIRONMENT: production
         EPCCURL: https://api.moltin.com
 
+Parameters:
+  ErrorEmailFromAddress:
+    Description: 'Required.  The email address to use in the From section of error emails.'
+    Type: 'String'
+  ErrorEmailBccAddress:
+    Description: 'Required.  The email address to use in the Bcc section of error emails.'
+    Type: 'String'
+
 Resources:
   GetOrderFulfillmentsFunction:
     Type: AWS::Serverless::Function 
@@ -72,6 +80,8 @@ Resources:
           !GetAtt CreateFulfillmentItemFunction.Arn
         CreateFulfillmentItemRelationshipsFunctionArn:
           !GetAtt CreateFulfillmentItemRelationshipsFunction.Arn
+        SendErrorEmailFunctionArn:
+          !GetAtt SendErrorEmailFunction.Arn
       Policies:
         - LambdaInvokePolicy:
             FunctionName:
@@ -91,6 +101,9 @@ Resources:
         - LambdaInvokePolicy:
             FunctionName:
               !Ref CreateFulfillmentItemRelationshipsFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref SendErrorEmailFunction
   
   GetTokenFunction:
     Type: AWS::Serverless::Function
@@ -140,6 +153,22 @@ Resources:
       CodeUri: order-shipments
       Handler: ./functions/CreateFulfillmentItemRelationships.handler
       Runtime: nodejs12.x
+
+  SendErrorEmailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/SendErrorEmail.handler
+      Runtime: nodejs12.x
+      Environment:
+        Variables:
+          ERROR_EMAIL_FROM_ADDRESS: !Ref ErrorEmailFromAddress
+          ERROR_EMAIL_BCC_ADDRESS: !Ref ErrorEmailBccAddress
+      Policies:
+        - SESCrudPolicy:
+            IdentityName: !Ref ErrorEmailFromAddress
+        - SSMParameterReadPolicy:
+            ParameterName: jetti/*/ErrorEmailRecipient
 
 Outputs:
   FulfillmentProcessorStepFunctionArn:

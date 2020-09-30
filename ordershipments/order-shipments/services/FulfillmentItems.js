@@ -29,7 +29,7 @@ const createFulfillmentItem = async function (token, fulfillmentItem) {
 
 		result = await response.json();
 	} catch (err) {
-		console.error('Error caught creating fulfillment item [' + fulfillmentItem.id + ']:  ' + err);
+		console.error('Error caught POSTing new fulfillment item [' + fulfillmentItem.id + ']:  ' + err);
 		var error = new Error(err);
 		error.code = 503;
 		throw error;
@@ -68,24 +68,27 @@ const createItemOrderItemRelationship = async function(token, epccFulfillmentIte
 	try {
 		response = await fetch(containerUri, { method: 'POST', headers: headers, body: JSON.stringify(relationship) });
 	} catch (err) {
-		console.error('Error creating relationship from fulfillment item [' + 
-        epccFulfillmentItemId + 
-			'] to order item [' + 
-			orderItemId + ']' + err);
-		// throw err;
+		var errorMessage = 'Error creating relationship from fulfillment item [' + 
+        	epccFulfillmentItemId + '] to order item [' + orderItemId + ']' + err;
+
+		console.error(errorMessage);
+
+		var error = new Error(errorMessage);
+		error.code = response.status;
+		throw error;
     }
 
 	if (response.status != 200 && response.status != 201) {
 		var result = await response.json();
 
-		console.error('Error creating relationship from fulfillment item [' + 
-        epccFulfillmentItemId + 
-			'] to order item [' + 
-			orderItemId + ']' + JSON.stringify(result));
+		var errorMessage = 'Error creating relationship from fulfillment item [' + 
+        	epccFulfillmentItemId + '] to order item [' + orderItemId + ']' + JSON.stringify(result);
 
-		// const err = new Error(JSON.stringify(result));
-		// err.code = response.status;
-		// throw err;
+		console.error(errorMessage);
+
+		var error = new Error(errorMessage);
+		error.code = response.status;
+		throw error;
 	}
 
 	console.debug('Created relationship from fulfillment item [' + epccFulfillmentItemId + '] to order item [' + orderItemId + '].');

@@ -1,0 +1,12 @@
+{
+    "status": 422,
+    "body": {
+		"errors": [
+			{
+				"source": "/data/orderItem",
+				"detail": "xxxx-xxxx-xxxx-xxxx is not a valid UUID",
+				"title": "Invalid Attribute"
+			}
+		]
+	}
+}

@@ -221,7 +221,7 @@ cd .aws-sam/build
 
 sam package --template-file template.yaml --output-template-file package.yml --s3-bucket YOUR_S3_BUCKET_NAME
 
-sam deploy --template-file package.yml --stack-name jetti-poc --capabilities CAPABILITY_IAM
+sam deploy --template-file package.yml --stack-name jetti-poc --capabilities CAPABILITY_IAM --parameter-overrides "ErrorEmailFromAddress=\"fromemailaddress\" ErrorEmailBccAddress=\"bccemailaddress\""
 ```
 
 *Note: The stack-name will be the name of the CloudFormation stack that's created/updated by the deployment.  For now "jetti-poc" should be sufficient.*

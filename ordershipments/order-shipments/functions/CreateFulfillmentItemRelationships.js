@@ -9,10 +9,33 @@ exports.handler = async (event) => {
 
     var token = event.epccToken;
     var fulfillmentId = event.fulfillment.id;
-    var fulfillmentItemIds = event.fulfillmentItemIds;
+    var fulfillmentItems = event.fulfillmentItemIds;
+
+    var errors = [];
+	for (fulfillmentItem of fulfillmentItems) {
+        if (fulfillmentItem.error) {
+            errors.push(fulfillmentItem.error);
+        }
+    }
+
+    console.log("errors = " + JSON.stringify(errors));
+
+    if (errors.length > 0) {
+        var errorMessage = '';
+        for (itemError of errors) {
+            errorMessage = errorMessage.concat(itemError.code + ': ' + itemError.message + '\n');
+        }
+
+        console.log("errorMessage = " + errorMessage);
+
+        var error = new Error();
+        error.code = 503;
+        error.message = errorMessage;
+        throw error;
+    }
 
     try {
-        await fulfillments.createFulfillmentItemRelationships(token, fulfillmentId, fulfillmentItemIds);
+        await fulfillments.createFulfillmentItemRelationships(token, fulfillmentId, fulfillmentItems);
     } catch (error) {
         throw error;
     }   

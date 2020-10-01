@@ -5,7 +5,6 @@
  * Also verifies the secret key HTTP header to sure only appropriate clients may access the services.
  */
 
-const crypto = require('crypto');
 const fetch = require('node-fetch');
 const { Headers } = require('node-fetch');
 
@@ -15,56 +14,14 @@ const epccapilocation = require('./EpccAPILocation');
 const clientCredentialsGrantType = "client_credentials";
 const epccAuthenticationUrl = epccapilocation.getEpccOauthUrl();
 
-const SECRET_KEY_HEADER = "jetti-order-hash";
-const JETTI_STORE_ID_HEADER = "jetti-store-id";
-
 var clientCredentialsTokenData = null;
 var tokenLastRequestTime = null;
 
 /**
- * Requests a client_credentials token from EP CC.
+ * Requests a client_credentials token from EP CC.  Also validates the 
  * @param {any} req the request
  */
-var requestClientCredentialsToken = async function (/*req, */secretKey, storeId) {
-
-	// Verify the secret key HTTP header before continuing.
-	var requestOrderHash = secretKey; //req.get(SECRET_KEY_HEADER);
-
-	if (!requestOrderHash) {
-		console.error("Invalid Secret Key.");
-		var newErr = new Error("Invalid Secret Key");
-		newErr.code = 403;
-		throw newErr;
-	}
-
-	var requestStoreId = storeId; //req.get(JETTI_STORE_ID_HEADER);
-
-	if (!requestStoreId) {
-		console.error("Invalid Store ID.");
-		var newErr = new Error("Invalid Store ID");
-		newErr.code = 403;
-		throw newErr;
-	}
-
-	var secretKey;
-
-	try {
-		secretKey = await parameters.getParameter('/jetti/EpJettiSecretKey', 'EP_JETTI_SECRET_KEY');
-	} catch (err) {
-		console.error("Can't get Secret Key parameter: " + JSON.stringify(err));
-		var newErr = new Error("Invalid Secret Key");
-		newErr.code = 403;
-		throw newErr;
-	}
-	
-	var secretKeyHash = crypto.createHmac('sha256', secretKey).update(requestStoreId).digest('hex');
-
-	if (requestOrderHash != secretKeyHash) {
-		console.error("Secret Key doesn't match.");
-		var newErr = new Error("Invalid Secret Key");
-		newErr.code = 403;
-		throw newErr;
-    }
+var requestClientCredentialsToken = async function (requestStoreId) {
 
 	if (isLastTokenValid()) {
 		return clientCredentialsTokenData.access_token;

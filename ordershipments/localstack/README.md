@@ -227,6 +227,7 @@ The following test event and scenarios have been defined.
 |Function|Scenario|Event File|Scenario Folder|
 |-|-|-|-|
 |GetTokenFunction|Success|test-post-fulfillment-gettoken.json|posttokensuccess|
+|GetTokenFunction|Invalid Order Hash|test-post-fulfillment-gettoken-invalidhash.json|posttokensuccess|
 |GetTokenFunction|Error|test-post-fulfillment-gettoken.json|posttokenrequesterror|
 |GetTokenFunction|Forbidden|test-post-fulfillment-gettoken.json|posttokenrequestforbidden|
 |GetOrderFunction|Success|test-post-fulfillment-getorder.json|getordersuccess|

@@ -10,7 +10,7 @@
             "Catch": [ {
                 "ErrorEquals": [ "States.TaskFailed" ],
                 "ResultPath": "$.errorInfo",                
-                "Next": "Handle Submission Error"
+                "Next": "Send Error Email"
              } ]
         },
         "Get Order": {
@@ -21,7 +21,7 @@
             "Catch": [ {
                 "ErrorEquals": [ "States.TaskFailed" ],
                 "ResultPath": "$.errorInfo",                
-                "Next": "Handle Submission Error"
+                "Next": "Send Error Email"
              } ]
         },
         "Get Fulfillment Container": {
@@ -32,7 +32,7 @@
             "Catch": [ {
                 "ErrorEquals": [ "States.TaskFailed" ],
                 "ResultPath": "$.errorInfo",                
-                "Next": "Handle Submission Error"
+                "Next": "Send Error Email"
              } ]
         },
         "Create Fulfillment": {
@@ -43,7 +43,7 @@
             "Catch": [ {
                 "ErrorEquals": [ "States.TaskFailed" ],
                 "ResultPath": "$.errorInfo",                
-                "Next": "Handle Submission Error"
+                "Next": "Send Error Email"
              } ]
         },
         "Create Fulfillment Items": {
@@ -83,6 +83,18 @@
              } ]
         },
         "Handle Submission Error": {
+            "Type": "Task",
+			"Parameters": {
+				"epccToken.$": "$.epccToken",
+                "fulfillment.$": "$.fulfillment",
+                "fulfillmentContainer.$": "$.fulfillmentContainer",
+                "fulfillmentItemIds.$": "$.fulfillmentItemIds"
+			},
+            "Resource": "${RollbackFulfillmentFunctionArn}",
+			"ResultPath": null,
+			"Next": "Send Error Email"
+        },
+        "Send Error Email": {
             "Type": "Task",
 			"Parameters": {
 				"jettiStoreId.$": "$.jettiStoreId",

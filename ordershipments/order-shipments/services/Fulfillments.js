@@ -146,60 +146,6 @@ const createFulfillmentItemRelationships = async function (token, fulfillmentId,
 
 
 /**
- * Deletes a fulfillment and all its relationships.  To be used during a rollback.
- * 
- * GETs the fulfillment first in order to get its items.
- *
- * Errors are logged but consumed.  Nothing is thrown.
-*/
-const rollbackFulfillment = async function (token, fulfillmentId) {
-	var headers = epccHeaders.getHeaders('Bearer ' + token);
-
-	var fulfillment;
-
-	try {
-		fulfillment = await getFulfillment(token, fulfillmentId);
-	} catch (err) {
-		console.error('Fulfillment not rolled back [' + fulfillmentId + '].');
-		return;
-	}
-
-	for (var fulfillmentItem of fulfillment.relationships.fulfillmentItems) {
-		await deleteFulfillmentItem(token, fulfillmentItem.id);
-    }
-
-	await deleteFulfillmentItemRelationships(token, fulfillmentId);
-
-	await deleteFulfillment(token, fulfillmentId);
-}
-
-/**
- * Deletes the fulfillment.  
- * 
- * To be used during a rollback.  Errors are logged but consumed.  Nothing is thrown or returned.
-*/
-const deleteFulfillment = async function (token, fulfillmentId) {
-	var headers = epccHeaders.getHeaders('Bearer ' + token);
-
-	var fulfillmentUrl = epCCFulfillmentsUrl + '/' + fulfillmentId;
-
-	var response;
-
-	try {
-		response = await fetch(fulfillmentUrl, { method: 'DELETE', headers: headers });
-		console.debug('Deleteded the fulfillment');
-	} catch (err) {
-		console.error('Error deleting the fulfillment:  ' + err);
-	}
-
-	if (response.status != 204) {
-		var result = await response.json();
-
-		console.error('Error deleting the fulfillment:  ' + JSON.stringify(result));
-	}
-}
-
-/**
  * Gets a fulfillment given the ID.
  */
 const getFulfillment = async function (token, fulfillmentId) {
@@ -230,6 +176,32 @@ const getFulfillment = async function (token, fulfillmentId) {
 }
 
 /**
+ * Deletes the fulfillment.  
+ * 
+ * To be used during a rollback.  Errors are logged but consumed.  Nothing is thrown or returned.
+*/
+const deleteFulfillment = async function (token, fulfillmentId) {
+	var headers = epccHeaders.getHeaders('Bearer ' + token);
+
+	var fulfillmentUrl = epCCFulfillmentsUrl + '/' + fulfillmentId;
+
+	var response;
+
+	try {
+		response = await fetch(fulfillmentUrl, { method: 'DELETE', headers: headers });
+		console.debug('Deleted the fulfillment');
+	} catch (err) {
+		console.error('Error deleting the fulfillment:  ' + err);
+	}
+
+	if (response.status != 204) {
+		var result = await response.json();
+
+		console.error('Error deleting the fulfillment:  ' + JSON.stringify(result));
+	}
+}
+
+/**
  * Deletes the fulfillment/item relationships.  To be used during a rollback.
  * 
  * Errors are loged but consumed.  Nothing is thrown.
@@ -243,19 +215,21 @@ const deleteFulfillmentItemRelationships = async function (token, fulfillmentId)
 
 	try {
 		response = await fetch(fulfillmentUr, { method: 'DELETE', headers: headers });
-		console.debug('Deleteded the fulfillment/item relationships');
+		if (response.status == 204) {
+			console.debug('Deleted the fulfillment/item relationships');
+		} else if (response.status != 204) {
+			var result = await response.json();
+	
+			console.error('Error deleting the fulfillment/item relationships:  ' + JSON.stringify(result));
+		}	
 	} catch (err) {
 		console.error('Error deleting the fulfillment/item relationships:  ' + err);
-	}
-
-	if (response.status != 204) {
-		var result = await response.json();
-
-		console.error('Error deleting the fulfillment/item relationships:  ' + JSON.stringify(result));
 	}
 }
 
 module.exports.createFulfillment = createFulfillment;
 module.exports.createFulfillmentContainerRelationship = createFulfillmentContainerRelationship;
 module.exports.createFulfillmentItemRelationships = createFulfillmentItemRelationships;
-module.exports.rollbackFulfillment = rollbackFulfillment;
+
+module.exports.deleteFulfillment = deleteFulfillment;
+module.exports.deleteFulfillmentItemRelationships = deleteFulfillmentItemRelationships;

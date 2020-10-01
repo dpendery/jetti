@@ -13,14 +13,12 @@ const {
  */
 exports.handler = async (event) => {
 
-    var requestStoreId; event.jettiStoreId; 
+    var requestStoreId = event.jettiStoreId; 
     var fulfillmentId = event.fulfillmentId;
     var errorCause = JSON.parse(event.failureCause);
     var failureMessage = errorCause.errorMessage;
     var executionArn = event.executionArn; // ARN of the step function execution that failed.
     var executionTime = event.executionTime; // start time of the execution.
-
-    console.error(failureMessage);
 
     var emailRecipient;
 
@@ -28,10 +26,9 @@ exports.handler = async (event) => {
 		var parameterPath = '/jetti/' + requestStoreId + '/ErrorEmailRecipient';
 		emailRecipient = await parameters.getParameter(parameterPath, 'ERROR_EMAIL_BCC_ADDRESS');
 	} catch (err) {
-		console.error("Can't get ErrorEmailRecipient parameter: " + JSON.stringify(err));
-		var newErr = new Error("Invalid EP CC Client ID or Secret");
-		newErr.code = 503;
-		throw newErr;
+        console.error("Can't get ErrorEmailRecipient parameter [" + parameterPath + ']:  ' + JSON.stringify(err));
+        console.error("Resorting to fallback recipient address: " + ERROR_EMAIL_BCC_ADDRESS);
+		emailRecipient = ERROR_EMAIL_BCC_ADDRESS;
     }
 
     var messageBody = "Submission for Jetti Fulfillment [" + fulfillmentId + "] failed with message:\n\n"
@@ -52,24 +49,21 @@ exports.handler = async (event) => {
                 }
             },
             Subject: { 
-                Data: "Jetti Fulfillment Submission Error: " + fulfillmentId
+                Data: "Jetti Submission Failure Report for fulfillment[" + fulfillmentId + "]"
             }
         },
         Source: ERROR_EMAIL_FROM_ADDRESS
     };
 
+    console.log('Email params = ' + JSON.stringify(params));
+
     try {
-        ses.sendEmail(params, function (err, data) {
-            callback(null, {err: err, data: data});
-            if (err) {
-                console.log(err);
-                context.fail(err);
-            } else {
-                console.log(data);
-                context.succeed(event);
-            }
-        });            
+        const response = await ses.sendEmail(params).promise();
+        console.log('sendEmail response: ' + JSON.stringify(response));
     } catch (error) {
-        console.error("Error sending failure email:  " + error.message);
+        console.error('Error sending submission failure email report for fulfillment [' + fulfillmentId + ']: ' + error);
+        throw error;
     }
+
+    return params;
 }

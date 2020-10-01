@@ -61,6 +61,50 @@ app.post('/\*', async (req, res) => {
     logInfo('Done ' + req.path);
 });
 
+app.put('/\*', async (req, res) => {
+    logInfo('PUT ' + req.path);
+
+    var data = req.body;
+    var status = 200;
+    var testData = getGetResponseData(req);
+
+    if (testData) {
+        status = testData.status;
+        if (testData.body) {
+            data = testData.body;
+        }
+    }
+
+    logRequest(req, req.body, data, status);
+
+    res
+        .status(status)
+        .set('Content-Type', 'application/json')
+        .send(data);
+})
+
+app.delete('/\*', async (req, res) => {
+    logInfo('DELETE ' + req.path);
+
+    var data = {};
+    var status = 204;
+    var testData = getGetResponseData(req);
+
+    if (testData) {
+        status = testData.status;
+        if (testData.body) {
+            data = testData.body;
+        }
+    }
+
+    logRequest(req, req.body, data, status);
+
+    res
+        .status(status)
+        .set('Content-Type', 'application/json')
+        .send(data);
+})
+
 const getGetResponseData = function (req) {
     var path = req.path;
 

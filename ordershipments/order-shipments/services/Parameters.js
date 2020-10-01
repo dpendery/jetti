@@ -23,9 +23,9 @@ const getParameter = async function (path, override) {
         } else {
             var parameter = await awsParamStore.getParameter(path);
             value = parameter.Value;
-    
         }
     } catch (err) {
+        console.error('Error getting parameter [' + path + '].  Using override value [' + override + ']. ' + err);
         // Fall back to the override property.
         value = process.env[override];
     }

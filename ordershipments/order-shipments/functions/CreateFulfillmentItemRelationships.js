@@ -18,15 +18,11 @@ exports.handler = async (event) => {
         }
     }
 
-    console.log("errors = " + JSON.stringify(errors));
-
     if (errors.length > 0) {
         var errorMessage = '';
         for (itemError of errors) {
             errorMessage = errorMessage.concat(itemError.code + ': ' + itemError.message + '\n');
         }
-
-        console.log("errorMessage = " + errorMessage);
 
         var error = new Error();
         error.code = 503;

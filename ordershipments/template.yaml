@@ -80,6 +80,8 @@ Resources:
           !GetAtt CreateFulfillmentItemFunction.Arn
         CreateFulfillmentItemRelationshipsFunctionArn:
           !GetAtt CreateFulfillmentItemRelationshipsFunction.Arn
+        RollbackFulfillmentFunctionArn:
+          !GetAtt RollbackFulfillmentFunction.Arn
         SendErrorEmailFunctionArn:
           !GetAtt SendErrorEmailFunction.Arn
       Policies:
@@ -101,6 +103,9 @@ Resources:
         - LambdaInvokePolicy:
             FunctionName:
               !Ref CreateFulfillmentItemRelationshipsFunction
+        - LambdaInvokePolicy:
+            FunctionName:
+              !Ref RollbackFulfillmentFunction
         - LambdaInvokePolicy:
             FunctionName:
               !Ref SendErrorEmailFunction
@@ -154,6 +159,21 @@ Resources:
       Handler: ./functions/CreateFulfillmentItemRelationships.handler
       Runtime: nodejs12.x
 
+
+  CreateFulfillmentItemRelationshipsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/CreateFulfillmentItemRelationships.handler
+      Runtime: nodejs12.x
+
+  RollbackFulfillmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: order-shipments
+      Handler: ./functions/RollbackFulfillment.handler
+      Runtime: nodejs12.x
+
   SendErrorEmailFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -166,7 +186,7 @@ Resources:
           ERROR_EMAIL_BCC_ADDRESS: !Ref ErrorEmailBccAddress
       Policies:
         - SESCrudPolicy:
-            IdentityName: !Ref ErrorEmailFromAddress
+            IdentityName: "*"
         - SSMParameterReadPolicy:
             ParameterName: jetti/*/ErrorEmailRecipient
 

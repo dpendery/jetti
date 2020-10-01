@@ -27,6 +27,10 @@
         "ENVIRONMENT": "local",
         "EPCCURL": "http://localhost:8282"
     },
+    "RollbackFulfillmentFunction" : {
+        "ENVIRONMENT": "local",
+        "EPCCURL": "http://localhost:8282"
+    },
     "SendErrorEmailFunction": {
         "ERROR_EMAIL_FROM_ADDRESS": "me@mein.org",
         "ERROR_EMAIL_BCC_ADDRESS": "you@yours.org"

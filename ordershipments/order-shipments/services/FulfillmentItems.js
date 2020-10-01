@@ -94,24 +94,14 @@ const createItemOrderItemRelationship = async function(token, epccFulfillmentIte
 	console.debug('Created relationship from fulfillment item [' + epccFulfillmentItemId + '] to order item [' + orderItemId + '].');
 }
 
-
-/**
- * Deletes a fulfillment item.
- * 
- * To be used during a rollback.  Errors are logged but consumed.  Nothing is thrown or returned.
-*/
-const deleteFulfillmentItem = async function (token, fulfillmentItemId) {
-	var headers = epccHeaders.getHeaders('Bearer ' + token);
-
-	var newFulfillmentItem;
-
+const deleteFulfillmentItemInternal = async function (headers, fulfillmentItemId) {
 	var itemUrl = epCCFulfillmentItemsUrl + '/' + fulfillmentItemId;
 
 	try {
-		var response = await fetch(epCCFulfillmentItemsUrl, { method: 'DELETE', headers: headers });
+		var response = await fetch(itemUrl, { method: 'DELETE', headers: headers });
 
 		if (response.status == 204) {
-			console.debug('Created fulfillment item: ' + newFulfillmentItem.data.id);
+			console.debug('Deleted fulfillment item: ' + fulfillmentItemId);
 		} else {
 			var result = await response.json();
 
@@ -121,6 +111,36 @@ const deleteFulfillmentItem = async function (token, fulfillmentItemId) {
 		console.error('Error caught deleting fulfillment item [' + fulfillmentItem.id + ']:  ' + err);
 		return null;
 	}
+}
+
+const deleteFulfillmentItemOrderItemRelationshipInternal = async function(headers, fulfillmentItemId) {
+	var relationshipUrl = epCCFulfillmentItemsUrl + '/' + fulfillmentItemId + '/relationships/orderItem';
+
+	try {
+		var response = await fetch(relationshipUrl, { method: 'DELETE', headers: headers });
+
+		if (response.status == 204) {
+			console.debug('Deleted order item relationship for fulfillment item [' + fulfillmentItemId + ']');
+		} else {
+			var result = await response.json();
+			console.error('Error deleting order item relationship for fulfillment item [' + fulfillmentItem.id + ']:  ' + JSON.stringify(result));
+		}
+	} catch (error) {
+		console.error('Error deleting order item relationship for fulfillment item [' + fulfillmentItem.id + ']:  ' + JSON.stringify(error));
+	}
+}
+
+/**
+ * Deletes a fulfillment item and its relationship to an order item, if any.
+ * 
+ * To be used during a rollback.  Errors are logged but consumed.  Nothing is thrown or returned.
+*/
+const deleteFulfillmentItem = async function (token, fulfillmentItemId) {
+	var headers = epccHeaders.getHeaders('Bearer ' + token);
+
+	deleteFulfillmentItemOrderItemRelationshipInternal(headers, fulfillmentItemId);
+
+	deleteFulfillmentItemInternal(headers, fulfillmentItemId);
 }
 
 module.exports.createFulfillmentItem = createFulfillmentItem;
